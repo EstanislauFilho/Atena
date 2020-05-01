@@ -11,7 +11,7 @@ import cv2
 imagem =  cv2.imread("/home/estanislau/Projetos/Atena/Videos/Frames_Video/248.jpg")
 
 def gerar_matriz (n_linhas, n_colunas):
-    return [[" "]*n_colunas for _ in range(n_linhas)]
+    return [[0]*n_colunas for _ in range(n_linhas)]
 
 def DetectaObstaculos(imgBin, vet):
     
@@ -53,12 +53,27 @@ def DetectaObstaculos(imgBin, vet):
     2- obstaculo
     3- faixa
     '''
- 
-  
+
+
+    # int i, j;
+    
+    perfil_atual = 0
+    
+    # zera matriz perfis
+    for i in range(num_perfis):
+        for j in range(6):
+            matriz_perfis[i][j] = 0;
+
+
+
+    return matriz_contagem, matriz_perfis
+
+
+
   
   
 # ------------------------- Main ------------------------- 
-DetectaObstaculos(imagem, None)  
+matriz_contagem, matriz_perfis = DetectaObstaculos(imagem, None)  
 cv2.imshow("Imagem Pista", imagem)  
 cv2.waitKey(0)    
 cv2.destroyAllWindows() 
