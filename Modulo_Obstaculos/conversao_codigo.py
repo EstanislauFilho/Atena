@@ -62,18 +62,26 @@ def DetectaObstaculos(imgBin, vet):
     # zera matriz perfis
     for i in range(num_perfis):
         for j in range(6):
-            matriz_perfis[i][j] = 0;
+            matriz_perfis[i][j] = 0
 
 
+    # ------------------------------------------
+    #  Preenche matriz de contagem      
+    # ------------------------------------------
+    
+    # zera matriz contagem
+    for i in range(linhas):
+         for j in range(colunas):
+              matriz_contagem[i][j] = 0
 
-    return matriz_contagem, matriz_perfis
-
-
-
+    #return matriz_perfis, matriz_contagem 
   
-  
+    
+
+
 # ------------------------- Main ------------------------- 
-matriz_contagem, matriz_perfis = DetectaObstaculos(imagem, None)  
+#matriz_perfis, matriz_contagem = DetectaObstaculos(imagem, None)  
+DetectaObstaculos(imagem, None)               
 cv2.imshow("Imagem Pista", imagem)  
 cv2.waitKey(0)    
 cv2.destroyAllWindows() 
