@@ -13,6 +13,7 @@ import cv2
 video = cv2.VideoCapture("/home/estanislau/Projetos/Atena/Videos/Placas/video_calibracao_2.mp4")
 
 cont_imagem = 1000
+cont_execucao = 1
 
 while(True):
     
@@ -20,10 +21,11 @@ while(True):
     
     imagem = cv2.resize(frame, (680, 420))
   
-    cv2.imwrite("frames_video_teste_2/" + str(cont_imagem) + ".jpg",imagem)
-    print(str(cont_imagem)+"º imagem capturada com sucesso...")
-    cont_imagem += 1
-   
+    if cont_execucao % 10 == 0:
+        cv2.imwrite("frames_video_teste_2/" + str(cont_imagem) + ".jpg",imagem)
+        print(str(cont_imagem)+"º imagem capturada com sucesso...")
+        cont_imagem += 1
+    cont_execucao += 1
     cv2.imshow("Apresenta Imagem", imagem)
     
     if cv2.waitKey(1) & 0xFF == 27:
