@@ -43,6 +43,7 @@ def DetectaObstaculos(imgBin, vet):
     '''  
   
     matriz_perfis = gerar_matriz(num_perfis, 6)
+    
     '''
     matriz_perfis: resultados da analise de cada perfil
     (uma linha por perfil)
@@ -74,8 +75,24 @@ def DetectaObstaculos(imgBin, vet):
          for j in range(colunas):
               matriz_contagem[i][j] = 0
 
-    #return matriz_perfis, matriz_contagem 
-  
+
+    R, W, B = 0, 0, 0 # conta quantidade de regioes de cada tipo de cada perfil
+    total_regioes = 0
+    
+    pixel_atual, pixel_anterior = None, None # 0 - preto, 128 - cinza(pista), 255 - branco
+    indice_matriz = 0 # indice da coluna da matriz_contagem
+    pixel_inicial, pixel_final, ponto_medio = 0, 0, 0 # posicao x do pixel para calcular ponto medio
+
+
+
+
+     #return matriz_perfis, matriz_contagem 
+
+
+
+
+
+
     
 
 
