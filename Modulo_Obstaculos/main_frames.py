@@ -50,6 +50,7 @@ for y in range(209, 105,-1):
     for x in range(170, 340):
         #cv2.floodFill(imagem, None, imagem_c[209,170],(0, 0, 255))
         cv2.floodFill(imagem, None, semente, (0, 0, 255), (5, 5, 5, 5), (15, 15, 15, 15)) 
+     
 '''
 for y in range(209, 105,-1):
     for x in range(170, 340):
@@ -66,9 +67,8 @@ for y in range(209, 105,-1):
         else:
             break
 ''' 
+ 
    
-
-    
 print(cont_elementos)
 
 
