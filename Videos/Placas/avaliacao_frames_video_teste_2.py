@@ -18,6 +18,8 @@ numero_imagem = 1200
 
 imagem = cv2.imread("/home/estanislau/Projetos/Atena/Videos/Placas/frames_video_teste_2/"+str(numero_imagem)+".jpg")
 
+imagem = cv2.resize(imagem, (680, 420))
+
 def detecta_Placas(img, nome, classificador):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_placa = classificador.detectMultiScale(img_gray, scaleFactor = 1.1, minNeighbors = 15)
