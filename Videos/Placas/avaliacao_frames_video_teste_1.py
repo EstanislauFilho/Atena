@@ -23,7 +23,7 @@ classificadores = [(n_placa_1, c_placa_1), (n_placa_2, c_placa_2)]
 
 def detecta_Placas(img, nome, classificador):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img_placa = classificador.detectMultiScale(img_gray, scaleFactor = 1.1, minNeighbors = 10, minSize=(12, 12), maxSize=(106, 106))
+    img_placa = classificador.detectMultiScale(img_gray, scaleFactor = 1.1, minNeighbors = 10, minSize=(10, 10), maxSize=(100, 100))
     
     for (x,y,w,h) in img_placa:       
         cv2.rectangle(img, (x, y), (x + w, y + h), ((0, 220, 220)), 2)
@@ -41,17 +41,21 @@ try:
         for n, c in classificadores: 
             imagem_placas = detecta_Placas(imagem, n, c)
     
+    
+        print("Frame: {0}".format(cont_imagem))
+        cont_imagem += 1
+        
         cv2.imshow("Apresenta Imagens", imagem_placas)
         cv2.waitKey(0)
         
-        print("Frame: {0}".format(cont_imagem))
-        cont_imagem += 1
+        
         
         if cv2.waitKey(1) & 0xFF == 27:
             cv2.destroyAllWindows()	
     
-except KeyboardInterrupt:
+except:
     cv2.destroyAllWindows()
     print('exitting program') 
 
-cv2.destroyAllWindows()
+finally:
+    cv2.destroyAllWindows()
