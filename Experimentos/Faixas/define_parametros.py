@@ -6,13 +6,12 @@ Created on Mon May  4 20:52:01 2020
 @author: estanislau
 """
 
-
 import cv2
 import glob
 import numpy as np
 
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Faixas/frames_video_avaliacao_faixas/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Faixas/frames_video_calibracao/*.jpg'
 
 pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (70,340), (570,340), (10,410), (620,410)
 pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (150,0), (480,0), (150,420), (480,420)
@@ -76,10 +75,14 @@ def detecta_faixas(img):
 
 cont_imagem = 1000
 
+quantidade_imagens = len((glob.glob(caminho_pasta)))
+
 try:     
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
-              
+           
+        quantidade_imagens -= 1
+        
         # Imagens da perspectiva da pista sem filtros aplicados
         imagem_pista = perspectiva_pista(imagem)
         
@@ -95,17 +98,25 @@ try:
         imagem_faixa_dir, cx_dir = detecta_faixas(imagem_faixa_dir.copy())
         
         
-        if cx_esq >= 70 and cx_esq <= 105:
-            print("Fazer correção motores da esquerda! {0}".format(cx_esq))
-        elif cx_dir >= 165 and cx_dir <= 195:
-            print("Fazer correção motores da direita! {0}".format(cx_dir))
+        if cx_esq >= 59 and cx_esq <= 105:
+            print("[ Esq: {0} | Dir: {1} ] Corregindo motores da esquerda! \tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
+        elif cx_dir >= 154 and cx_dir <= 198:
+            print("[ Esq: {0} | Dir: {1} ] Corregindo motores da direita! \tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
         else:
-            print(cx_esq, cx_dir,"Frame: {0}".format(cont_imagem))
+            print("[ Esq: {0} | Dir: {1} ]\tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
     
         cv2.imshow("Perspectiva Pista Filtrada", imagem_pista_filtrada)
         cv2.imshow("Faixa Esquerda", imagem_faixa_esq)
         cv2.imshow("Faixa Direita", imagem_faixa_dir)
-        cv2.waitKey(1000)
+        cv2.waitKey(0)
+        
+        if quantidade_imagens == 0:
+            print("Todas as imagens analisadas com sucesso!")
+            cv2.destroyAllWindows()
+            break
+        
+        if cv2.waitKey(1) & 0xFF == 27:
+            cv2.destroyAllWindows()	
          
         cont_imagem += 1
     
