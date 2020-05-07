@@ -30,5 +30,5 @@ while(True):
             cont_imagem += 1
         cont_execucao += 1 
     else:
-        print("Todas as imagens gravas com sucesso!")
+        print("Todas as imagens gravadas com sucesso!")
         break
