@@ -8,11 +8,11 @@ Created on Mon Apr  6 21:22:38 2020
 
 import cv2
 
-video = cv2.VideoCapture("/home/estanislau/Projetos/Atena/Videos/video_calibracao_faixas.mp4")
-#video = cv2.VideoCapture("/home/estanislau/Projetos/Atena/Videos/video_avaliacao_faixas.MP4")
+video_numero = 2
 
-caminho_pasta = "frames_video_calibracao/"
-#caminho_pasta = "frames_video_avaliacao/"
+video = cv2.VideoCapture("/home/estanislau/Projetos/Atena/Videos/video_fxa_"+str(video_numero)+".mp4")
+
+caminho_pasta = "frames_video_fxa_"+str(video_numero)+"/"
 
 cont_imagem = 1000
 cont_execucao = 1
