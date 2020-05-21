@@ -11,7 +11,7 @@ import glob
 import numpy as np
 
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Faixas/frames_video_avaliacao/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Faixas/frames_video_fxa_1/*.jpg'
 
 pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (70,340), (570,340), (10,410), (620,410)
 pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (150,0), (480,0), (150,420), (480,420)
