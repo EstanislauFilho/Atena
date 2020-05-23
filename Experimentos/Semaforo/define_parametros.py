@@ -10,7 +10,7 @@ Created on Mon May  4 20:52:01 2020
 import cv2
 import numpy as np
 
-quadros = cv2.imread("1195.jpg")
+quadros = cv2.imread("1285.jpg")
 
 def nada(x): pass
 
