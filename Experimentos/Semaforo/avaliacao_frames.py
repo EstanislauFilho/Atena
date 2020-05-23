@@ -11,16 +11,19 @@ import glob
 import numpy as np
 
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Semaforo/vermelho/*.jpg'
+numero_pasta = 5
+
+#caminho_pasta = '/home/estanislau/Projetos/Atena/Frames/frames_video_obs_'+str(numero_pasta)+'/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Frames/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
 
-min_H_sem_vermelho = 102
-max_H_sem_vermelho = 174
+min_H_sem_vermelho = 120
+max_H_sem_vermelho = 175
 
-min_S_sem_vermelho = 162
+min_S_sem_vermelho = 130
 max_S_sem_vermelho = 255
 
-min_V_sem_vermelho = 123
+min_V_sem_vermelho = 140
 max_V_sem_vermelho = 255
 
 semaforo_vermelho = [min_H_sem_vermelho, max_H_sem_vermelho, min_S_sem_vermelho, max_S_sem_vermelho, min_V_sem_vermelho, max_V_sem_vermelho]
@@ -42,13 +45,14 @@ semaforo_verde = [min_H_sem_verde, max_H_sem_verde, min_S_sem_verde, max_S_sem_v
 
 
 
-acertos = 0
+acertos_vermelho = 0
 
 def hsv_semaforo_vermelho(img, valores_semaforo):
     status_vermelho = False
-    qte_min_contornos_vermelho = 160
+    qte_min_contornos_vermelho = 100
+    qte_max_contornos_vermelho = 200
 
-    #global acertos_vermelho, acertos_verde
+    global acertos_vermelho
 	
     min_H, max_H, min_S, max_S, min_V, max_V = valores_semaforo
 	
@@ -61,13 +65,14 @@ def hsv_semaforo_vermelho(img, valores_semaforo):
 
     contours, _ = cv2.findContours(mascara, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     	
+    #print(len(contours))
     for c in contours:
-        if (cv2.contourArea(c) > qte_min_contornos_vermelho):			
+        if ((cv2.contourArea(c) > qte_min_contornos_vermelho) and ((cv2.contourArea(c) <= qte_max_contornos_vermelho))):			
             x,y,w,h = cv2.boundingRect(c)
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
             cv2.putText(img, "Sinal Vermelho", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
             status_vermelho = True
-            #acertos_vermelho += 1
+            acertos_vermelho += 1
  		
     return  status_vermelho
 
@@ -75,7 +80,8 @@ def hsv_semaforo_vermelho(img, valores_semaforo):
 
 def hsv_semaforo_verde(img, valores_semaforo):
     status_verde = False
-    qte_min_contornos_verde = 265
+    qte_min_contornos_verde = 200
+    qte_max_contornos_verde = 700
     #global acertos_vermelho, acertos_verde
 	
     min_H, max_H, min_S, max_S, min_V, max_V = valores_semaforo
@@ -89,8 +95,9 @@ def hsv_semaforo_verde(img, valores_semaforo):
 
     contours, _ = cv2.findContours(mascara, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     	
+    #print(contours)
     for c in contours:                  
-        if (cv2.contourArea(c) > qte_min_contornos_verde):			
+        if ((cv2.contourArea(c) > qte_min_contornos_verde) and ((cv2.contourArea(c) <= qte_max_contornos_verde))):			
             x,y,w,h = cv2.boundingRect(c)
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(img, "Sinal Verde", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
@@ -112,13 +119,17 @@ try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
         
+        imagem_clone = imagem.copy()
         
-        status_vermelho = hsv_semaforo_vermelho(imagem, semaforo_vermelho)
-        status_verde = hsv_semaforo_verde(imagem, semaforo_verde)
+        imagem_semaforo = imagem_clone[50:350, 360:640]
         
-        print("Sem. Vermelho: {0} | Sem. Verde: {1} | Frame: {2}".format(status_vermelho, status_verde, cont_imagem))
+        status_vermelho = hsv_semaforo_vermelho(imagem_semaforo, semaforo_vermelho)
+        status_verde = hsv_semaforo_verde(imagem_semaforo, semaforo_verde)
         
-        cv2.imshow("Apresaenta Imagem", imagem)
+        print("Vermelho: {0} | Verde: {1} | Frame: {2}\n".format(status_vermelho, status_verde, cont_imagem))
+        
+        #cv2.imshow("Imagem Original",imagem)
+        cv2.imshow("Imagem Semaforo",imagem_semaforo)
         cv2.waitKey(0)
         
         if quantidade_imagens == 0:
@@ -126,13 +137,14 @@ try:
             cv2.destroyAllWindows()
             break
         
+        
         if cv2.waitKey(1) & 0xFF == 27:
             cv2.destroyAllWindows()	
          
 
         cont_imagem += 1
          
-    
+    #print(acertos_vermelho)
    
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
