@@ -11,7 +11,10 @@ import glob
 import numpy as np
 
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Experimentos/Faixas/frames_video_fxa_1/*.jpg'
+
+numero_pasta = 2
+
+caminho_pasta = '/home/estanislau/Projetos/Atena/Frames/frames_video_fxa_'+str(numero_pasta)+'/*.jpg'
 
 pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (70,340), (570,340), (10,410), (620,410)
 pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (150,0), (480,0), (150,420), (480,420)
@@ -77,7 +80,8 @@ cont_imagem = 1000
 
 quantidade_imagens = len((glob.glob(caminho_pasta)))
 
-try:     
+try:    
+    
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
            
@@ -97,14 +101,16 @@ try:
         imagem_faixa_dir = imagem_pista_filtrada[0:420, 300:560]    
         imagem_faixa_dir, cx_dir = detecta_faixas(imagem_faixa_dir.copy())
         
+        correcao_esq, correcao_dir =  False, False
         
         if cx_esq >= 59 and cx_esq <= 105:
-            print("[ Esq: {0} | Dir: {1} ] Corregindo motores da esquerda! \tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
+            correcao_esq = True
         elif cx_dir >= 154 and cx_dir <= 198:
-            print("[ Esq: {0} | Dir: {1} ] Corregindo motores da direita! \tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
-        else:
-            print("[ Esq: {0} | Dir: {1} ]\tFrame: {2}".format(cx_esq, cx_dir, cont_imagem))
-    
+            correcao_dir = True
+        
+        print("Corrigir_MT_Esq: {0} | Corrigir_MT_Dir: {1} | Frame: {2}\n".format(correcao_esq, correcao_dir, cont_imagem))
+        
+        
         cv2.imshow("Perspectiva Pista Filtrada", imagem_pista_filtrada)
         cv2.imshow("Faixa Esquerda", imagem_faixa_esq)
         cv2.imshow("Faixa Direita", imagem_faixa_dir)
