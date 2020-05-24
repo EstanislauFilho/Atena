@@ -10,6 +10,11 @@ Created on Mon May  4 20:52:01 2020
 import cv2
 import glob
 
+
+numero_pasta = 2
+
+caminho_pasta = '/home/estanislau/Projetos/Atena/Frames/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
+
 n_placa_1, c_placa_1 = "Pare", cv2.CascadeClassifier('/home/estanislau/Projetos/Atena/Modulo_Placas/Classificadores/cascade_pare.xml')
 n_placa_2, c_placa_2 = "Pedestre", cv2.CascadeClassifier('/home/estanislau/Projetos/Atena/Modulo_Placas/Classificadores/cascade_pedestre.xml')
 
@@ -29,7 +34,7 @@ def detecta_Placas(img, nome, classificador):
 
 cont_imagem = 1000
 try:     
-  for i in sorted(glob.glob('/home/estanislau/Projetos/Atena/Videos/Placas/frames_calibracao_2/*.jpg')):  
+  for i in sorted(glob.glob(caminho_pasta)):  
     imagem = cv2.imread(i)
     
     for n, c in classificadores: 
@@ -43,7 +48,6 @@ try:
       
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
-    print('exitting program') 
     
 finally:
     cv2.destroyAllWindows()
