@@ -210,8 +210,11 @@ Para as versões disponíveis, consulte as tags neste repositório.
 
 ## Autores
 
+* **Audryo Aparecido da Terra Caldeira Júnior** - *Estudante de Engenharia de Mecânica no* [CEFET-MG](http://www.cefetmg.br/)
 * **Estanislau de Sena Filho** - *Estudante de Engenharia de Computação no* [CEFET-MG](http://www.cefetmg.br/)
-* **José Antônio Carneiro Ávila** - *Estudante de Engenharia de Computação no* [CEFET-MG](http://www.cefetmg.br/)
+* **Italo Gustavo Donato Cordeiro** - *Estudante de Engenharia de Computação no* [CEFET-MG](http://www.cefetmg.br/)
+* **João Paulo Gonçalves de Souza** - *Estudante de Engenharia de Computação no* [CEFET-MG](http://www.cefetmg.br/)
+* **Marina Bernardes Diniz** - *Estudante de Engenharia de Computação no* [CEFET-MG](http://www.cefetmg.br/)
 
 
 ## Orientadora
