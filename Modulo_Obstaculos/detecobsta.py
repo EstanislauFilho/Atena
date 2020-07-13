@@ -7,6 +7,24 @@ import cv2
 
 imagem = cv2.imread("1245.jpg")
 
+'''
+Definicoes de constantess
+'''
+# constantes para cortar a imagem - crop
+x0, y0, z0 = 0, 130, 0 # upper left
+x1, y1, z1 = 679, 380, 0 # lower right
+
+# cor para pintar regiao do flood fill
+# unsigned char color[] = { 255, 0, 0 }
+color = (128) # cinza
+red = ( 255, 0, 0 )
+green = ( 0, 255, 0 )
+blue = ( 0, 0, 255 )
+purple = ( 255, 0, 255 )
+white = ( 255, 255, 255 )
+black = ( 0, 0, 0 )
+
+
 def gerar_matriz(n_linhas, n_colunas):
     return [[0] * n_colunas for _ in range(n_linhas)]
 
@@ -435,44 +453,86 @@ def EscreveResultadoImagem(image, vet):
   j = 5 # local da escrita
 
   fonte = cv2.FONT_HERSHEY_SIMPLEX
-  roxo = (128,0,128)
-  azul = (0,0,255)
   lineType = 0.5
 
   if vet[0] == 1:
-    cv2.putText(image, "Impedimento (faixa ou obst.).", (3, j), fonte, lineType, roxo)
+    cv2.putText(image, "Impedimento (faixa ou obst.).", (3, j), fonte, lineType, purple)
     j = j + espaco
   if vet[1] == 1:
-    cv2.putText(image, "Pista livre.", (3, j), fonte, lineType, roxo)
+    cv2.putText(image, "Pista livre.", (3, j), fonte, lineType, purple)
     j = j + espaco
   if vet[2] == 1:
-    cv2.putText(image, "Faixa de pedestres.", (3, j), fonte, lineType, roxo)
+    cv2.putText(image, "Faixa de pedestres.", (3, j), fonte, lineType, purple)
     j = j + espaco
   if vet[3] == 1:
-    cv2.putText(image, "Impedimento (faixa ou obst.) a frente.", (3, j), fonte, lineType, azul)
+    cv2.putText(image, "Impedimento (faixa ou obst.) a frente.", (3, j), fonte, lineType, blue)
     j = j + espaco
   if vet[4] == 1:
-    cv2.putText(image, "Pista livre a frente.", (3, j), fonte, lineType, azul)
+    cv2.putText(image, "Pista livre a frente.", (3, j), fonte, lineType, blue)
     j = j + espaco
   if vet[5] == 1:
-    cv2.putText(image, "Faixa de pedestres a frente.", (3, j), fonte, lineType, azul)
+    cv2.putText(image, "Faixa de pedestres a frente.", (3, j), fonte, lineType, blue)
     j = j + espaco
   return image
+
+def CalculaAreaLivre(image, limiar):
+    # carrega imagem
+    grayWeight, imgR, imgG, imgB, imgBin = None, None, None, None, None
+    grayWeight[image.width(), image.height(), 1, 1, 0]
+    imgBlur = image
+    imgR[image.width(), image.height(), 1, 3, 0]
+    imgG[image.width(), image.height(), 1, 3, 0]
+    imgB[image.width(), image.height(), 1, 3, 0]
+    imgBin[image.width(), image.height(), 1, 1, 0]
+
+    imgBlur.blur_median(3)
+
+
+    # for all pixels x, y in image
+    for x, y in range(image):
+        imgR[x, y, 0, 0] = imgBlur[x, y, 0, 0] # Red component of image sent to imgR
+        imgG[x, y, 0, 1] = imgBlur[x, y, 0, 1]  # Green component of image sent to imgG
+        imgB[x, y, 0, 2] = imgBlur[x, y, 0, 2] # Blue component of image sent to imgB
+        # separation of channels
+        R = imgBlur[x, y, 0, 0]
+        G = imgBlur[x, y, 0, 1]
+        B = imgBlur[x, y, 0, 2]
+
+        # Real weighted addition of channels for gray
+        grayValueWeight = (0.299 * R + 0.587 * G + 0.114 * B)
+        # saving pixel values into image information
+        grayWeight[x, y, 0, 0] = grayValueWeight
+
+        # binarização simples
+        if grayWeight[x, y, 0, 0] > limiar:
+            imgBin[x, y, 0, 0] = 255
+        else:
+            imgBin[x, y, 0, 0] = 0
+
+    # corta imagem
+    imgBin.crop(x0, y0, z0, x1, y1, z1)
+
+    # flood fill na faixa preta
+    # pixel inicial - seed
+    x3 = imgBin.width()/2
+    y3 = imgBin.height() - 1 # centro inferior
+
+    imgBin.draw_fill(x3, y3, color)
+    return imgBin
 '''                 
 
          linha 621.cpp = fim void DetectaObstaculos 
-         para funcionar: Imprime_perfis e VerificaFaixa
          
-
          linha 798.cpp = fim void VerificaFaixa
          
-
          linha 647 = fim void Imprime_Perfis
         
-
          linha 846 = fim EscreveResultadoImagem
          
-         começamos CalculaAreaLivre
+         linha 248 = fim CalculaAreaLivre
+         
+         constantes definidas
+         
 '''
 
 # ------------------------- Main -------------------------
