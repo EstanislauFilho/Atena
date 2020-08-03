@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-caminho_imagem = "10030.jpg"
+caminho_imagem = "10000.jpg"
 
 
 
