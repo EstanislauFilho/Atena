@@ -12,10 +12,10 @@ import glob
 
 
 
-caminho_pasta_original = "/home/estanislau/Projetos/Atena/Base_Dados/teatro/i/*.jpg"
+caminho_pasta_original = "/home/estanislau/Projetos/Atena/Base_Dados/teatro/a/*.jpg"
 caminho_pasta_destino = "/home/estanislau/Projetos/Atena/Base_Dados/teatro/plc_teatro_original/"
 
-cont_imagem = 11114
+cont_imagem = 20000
 
 
 min_H = 117
@@ -61,13 +61,13 @@ for i in sorted(glob.glob(caminho_pasta_original)):
     imagem = cv2.imread(i)
     
     try:
-        imagem_hsv = seleciona_regiao_HSV(imagem)
-
+        #imagem_hsv = seleciona_regiao_HSV(imagem)
+        pass
     except:
         print("Imagem {0} com problema!".format(cont_imagem))
     
     try:
-        cv2.imwrite(caminho_pasta_destino+str(cont_imagem)+".jpg", imagem_hsv)
+        cv2.imwrite(caminho_pasta_destino+str(cont_imagem)+".jpg", imagem)
     except ValueError:
         print("Falha no salvamento das imagens.")
         
