@@ -20,9 +20,13 @@ pontos_destino = np.float32([[pt_destino_1], [pt_destino_2], [pt_destino_3], [pt
 
 
 def filtros(img):
-    pass
+    img_cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_blur = cv2.GaussianBlur(img_cinza,(5,5),0)
+    img_tresh = cv2.inRange(img_blur,  185, 255) 
+    return img_tresh
 
 def get_perspectiva_pista(img):
+    '''
     cv2.line(img, pt_pista_1, pt_pista_2, (0,0,255), 4)
     cv2.line(img, pt_pista_1, pt_pista_3, (0,0,255), 4)
     cv2.line(img, pt_pista_2, pt_pista_4, (0,0,255), 4)
@@ -32,8 +36,7 @@ def get_perspectiva_pista(img):
     cv2.line(img, pt_destino_1, pt_destino_3, (0,255,0), 4)
     cv2.line(img, pt_destino_2, pt_destino_4, (0,255,0), 4)
     cv2.line(img, pt_destino_3, pt_destino_4, (0,255,0), 4)
-
-    
+    '''    
     matriz = cv2.getPerspectiveTransform(pontos_pista, pontos_destino)
     img = cv2.warpPerspective(img, matriz, (680, 420)) 
     return img
@@ -51,8 +54,11 @@ def detecta_faixa_pedestre():
 
 
 def sinalizacao_horizontal(img):
+    status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     imagem = cv2.imread(img)
-    return imagem
+    img_pista = get_perspectiva_pista(imagem)
+    img_filtro = filtros(img_pista)
+    return img_filtro, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
            
         
   
@@ -62,7 +68,7 @@ quantidade_imagens = len((glob.glob(caminho_pasta)))
 try:    
     
     for i in sorted(glob.glob(caminho_pasta)):  
-        imagem = sinalizacao_horizontal(i)
+        imagem, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(i)
          
         quantidade_imagens -= 1
         
