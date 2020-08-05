@@ -55,3 +55,33 @@ def sinalizacao_horizontal(img):
     return imagem
            
         
+  
+
+############################ Teste chamada do main ############################ 
+quantidade_imagens = len((glob.glob(caminho_pasta)))
+try:    
+    
+    for i in sorted(glob.glob(caminho_pasta)):  
+        imagem = sinalizacao_horizontal(i)
+         
+        quantidade_imagens -= 1
+        
+        cv2.imshow("Apresenta Imagem", imagem)
+        cv2.waitKey(0)
+        
+        if quantidade_imagens == 0:
+            print("Todas as imagens analisadas com sucesso!")
+            cv2.destroyAllWindows()
+            break
+        
+        if cv2.waitKey(1) & 0xFF == 27:
+            cv2.destroyAllWindows()	
+         
+    
+except KeyboardInterrupt:
+    cv2.destroyAllWindows()
+    print('Encerrar execução...') 
+    
+finally:
+    cv2.destroyAllWindows()
+###############################################################################
