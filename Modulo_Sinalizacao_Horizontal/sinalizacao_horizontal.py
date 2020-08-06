@@ -42,12 +42,6 @@ def get_perspectiva_pista(img):
     return img
 
 
-def detecta_borda_direita(img):
-    img_borda_dir = img[0:420, 300:490] 
-    return img_borda_dir
-
-
-
 def calcula_centro_de_massa_imagem(img):
     ret,thresh = cv2.threshold(img,145,250,cv2.THRESH_BINARY_INV)
 	
@@ -73,19 +67,29 @@ def calcula_centro_de_massa_imagem(img):
 
 def detecta_borda_esquerda(img):
     img_borda_esq = img[0:420, 170:360]
-    return img_borda_esq
+    img_borda_esq, cx_esq = calcula_centro_de_massa_imagem(img_borda_esq.copy())
+    return img_borda_esq, cx_esq
 
 
-def detecta_faixa_pedestre():
-    pass
+def detecta_borda_direita(img):
+    img_borda_dir = img[0:420, 300:490] 
+    img_borda_dir, cx_dir = calcula_centro_de_massa_imagem(img_borda_dir.copy())
+    return img_borda_dir, cx_dir
+
+
+def detecta_faixa_pedestre(img):
+    return img
 
 
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
-    imagem = cv2.imread(img)
-    img_pista = get_perspectiva_pista(imagem)
+    img = cv2.imread(img)
+    img_pista = get_perspectiva_pista(img)
     img_filtro = filtros(img_pista)
-    return img_filtro, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
+    detecta_faixa_pedestre(img_filtro)
+    img_borda_esq, cx_esq = detecta_borda_esquerda(img_filtro)
+    img_borda_dir, cx_dir = detecta_borda_direita(img_filtro)
+    return img_filtro, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
            
         
   
@@ -95,11 +99,13 @@ quantidade_imagens = len((glob.glob(caminho_pasta)))
 try:    
     
     for i in sorted(glob.glob(caminho_pasta)):  
-        imagem, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(i)
+        imagem, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(i)
          
         quantidade_imagens -= 1
         
         cv2.imshow("Apresenta Imagem", imagem)
+        cv2.imshow("Faixa esq", img_borda_esq)
+        cv2.imshow("Faixa dir", img_borda_dir)
         cv2.waitKey(0)
         
         if quantidade_imagens == 0:
