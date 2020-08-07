@@ -89,6 +89,18 @@ def sinalizacao_horizontal(img):
     detecta_faixa_pedestre(img_filtro)
     img_borda_esq, cx_esq = detecta_borda_esquerda(img_filtro)
     img_borda_dir, cx_dir = detecta_borda_direita(img_filtro)
+    
+    if cx_dir >= 105 and cx_dir <= 198:
+        status_correc_motor_dir = True
+    elif status_correc_motor_dir is True and cx_esq >= 48 and cx_esq <= 80:
+        status_correc_motor_esq = False  
+    elif cx_esq >= 48 and cx_esq <= 80:
+        status_correc_motor_esq = True
+    elif status_correc_motor_esq is True and cx_dir >= 105 and cx_dir <= 198:
+       status_correc_motor_dir = False
+
+    print("Motor_Esq: {0} | Motor_Dir: {1} ".format(status_correc_motor_esq, status_correc_motor_dir),cx_esq, cx_dir)
+
     return img_filtro, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
            
         
