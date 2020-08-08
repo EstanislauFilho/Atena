@@ -117,16 +117,16 @@ def sinalizacao_horizontal(img):
     if  int(avarage_img_borda_esq) > 82 and int(avarage_img_filtro) > 40 and int(avarage_img_borda_dir) > 82:
         status_fxa_pedestre = True
     
-    print(int(avarage_img_borda_esq), int(avarage_img_filtro), int(avarage_img_borda_dir))
+    print(int(avarage_img_borda_esq), int(avarage_img_filtro), int(avarage_img_borda_dir), cx_esq, cx_dir )
     
     if cx_dir >= 105 and cx_dir <= 198:
         status_correc_motor_dir = True
-    elif status_correc_motor_dir is True and cx_esq >= 48 and cx_esq <= 80:
-        status_correc_motor_esq = False  
-        
     if cx_esq >= 48 and cx_esq <= 80:
         status_correc_motor_esq = True
-    elif status_correc_motor_esq is True and cx_dir >= 105 and cx_dir <= 198:
+        
+    if status_correc_motor_dir is True and avarage_img_filtro < 12 and avarage_img_borda_dir > avarage_img_borda_esq:
+       status_correc_motor_esq = False     
+    elif status_correc_motor_esq is True and avarage_img_filtro < 12 and avarage_img_borda_esq > avarage_img_borda_dir:
        status_correc_motor_dir = False
 
     print("Motor_Esq: {0} | Motor_Dir: {1} | Faixa_Pedestre: {2}".format(status_correc_motor_esq, status_correc_motor_dir, status_fxa_pedestre))
@@ -148,7 +148,7 @@ try:
          
         quantidade_imagens -= 1
         
-        cv2.imshow("Apresenta Imm", img)
+        #cv2.imshow("Apresenta Imm", img)
         cv2.imshow("Apresenta Imagem", imagem)
         cv2.imshow("Faixa esq", img_borda_esq)
         cv2.imshow("Faixa dir", img_borda_dir)
