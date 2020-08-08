@@ -95,17 +95,21 @@ def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_
     
     if status_borda_dir is True and avg_img_filtro < 12 and avg_img_metade_dir < avg_img_metade_esq:
         status_borda_esq = False 
-        status_borda_dir = True  
-            
-    if status_borda_esq is True and avg_img_filtro < 12 and avg_img_metade_esq < avg_img_metade_dir:
+        status_borda_dir = True         
+    elif status_borda_esq is True and avg_img_filtro < 12 and avg_img_metade_esq < avg_img_metade_dir:
         status_borda_esq = True
         status_borda_dir = False
+    elif status_borda_dir is True and status_borda_esq is True:
+        status_borda_esq = False
+        status_borda_dir = False
+    
 
     return status_borda_esq, status_borda_dir, img_borda_esq, img_borda_dir
 
 
 def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
     status =  False   
+
     if  int(avg_img_borda_esq) > 82 and int(avg_img_fil) > 40 and int(avg_img_borda_dir) > 82:
         status = True
     return status
