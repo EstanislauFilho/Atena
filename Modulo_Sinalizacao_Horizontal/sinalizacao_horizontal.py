@@ -110,7 +110,7 @@ def sinalizacao_horizontal(img):
     img_pista = get_perspectiva_pista(img)
     
     img_filtro = filtros(img_pista)
-    avarage_img_filtro = int(calcula_media_imagem(img))
+    avarage_img_filtro = int(calcula_media_imagem(img_filtro))
        
     img_borda_esq = img_filtro[0:420, 170:360]
     img_borda_dir = img_filtro[0:420, 300:490]
@@ -122,7 +122,7 @@ def sinalizacao_horizontal(img):
     avarage_img_metade_esq = int(calcula_media_imagem(img_metade_esq))
     avarage_img_metade_dir = int(calcula_media_imagem(img_metade_dir))
     
-    status_correc_motor_esq, status_correc_motor_dir = deteccao_bordas_pista(img_borda_esq, img_borda_dir, avarage_img_metade_esq, avarage_img_metade_dir)
+    status_correc_motor_esq, status_correc_motor_dir = deteccao_bordas_pista(img_borda_esq, img_borda_dir, avarage_img_filtro, avarage_img_metade_esq, avarage_img_metade_dir)
     
     status_fxa_pedestre = detecta_faixa_pedestre(avarage_img_filtro, avarage_img_borda_esq, avarage_img_borda_dir)
 
