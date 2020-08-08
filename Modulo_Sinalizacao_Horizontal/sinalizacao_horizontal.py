@@ -26,6 +26,11 @@ def filtros(img):
     img_tresh = cv2.inRange(img_blur,  185, 255) 
     return img_tresh
 
+
+def calcula_media_imagem(img):
+    avarage = img.mean(axis=0).mean(axis=0)
+    return avarage
+
 def get_perspectiva_pista(img):
     '''
     cv2.line(img, pt_pista_1, pt_pista_2, (0,0,255), 4)
@@ -67,30 +72,36 @@ def calcula_centro_de_massa_imagem(img):
 
 
 def detecta_borda_esq(img):
-    img_borda_esq, cx = calcula_centro_de_massa_imagem(img.copy())
-    return img_borda_esq, cx
+    status = False
+    img, cx = calcula_centro_de_massa_imagem(img.copy())
+    if cx >= 48 and cx <= 80:
+        status = True
+    return img, status
 
 
 def detecta_borda_dir(img):
-    img_borda_dir, cx = calcula_centro_de_massa_imagem(img.copy())
-    return img_borda_dir, cx
+    status = False
+    img, cx = calcula_centro_de_massa_imagem(img.copy())
+    if cx >= 105 and cx <= 198:
+        status = True
+    return img, status
 
 
 def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_metade_esq, avg_img_metade_dir):
     status_borda_esq, status_borda_dir = False, False   
     
-    img_borda_esq, cx_esq = detecta_borda_esq(img_borda_esq)
-    img_borda_dir, cx_dir = detecta_borda_dir(img_borda_dir)
+    img_borda_esq, status_borda_esq = detecta_borda_esq(img_borda_esq)
+    img_borda_dir, status_borda_dir = detecta_borda_dir(img_borda_dir)
     
-    if cx_dir >= 105 and cx_dir <= 198 and avg_img_filtro < 12 and avg_img_metade_dir < avg_img_metade_esq:
+    if status_borda_dir is True and avg_img_filtro < 12 and avg_img_metade_dir < avg_img_metade_esq:
+        status_borda_esq = False 
         status_borda_dir = True  
-        status_borda_esq = False     
-    elif cx_esq >= 48 and cx_esq <= 80 and avg_img_filtro < 12 and avg_img_metade_esq < avg_img_metade_dir:
+            
+    if status_borda_esq is True and avg_img_filtro < 12 and avg_img_metade_esq < avg_img_metade_dir:
         status_borda_esq = True
-        status_borda_esq = False
+        status_borda_dir = False
 
-    return status_borda_esq, status_borda_dir
-
+    return status_borda_esq, status_borda_dir, img_borda_esq, img_borda_dir
 
 
 def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
@@ -100,11 +111,6 @@ def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
     return status
    
     
-def calcula_media_imagem(img):
-    avarage = img.mean(axis=0).mean(axis=0)
-    return avarage
-
-
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     img_pista = get_perspectiva_pista(img)
@@ -122,33 +128,34 @@ def sinalizacao_horizontal(img):
     avarage_img_metade_esq = int(calcula_media_imagem(img_metade_esq))
     avarage_img_metade_dir = int(calcula_media_imagem(img_metade_dir))
     
-    status_correc_motor_esq, status_correc_motor_dir = deteccao_bordas_pista(img_borda_esq, img_borda_dir, avarage_img_filtro, avarage_img_metade_esq, avarage_img_metade_dir)
+    status_correc_motor_esq, status_correc_motor_dir, img_borda_esq, img_borda_dir = deteccao_bordas_pista(img_borda_esq, img_borda_dir, avarage_img_filtro, avarage_img_metade_esq, avarage_img_metade_dir)
     
     status_fxa_pedestre = detecta_faixa_pedestre(avarage_img_filtro, avarage_img_borda_esq, avarage_img_borda_dir)
 
-    return status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
+    return status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq, img_borda_esq, img_borda_dir
            
         
   
 
 ############################ Teste chamada do main ############################ 
 quantidade_imagens = len((glob.glob(caminho_pasta)))
+cont_img = 10000
 try:    
     
     for i in sorted(glob.glob(caminho_pasta)):  
         
         img = cv2.imread(i)
         
-        status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(img)
+        status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq, img_borda_esq, img_borda_dir = sinalizacao_horizontal(img)
          
-        print("Motor_Esq: {0} | Motor_Dir: {1} | Faixa_Pedestre: {2}".format(status_correc_motor_esq, status_correc_motor_dir, status_fxa_pedestre))
+        print("Motor_Esq: {0} | Motor_Dir: {1} | Faixa_Pedestre: {2} | Frame: {3}".format(status_correc_motor_esq, status_correc_motor_dir, status_fxa_pedestre, cont_img))
         
         quantidade_imagens -= 1
         
         #cv2.imshow("Apresenta Imm", img)
         cv2.imshow("Apresenta Imagem", img)
-        #cv2.imshow("Faixa esq", img_borda_esq)
-        #cv2.imshow("Faixa dir", img_borda_dir)
+        cv2.imshow("Faixa esq", img_borda_esq)
+        cv2.imshow("Faixa dir", img_borda_dir)
         cv2.waitKey(0)
         
         if quantidade_imagens == 0:
@@ -158,7 +165,8 @@ try:
         
         if cv2.waitKey(1) & 0xFF == 27:
             cv2.destroyAllWindows()	
-         
+        
+        cont_img += 1
     
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
