@@ -4,6 +4,7 @@
 import cv2
 import glob
 import numpy as np
+from skimage import io
 
 ################################ Para Testes ################################ 
 numero_pasta = 1
@@ -78,28 +79,57 @@ def detecta_borda_direita(img):
 
 
 def detecta_faixa_pedestre(img):
-    return img
+    avarage = img.mean(axis=0).mean(axis=0)
+    '''
+    pixels = np.float32(img.reshape(-1, 3))
+
+    n_colors = 5
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 200, .1)
+    flags = cv2.KMEANS_RANDOM_CENTERS
+
+    _, labels, palette = cv2.kmeans(pixels, n_colors, None, criteria, 10, flags)
+    _, counts = np.unique(labels, return_counts=True)
+    dominant = palette[np.argmax(counts)]
+    media = np.mean(dominant)
+    
+    if media > 0:
+        print("FAIXA!!")
+
+    print("Avarage = {0}".format(average))
+    #print("Dominante = {0}".format(dominant))
+    #print("Media dominante = {0}".format(media))
+    '''
+    return avarage
+   
 
 
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
-    img = cv2.imread(img)
     img_pista = get_perspectiva_pista(img)
     img_filtro = filtros(img_pista)
-    detecta_faixa_pedestre(img_filtro)
     img_borda_esq, cx_esq = detecta_borda_esquerda(img_filtro)
     img_borda_dir, cx_dir = detecta_borda_direita(img_filtro)
+    avarage_img_filtro = detecta_faixa_pedestre(img_filtro)
+    avarage_img_borda_esq = detecta_faixa_pedestre(img_borda_esq)
+    avarage_img_borda_dir = detecta_faixa_pedestre(img_borda_dir)
+    
+    
+    if  int(avarage_img_borda_esq) > 82 and int(avarage_img_filtro) > 40 and int(avarage_img_borda_dir) > 82:
+        status_fxa_pedestre = True
+    
+    print(int(avarage_img_borda_esq), int(avarage_img_filtro), int(avarage_img_borda_dir))
     
     if cx_dir >= 105 and cx_dir <= 198:
         status_correc_motor_dir = True
     elif status_correc_motor_dir is True and cx_esq >= 48 and cx_esq <= 80:
         status_correc_motor_esq = False  
-    elif cx_esq >= 48 and cx_esq <= 80:
+        
+    if cx_esq >= 48 and cx_esq <= 80:
         status_correc_motor_esq = True
     elif status_correc_motor_esq is True and cx_dir >= 105 and cx_dir <= 198:
        status_correc_motor_dir = False
 
-    print("Motor_Esq: {0} | Motor_Dir: {1} ".format(status_correc_motor_esq, status_correc_motor_dir),cx_esq, cx_dir)
+    print("Motor_Esq: {0} | Motor_Dir: {1} | Faixa_Pedestre: {2}".format(status_correc_motor_esq, status_correc_motor_dir, status_fxa_pedestre))
 
     return img_filtro, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq
            
@@ -111,10 +141,14 @@ quantidade_imagens = len((glob.glob(caminho_pasta)))
 try:    
     
     for i in sorted(glob.glob(caminho_pasta)):  
-        imagem, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(i)
+        
+        img = cv2.imread(i)
+        
+        imagem, img_borda_esq, img_borda_dir, status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = sinalizacao_horizontal(img)
          
         quantidade_imagens -= 1
         
+        cv2.imshow("Apresenta Imm", img)
         cv2.imshow("Apresenta Imagem", imagem)
         cv2.imshow("Faixa esq", img_borda_esq)
         cv2.imshow("Faixa dir", img_borda_dir)
