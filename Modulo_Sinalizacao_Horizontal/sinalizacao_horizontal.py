@@ -101,18 +101,28 @@ def detecta_faixa_pedestre(img):
     '''
     return avarage
    
-
+def calcula_media_imagem(img):
+    avarage = img.mean(axis=0).mean(axis=0)
+    return avarage
 
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     img_pista = get_perspectiva_pista(img)
     img_filtro = filtros(img_pista)
+    
+    img_metade_esq = img_filtro[0:420, 0:340]
+    img_metade_dir = img_filtro[0:420, 340:680]
+    
     img_borda_esq, cx_esq = detecta_borda_esquerda(img_filtro)
     img_borda_dir, cx_dir = detecta_borda_direita(img_filtro)
     avarage_img_filtro = detecta_faixa_pedestre(img_filtro)
     avarage_img_borda_esq = detecta_faixa_pedestre(img_borda_esq)
     avarage_img_borda_dir = detecta_faixa_pedestre(img_borda_dir)
     
+    avarage_img_metade_esq = int(calcula_media_imagem(img_metade_esq))
+    avarage_img_metade_dir = int(calcula_media_imagem(img_metade_dir))
+    
+    print(avarage_img_metade_esq, avarage_img_metade_dir)
     
     if  int(avarage_img_borda_esq) > 82 and int(avarage_img_filtro) > 40 and int(avarage_img_borda_dir) > 82:
         status_fxa_pedestre = True
@@ -123,10 +133,12 @@ def sinalizacao_horizontal(img):
         status_correc_motor_dir = True
     if cx_esq >= 48 and cx_esq <= 80:
         status_correc_motor_esq = True
-        
-    if status_correc_motor_dir is True and avarage_img_filtro < 12 and avarage_img_borda_dir > avarage_img_borda_esq:
+      
+    print(status_correc_motor_esq, status_correc_motor_dir)
+    
+    if status_correc_motor_dir is True and avarage_img_filtro < 12 and avarage_img_metade_dir < avarage_img_metade_esq:
        status_correc_motor_esq = False     
-    elif status_correc_motor_esq is True and avarage_img_filtro < 12 and avarage_img_borda_esq > avarage_img_borda_dir:
+    elif status_correc_motor_esq is True and avarage_img_filtro < 12 and avarage_img_metade_esq < avarage_img_metade_dir:
        status_correc_motor_dir = False
 
     print("Motor_Esq: {0} | Motor_Dir: {1} | Faixa_Pedestre: {2}".format(status_correc_motor_esq, status_correc_motor_dir, status_fxa_pedestre))
