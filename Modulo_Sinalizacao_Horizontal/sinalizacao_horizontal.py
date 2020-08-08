@@ -109,7 +109,6 @@ def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_
 
 def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
     status =  False   
-    print(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir)
     if  int(avg_img_borda_esq) > 62 and int(avg_img_fil) > 40 and int(avg_img_borda_dir) > 62:
         status = True
     return status
@@ -156,7 +155,6 @@ try:
         
         quantidade_imagens -= 1
         
-        #cv2.imshow("Apresenta Imm", img)
         cv2.imshow("Apresenta Imagem", img)
         cv2.imshow("Faixa esq", img_borda_esq)
         cv2.imshow("Faixa dir", img_borda_dir)
