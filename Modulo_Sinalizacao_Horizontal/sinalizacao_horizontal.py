@@ -9,7 +9,7 @@ import numpy as np
 ################################ Para Testes ################################ 
 numero_pasta = 1
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/frames_video_obs_'+str(numero_pasta)+'/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_12/*.jpg'
 #############################################################################
 
 
@@ -73,17 +73,27 @@ def calcula_centro_de_massa_imagem(img):
 
 def detecta_borda_esq(img):
     status = False
-    img, cx = calcula_centro_de_massa_imagem(img.copy())
-    if cx >= 48 and cx <= 80:
-        status = True
+    try:
+        img, cx = calcula_centro_de_massa_imagem(img.copy())
+        print("Esq: "+str(cx))
+        if cx >= 48 and cx <= 80:
+            status = True
+    except:
+        print("Problema na detecção da borda esquerda!")
+        status = False
     return img, status
 
 
 def detecta_borda_dir(img):
     status = False
-    img, cx = calcula_centro_de_massa_imagem(img.copy())
-    if cx >= 105 and cx <= 198:
-        status = True
+    try: 
+        img, cx = calcula_centro_de_massa_imagem(img.copy())
+        print("Dir: "+str(cx))
+        if cx >= 105 and cx <= 198:
+            status = True
+    except:
+        print("Problema na detecção da borda direita!")
+        status = False
     return img, status
 
 
@@ -108,6 +118,7 @@ def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_
 
 
 def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
+    print(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir)
     status =  False   
     if  int(avg_img_borda_esq) > 62 and int(avg_img_fil) > 40 and int(avg_img_borda_dir) > 62:
         status = True
