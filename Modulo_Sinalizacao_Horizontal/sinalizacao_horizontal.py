@@ -9,7 +9,7 @@ import numpy as np
 ################################ Para Testes ################################ 
 numero_pasta = 1
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_12/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_11/*.jpg'
 #############################################################################
 
 
@@ -75,7 +75,7 @@ def detecta_borda_esq(img):
     status = False
     try:
         img, cx = calcula_centro_de_massa_imagem(img.copy())
-        print("Esq: "+str(cx))
+        #print("Esq: "+str(cx))
         if cx >= 48 and cx <= 80:
             status = True
     except:
@@ -88,7 +88,7 @@ def detecta_borda_dir(img):
     status = False
     try: 
         img, cx = calcula_centro_de_massa_imagem(img.copy())
-        print("Dir: "+str(cx))
+        #print("Dir: "+str(cx))
         if cx >= 105 and cx <= 198:
             status = True
     except:
@@ -118,9 +118,9 @@ def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_
 
 
 def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
-    print(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir)
+    #print(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir)
     status =  False   
-    if  int(avg_img_borda_esq) > 62 and int(avg_img_fil) > 40 and int(avg_img_borda_dir) > 62:
+    if  int(avg_img_borda_esq) > 57 and int(avg_img_fil) > 35 and int(avg_img_borda_dir) > 57:
         status = True
     return status
    
@@ -145,6 +145,9 @@ def sinalizacao_horizontal(img):
     status_correc_motor_esq, status_correc_motor_dir, img_borda_esq, img_borda_dir = deteccao_bordas_pista(img_borda_esq, img_borda_dir, avarage_img_filtro, avarage_img_metade_esq, avarage_img_metade_dir)
     
     status_fxa_pedestre = detecta_faixa_pedestre(avarage_img_filtro, avarage_img_borda_esq, avarage_img_borda_dir)
+
+    if status_fxa_pedestre is True:
+        status_correc_motor_dir, status_correc_motor_esq = False, False
 
     return status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq, img_borda_esq, img_borda_dir
            
