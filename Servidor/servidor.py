@@ -10,6 +10,7 @@ tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # socket server criado
 orig = (HOST, PORT)
 tcp.bind(orig)	# endereçamento
 tcp.listen(1)	# modo passivo
+
 while True:
     con, cliente = tcp.accept()	# inicio da conexão com cliente
     print('Conectado por', cliente)

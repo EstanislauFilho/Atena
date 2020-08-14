@@ -8,7 +8,7 @@ dest = (HOST, PORT)
 tcp.connect(dest)
 print('Para sair use CTRL+X\n')
 
-msg = input()
+msg = ''
 
 while msg != '\x18':
 	#tcp.send (msg)
