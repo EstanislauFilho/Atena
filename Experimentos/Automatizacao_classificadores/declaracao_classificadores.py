@@ -12,3 +12,5 @@ classificador_pedestre = cv2.CascadeClassifier('/home/joaopaulo/Documentos/git-B
 classificador_semaforo = cv2.CascadeClassifier('/home/joaopaulo/Documentos/git-BCE/Automatizacao_classificadores/Classificadores/cascade_semaforo.xml')
 classificador_semaforo1 = cv2.CascadeClassifier('/home/joaopaulo/Documentos/git-BCE/Automatizacao_classificadores/Classificadores/cascade_semaforo1.xml')
 classificador_servicos = cv2.CascadeClassifier('/home/joaopaulo/Documentos/git-BCE/Automatizacao_classificadores/Classificadores/cascade_servicos.xml')
+
+classificadorAtual = ''

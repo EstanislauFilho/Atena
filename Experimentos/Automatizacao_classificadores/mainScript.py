@@ -9,7 +9,7 @@ import time
 
 # Escrita dos dados manipulados em arquivo .csv
 with open('regiao_deteccao.csv', 'w') as arquivo_csv:
-    colunas = ['Imagem', 'init_x_60', 'init_y_60', 'final_x_60', 'final_y_60',
+    colunas = ['Imagem', 'widht', 'height', 'class', 'init_x_60', 'init_y_60', 'final_x_60', 'final_y_60',
             'init_x_desvio', 'init_y_desvio', 'final_x_desvio', 'final_y_desvio',
             'init_x_igreja', 'init_y_igreja', 'final_x_igreja', 'final_y_igreja',
             'init_x_museu', 'init_y_museu', 'final_x_museu', 'final_y_museu',
@@ -53,7 +53,7 @@ with open('regiao_deteccao.csv', 'w') as arquivo_csv:
         trechoComum = '/home/joaopaulo/Documentos/git-BCE/Automatizacao_classificadores/Frames_Pare/'
         nomeImagem = diretorio.split(trechoComum)
 
-        escrever.writerow({'Imagem': nomeImagem[1], 'init_x_60': vertices_deteccao.regiao_60['init_x'], 'init_y_60': vertices_deteccao.regiao_60['init_y'], 
+        escrever.writerow({'Imagem': nomeImagem[1], 'widht': 'NA', 'height': 'NA', 'class': declaracao_classificadores.classificadorAtual, 'init_x_60': vertices_deteccao.regiao_60['init_x'], 'init_y_60': vertices_deteccao.regiao_60['init_y'], 
                             'final_x_60': vertices_deteccao.regiao_60['final_x'], 'final_y_60': vertices_deteccao.regiao_60['final_y'],
                             'init_x_desvio': vertices_deteccao.regiao_desvio['init_x'], 'init_y_desvio': vertices_deteccao.regiao_desvio['init_y'], 
                             'final_x_desvio': vertices_deteccao.regiao_desvio['final_x'], 'final_y_desvio': vertices_deteccao.regiao_desvio['final_y'],
