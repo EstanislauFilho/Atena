@@ -12,12 +12,12 @@ import numpy as np
 
 
 
-numero_pasta = 1
+numero_pasta = 9
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/frames_video_fxa_'+str(numero_pasta)+'/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/frames_video_obs_'+str(numero_pasta)+'/*.jpg'
 
-pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (70,340), (570,340), (10,410), (620,410)
-pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (150,0), (480,0), (150,420), (480,420)
+pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (105,380), (567,380), (80,410), (592,410)
+pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (190,0), (490,0), (190,420), (490,420)
 
 pontos_pista = np.float32([[pt_pista_1], [pt_pista_2], [pt_pista_3], [pt_pista_4]])
 pontos_destino = np.float32([[pt_destino_1], [pt_destino_2], [pt_destino_3], [pt_destino_4]])
@@ -48,7 +48,7 @@ def filtros_faixas(img):
 	img_blur = cv2.GaussianBlur(img_cinza,(5,5),0)
 	
 	# Binariza a imagem, definindo regiões pretas e brancas. Para visualizar a imagem binarizada comentar linhas abaixo
-	img_tresh = cv2.inRange(img_blur,  240, 255) 
+	img_tresh = cv2.inRange(img_blur,  185, 255) 
 
 	return img_tresh
 
@@ -96,21 +96,28 @@ try:
         imagem_pista_filtrada = filtros_faixas(imagem_pista)
         
         # Imagem da faixa da esquerda
-        imagem_faixa_esq = imagem_pista_filtrada[0:420, 100:360]
+        imagem_faixa_esq = imagem_pista_filtrada[0:420, 170:360]
         imagem_faixa_esq, cx_esq = detecta_faixas(imagem_faixa_esq.copy())
         
         # Imagem da faixa da direta
-        imagem_faixa_dir = imagem_pista_filtrada[0:420, 300:560]    
+        imagem_faixa_dir = imagem_pista_filtrada[0:420, 300:490]    
         imagem_faixa_dir, cx_dir = detecta_faixas(imagem_faixa_dir.copy())
+        
+        #print(cx_esq)
         
         correcao_esq, correcao_dir =  False, False
         
-        if cx_esq >= 59 and cx_esq <= 105:
-            correcao_esq = True
-        elif cx_dir >= 154 and cx_dir <= 198:
+        if cx_dir >= 105 and cx_dir <= 198:
             correcao_dir = True
+        elif correcao_dir is True and cx_esq >= 48 and cx_esq <= 80:
+            correcao_esq = False  
+        elif cx_esq >= 48 and cx_esq <= 80:
+            correcao_esq = True
+        elif correcao_esq is True and cx_dir >= 105 and cx_dir <= 198:
+            correcao_dir = False
+            
         
-        print("Corrigir_MT_Esq: {0} | Corrigir_MT_Dir: {1} | Frame: {2}\n".format(correcao_esq, correcao_dir, cont_imagem))
+        print("Motor_Esq: {0} | Motor_Dir: {1} | Frame: {2} ".format(correcao_esq, correcao_dir, cont_imagem),cx_esq, cx_dir)
         
         cv2.imshow("Img", imagem)
         cv2.imshow("Perspectiva Pista Filtrada", imagem_pista_filtrada)

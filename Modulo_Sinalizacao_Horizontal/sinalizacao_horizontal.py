@@ -9,7 +9,7 @@ import numpy as np
 ################################ Para Testes ################################ 
 numero_pasta = 1
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_11/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_7/*.jpg'
 #############################################################################
 
 
@@ -76,7 +76,7 @@ def detecta_borda_esq(img):
     try:
         img, cx = calcula_centro_de_massa_imagem(img.copy())
         #print("Esq: "+str(cx))
-        if cx >= 48 and cx <= 80:
+        if cx >= 41 and cx <= 80:
             status = True
     except:
         print("Problema na detecção da borda esquerda!")
@@ -109,7 +109,8 @@ def deteccao_bordas_pista(img_borda_esq, img_borda_dir, avg_img_filtro, avg_img_
     elif status_borda_esq is True and avg_img_filtro < 12 and avg_img_metade_esq < avg_img_metade_dir:
         status_borda_esq = True
         status_borda_dir = False
-    elif status_borda_dir is True and status_borda_esq is True:
+    
+    if status_borda_dir is True and status_borda_esq is True:
         status_borda_esq = False
         status_borda_dir = False
     
