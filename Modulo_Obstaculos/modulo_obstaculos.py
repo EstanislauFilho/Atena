@@ -17,11 +17,35 @@ caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pas
 
 imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
 
+
+
+
+tamanho_camada_0 = 0
+tamanho_camada_1 = 0
+tamanho_camada_2 = 0
+tamanho_camada_3 = 0
+tamanho_camada_4 = 0
+
+
 def define_pontos(imagem):
+    tam_cam_esq_0 = 0
+    tam_cam_esq_1 = 0
+    tam_cam_esq_2 = 0
+    tam_cam_esq_3 = 0
+    tam_cam_esq_4 = 0
+    
+    tam_cam_dir_0 = 0
+    tam_cam_dir_1 = 0
+    tam_cam_dir_2 = 0
+    tam_cam_dir_3 = 0
+    tam_cam_dir_4 = 0
+    
+    ################################ camadas da direita ####################
     for x in range(341, 679):
         B0_DIR, G0_DIR, R0_DIR = imagem[320, x] 
         if B0_DIR  <= 254 and G0_DIR  <= 254 and R0_DIR <= 254:
             imagem[320, x] = 255, 255, 255
+            tam_cam_dir_0 += 1
         else:
             break
     
@@ -30,6 +54,7 @@ def define_pontos(imagem):
         B1_DIR, G1_DIR, R1_DIR = imagem[340, x]
         if B1_DIR  <= 254 and G1_DIR  <= 254 and R1_DIR <= 254:
             imagem[340, x] = 255, 255, 255
+            tam_cam_dir_1 += 1
         else:
             break
       
@@ -38,6 +63,7 @@ def define_pontos(imagem):
         B2_DIR, G2_DIR, R2_DIR = imagem[360, x]   
         if B2_DIR  <= 254 and G2_DIR  <= 254 and R2_DIR <= 254:
             imagem[360, x] = 255, 255, 255
+            tam_cam_dir_2 += 1
         else:
             break
     
@@ -46,6 +72,7 @@ def define_pontos(imagem):
         B3_DIR, G3_DIR, R3_DIR = imagem[380, x]
         if B3_DIR  <= 254 and G3_DIR  <= 254 and R3_DIR <= 254:
             imagem[380, x] = 255, 255, 255
+            tam_cam_dir_3 += 1
         else:
             break
     
@@ -54,15 +81,16 @@ def define_pontos(imagem):
         B4_DIR, G4_DIR, R4_DIR = imagem[400, x]
         if B4_DIR  <= 254 and G4_DIR  <= 254 and R4_DIR <= 254:
             imagem[400, x] = 255, 255, 255
+            tam_cam_dir_4 += 1
         else:
             break
     
-    ######################################################################
-    
+    ############################## camadas da esquerda ########################   
     for x in range(339, 0, -1):
         B0_ESQ, G0_ESQ, R0_ESQ = imagem[320, x] 
         if B0_ESQ  <= 254 and G0_ESQ  <= 254 and R0_ESQ <= 254:
             imagem[320, x] = 255, 255, 255
+            tam_cam_esq_0 += 1
         else:
             break
     
@@ -71,6 +99,7 @@ def define_pontos(imagem):
         B1_ESQ, G1_ESQ, R1_ESQ = imagem[340, x]
         if B1_ESQ  <= 254 and G1_ESQ  <= 254 and R1_ESQ <= 254:
             imagem[340, x] = 255, 255, 255
+            tam_cam_esq_1 += 1
         else:
             break
       
@@ -79,6 +108,7 @@ def define_pontos(imagem):
         B2_ESQ, G2_ESQ, R2_ESQ = imagem[360, x]   
         if B2_ESQ  <= 254 and G2_ESQ  <= 254 and R2_ESQ <= 254:
             imagem[360, x] = 255, 255, 255
+            tam_cam_esq_2 += 1
         else:
             break
     
@@ -87,6 +117,7 @@ def define_pontos(imagem):
         B3_ESQ, G3_ESQ, R3_ESQ = imagem[380, x]
         if B3_ESQ  <= 254 and G3_ESQ  <= 254 and R3_ESQ <= 254:
             imagem[380, x] = 255, 255, 255
+            tam_cam_esq_3 += 1
         else:
             break
     
@@ -95,11 +126,20 @@ def define_pontos(imagem):
         B4_ESQ, G4_ESQ, R4_ESQ = imagem[400, x]
         if B4_ESQ  <= 254 and G4_ESQ  <= 254 and R4_ESQ <= 254:
             imagem[400, x] = 255, 255, 255
+            tam_cam_esq_4 += 1
         else:
             break
     
+    tamanho_camada_0 = tam_cam_dir_0 + tam_cam_esq_0
+    tamanho_camada_1 = tam_cam_dir_1 + tam_cam_esq_1
+    tamanho_camada_2 = tam_cam_dir_2 + tam_cam_esq_2
+    tamanho_camada_3 = tam_cam_dir_3 + tam_cam_esq_3
+    tamanho_camada_4 = tam_cam_dir_4 + tam_cam_esq_4
     
     
+    print(tam_cam_esq_0, tam_cam_dir_0)
+    #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
+    print()
     imagem[320, 340] = 0, 0, 255
     imagem[340, 340] = 0, 0, 255
     imagem[360, 340] = 0, 0, 255
