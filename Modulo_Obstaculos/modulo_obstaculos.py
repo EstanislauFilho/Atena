@@ -40,6 +40,9 @@ def define_pontos(imagem):
     tam_cam_dir_3 = 0
     tam_cam_dir_4 = 0
     
+    enc_borda_esq_cmd_0 = False
+    enc_borda_dir_cmd_0 = False
+    
     ################################ camadas da direita ####################
     for x in range(341, 679):
         B0_DIR, G0_DIR, R0_DIR = imagem[320, x] 
@@ -47,6 +50,7 @@ def define_pontos(imagem):
             imagem[320, x] = 255, 255, 255
             tam_cam_dir_0 += 1
         else:
+            enc_borda_dir_cmd_0 = True
             break
     
     
@@ -86,16 +90,17 @@ def define_pontos(imagem):
             break
     
     ############################## camadas da esquerda ########################   
-    for x in range(339, 0, -1):
+    for x in range(339, 1, -1):
         B0_ESQ, G0_ESQ, R0_ESQ = imagem[320, x] 
         if B0_ESQ  <= 254 and G0_ESQ  <= 254 and R0_ESQ <= 254:
             imagem[320, x] = 255, 255, 255
             tam_cam_esq_0 += 1
         else:
+            enc_borda_esq_cmd_0 = True
             break
     
     
-    for x in range(339, 0, -1):
+    for x in range(339, 1, -1):
         B1_ESQ, G1_ESQ, R1_ESQ = imagem[340, x]
         if B1_ESQ  <= 254 and G1_ESQ  <= 254 and R1_ESQ <= 254:
             imagem[340, x] = 255, 255, 255
@@ -104,7 +109,7 @@ def define_pontos(imagem):
             break
       
         
-    for x in range(339, 0, -1):
+    for x in range(339, 1, -1):
         B2_ESQ, G2_ESQ, R2_ESQ = imagem[360, x]   
         if B2_ESQ  <= 254 and G2_ESQ  <= 254 and R2_ESQ <= 254:
             imagem[360, x] = 255, 255, 255
@@ -113,7 +118,7 @@ def define_pontos(imagem):
             break
     
     
-    for x in range(339, 0, -1):
+    for x in range(339, 1, -1):
         B3_ESQ, G3_ESQ, R3_ESQ = imagem[380, x]
         if B3_ESQ  <= 254 and G3_ESQ  <= 254 and R3_ESQ <= 254:
             imagem[380, x] = 255, 255, 255
@@ -122,7 +127,7 @@ def define_pontos(imagem):
             break
     
     
-    for x in range(339, 0, -1):
+    for x in range(339, 1, -1):
         B4_ESQ, G4_ESQ, R4_ESQ = imagem[400, x]
         if B4_ESQ  <= 254 and G4_ESQ  <= 254 and R4_ESQ <= 254:
             imagem[400, x] = 255, 255, 255
@@ -137,14 +142,28 @@ def define_pontos(imagem):
     tamanho_camada_4 = tam_cam_dir_4 + tam_cam_esq_4
     
     
-    print(tam_cam_esq_0, tam_cam_dir_0)
-    #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
-    print()
+    B0_ORG, G0_ORG, R0_ORG = imagem[320, 340]
+    B1_ORG, G1_ORG, R1_ORG = imagem[340, 340]
+    B2_ORG, G2_ORG, R2_ORG = imagem[360, 340]
+    B3_ORG, G3_ORG, R3_ORG = imagem[380, 340]
+    B4_ORG, G4_ORG, R4_ORG = imagem[400, 340]
+    
     imagem[320, 340] = 0, 0, 255
     imagem[340, 340] = 0, 0, 255
     imagem[360, 340] = 0, 0, 255
     imagem[380, 340] = 0, 0, 255
     imagem[400, 340] = 0, 0, 255
+    
+    print(B0_ORG, G0_ORG, R0_ORG)
+    print(B1_ORG, G1_ORG, R1_ORG)
+    print(B2_ORG, G2_ORG, R2_ORG)
+    print(B3_ORG, G3_ORG, R3_ORG)
+    print(B4_ORG, G4_ORG, R4_ORG)
+    
+    #print(tam_cam_esq_0, tam_cam_dir_0, enc_borda_esq_cmd_0, enc_borda_dir_cmd_0)
+    #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
+    print()
+
 
 
 
