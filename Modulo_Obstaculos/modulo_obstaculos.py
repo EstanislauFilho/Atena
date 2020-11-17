@@ -43,6 +43,20 @@ def define_pontos(imagem):
     enc_borda_esq_cmd_0 = False
     enc_borda_dir_cmd_0 = False
     
+    ref_y_borda_dir_cmd_0 = 0 
+    ref_x_borda_dir_cmd_0 = 0
+            
+    ref_y_borda_esq_cmd_0 = 0 
+    ref_x_borda_esq_cmd_0 = 0
+    
+    
+    ref_y_borda_dir_cmd_3 = 0 
+    ref_x_borda_dir_cmd_3 = 0
+            
+    ref_y_borda_esq_cmd_3 = 0 
+    ref_x_borda_esq_cmd_3 = 0
+    
+    
     ################################ camadas da direita ####################
     for x in range(341, 679):
         B0_DIR, G0_DIR, R0_DIR = imagem[320, x] 
@@ -51,6 +65,8 @@ def define_pontos(imagem):
             tam_cam_dir_0 += 1
         else:
             enc_borda_dir_cmd_0 = True
+            ref_y_borda_dir_cmd_0 = 320 
+            ref_x_borda_dir_cmd_0 = x
             break
     
     
@@ -78,6 +94,8 @@ def define_pontos(imagem):
             imagem[380, x] = 255, 255, 255
             tam_cam_dir_3 += 1
         else:
+            ref_y_borda_dir_cmd_3 = 380 
+            ref_x_borda_dir_cmd_3 = x
             break
     
     
@@ -97,6 +115,8 @@ def define_pontos(imagem):
             tam_cam_esq_0 += 1
         else:
             enc_borda_esq_cmd_0 = True
+            ref_y_borda_esq_cmd_0 = 320 
+            ref_x_borda_esq_cmd_0 = x
             break
     
     
@@ -124,6 +144,8 @@ def define_pontos(imagem):
             imagem[380, x] = 255, 255, 255
             tam_cam_esq_3 += 1
         else:
+            ref_y_borda_esq_cmd_3 = 380 
+            ref_x_borda_esq_cmd_3 = x
             break
     
     
@@ -153,7 +175,7 @@ def define_pontos(imagem):
     imagem[360, 340] = 0, 0, 255
     imagem[380, 340] = 0, 0, 255
     imagem[400, 340] = 0, 0, 255
-    
+    '''
     print(B0_ORG, G0_ORG, R0_ORG)
     print(B1_ORG, G1_ORG, R1_ORG)
     print(B2_ORG, G2_ORG, R2_ORG)
@@ -163,8 +185,14 @@ def define_pontos(imagem):
     #print(tam_cam_esq_0, tam_cam_dir_0, enc_borda_esq_cmd_0, enc_borda_dir_cmd_0)
     #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
     print()
+    '''
+    
+    cv2.line(imagem, (ref_x_borda_esq_cmd_0,ref_y_borda_esq_cmd_0), (340,419), (255,0,0), 2)
+    cv2.line(imagem, (ref_x_borda_dir_cmd_0,ref_y_borda_dir_cmd_0), (340,419), (255,0,0), 2)
 
-
+    
+    cv2.line(imagem, (ref_x_borda_esq_cmd_3,ref_y_borda_esq_cmd_3), (340,419), (255,0,0), 2)
+    cv2.line(imagem, (ref_x_borda_dir_cmd_3,ref_y_borda_dir_cmd_3), (340,419), (255,0,0), 2)
 
 
 
