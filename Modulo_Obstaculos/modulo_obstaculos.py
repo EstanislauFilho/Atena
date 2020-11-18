@@ -48,11 +48,18 @@ def encontra_borda_dir(img):
      
     y_dir_cmd_4 = 0 
     x_dir_cmd_4 = 0
+    
+    cont_dir_cmd_0 = 0
+    cont_dir_cmd_1 = 0
+    cont_dir_cmd_2 = 0
+    cont_dir_cmd_3 = 0
+    cont_dir_cmd_4 = 0
 
     for x in range(341, 679):
         canal_borda_dir_0 = img[Y_CMD_0, x]
         if canal_borda_dir_0 <= 254:
-            img[Y_CMD_0, x] = 255   
+            img[Y_CMD_0, x] = 255
+            cont_dir_cmd_0 += 1
         else:
             y_dir_cmd_0 = Y_CMD_0
             x_dir_cmd_0 = x
@@ -61,7 +68,8 @@ def encontra_borda_dir(img):
     for x in range(341, 679):
         canal_borda_dir_1 = img[Y_CMD_1, x]
         if canal_borda_dir_1 <= 254:
-            img[Y_CMD_1, x] = 255   
+            img[Y_CMD_1, x] = 255
+            cont_dir_cmd_1 += 1
         else:
             y_dir_cmd_1 = Y_CMD_1 
             x_dir_cmd_1 = x
@@ -70,7 +78,8 @@ def encontra_borda_dir(img):
     for x in range(341, 679):
         canal_borda_dir_2 = img[Y_CMD_2, x]
         if canal_borda_dir_2 <= 254:
-            img[Y_CMD_2, x] = 255   
+            img[Y_CMD_2, x] = 255
+            cont_dir_cmd_2 += 1
         else:
             y_dir_cmd_2 = Y_CMD_2
             x_dir_cmd_2 = x
@@ -79,7 +88,8 @@ def encontra_borda_dir(img):
     for x in range(341, 679):
         canal_borda_dir_3 = img[Y_CMD_3, x]
         if canal_borda_dir_3 <= 254:
-            img[Y_CMD_3, x] = 255   
+            img[Y_CMD_3, x] = 255 
+            cont_dir_cmd_3 += 1
         else:
             y_dir_cmd_3 = 380 
             x_dir_cmd_3 = x
@@ -88,13 +98,14 @@ def encontra_borda_dir(img):
     for x in range(341, 679):
         canal_borda_dir_4 = img[Y_CMD_4, x]
         if canal_borda_dir_4 <= 254:
-            img[Y_CMD_4, x] = 255   
+            img[Y_CMD_4, x] = 255
+            cont_dir_cmd_4 += 1
         else:
             y_dir_cmd_4 = Y_CMD_4
             x_dir_cmd_4 = x
             break
 
-    return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4
+    return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4, cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4 
 
     
 
@@ -114,12 +125,17 @@ def encontra_borda_esq(img):
     y_esq_cmd_4 = 0 
     x_esq_cmd_4 = 0
 
-   
+    cont_esq_cmd_0 = 0
+    cont_esq_cmd_1 = 0
+    cont_esq_cmd_2 = 0
+    cont_esq_cmd_3 = 0
+    cont_esq_cmd_4 = 0
           
     for x in range(339, 1, -1):
         canal_borda_esq_0 = img[Y_CMD_0, x]
         if canal_borda_esq_0 <= 254:
-            img[Y_CMD_0, x] = 255   
+            img[Y_CMD_0, x] = 255 
+            cont_esq_cmd_0 += 1
         else:
             y_esq_cmd_0 = Y_CMD_0 
             x_esq_cmd_0 = x
@@ -129,7 +145,8 @@ def encontra_borda_esq(img):
     for x in range(339, 1, -1):
         canal_borda_esq_1 = img[Y_CMD_1, x]
         if canal_borda_esq_1 <= 254:
-            img[Y_CMD_1, x] = 255   
+            img[Y_CMD_1, x] = 255 
+            cont_esq_cmd_1 += 1
         else:
             y_esq_cmd_1 = Y_CMD_1
             x_esq_cmd_1 = x
@@ -140,6 +157,7 @@ def encontra_borda_esq(img):
         canal_borda_esq_2 = img[Y_CMD_2, x]
         if canal_borda_esq_2 <= 254:
             img[Y_CMD_2, x] = 255   
+            cont_esq_cmd_2 += 1
         else:
             y_esq_cmd_2 = Y_CMD_2
             x_esq_cmd_2 = x
@@ -149,7 +167,8 @@ def encontra_borda_esq(img):
     for x in range(339, 1, -1):
         canal_borda_esq_3 = img[Y_CMD_3, x]
         if canal_borda_esq_3 <= 254:
-            img[Y_CMD_3, x] = 255   
+            img[Y_CMD_3, x] = 255
+            cont_esq_cmd_3 += 1
         else:
             y_esq_cmd_3 = Y_CMD_3
             x_esq_cmd_3 = x
@@ -158,46 +177,19 @@ def encontra_borda_esq(img):
     for x in range(339, 1, -1):
         canal_borda_esq_4 = img[Y_CMD_4, x]
         if canal_borda_esq_4 <= 254:
-            img[Y_CMD_4, x] = 255   
+            img[Y_CMD_4, x] = 255
+            cont_esq_cmd_4 += 1
         else:
             y_esq_cmd_4 = Y_CMD_4
             x_esq_cmd_4 = x
             break 
+        
 
-    return x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4
+    return x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4, cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4 
 
-'''
-    camada_ORG_0 = imagem[320, 340]
-    camada_ORG_1 = imagem[340, 340]
-    camada_ORG_2 = imagem[360, 340]
-    camada_ORG_3 = imagem[380, 340]
-    camada_ORG_4 = imagem[400, 340]
-    '''
 
     
-    #print(tam_cam_esq_0, tam_cam_dir_0, enc_borda_esq_cmd_0, enc_borda_dir_cmd_0)
-    #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
-    #print()
 
-    
-'''
-imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
-imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
-imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
-
-
-for x in range(341, 679):
-    #camada_0 = imagem[320, x] 
-    imagem_tresh[320, x] = 255
-
-
-
-cv2.imshow("Imagem tresh", imagem_tresh)
-cv2.waitKey(0)
-
-cv2.destroyAllWindows()
-'''
 
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
@@ -213,6 +205,11 @@ try:
         x_esq_cmd_2, y_esq_cmd_2,
         x_esq_cmd_3, y_esq_cmd_3,
         x_esq_cmd_4, y_esq_cmd_4,
+        cont_esq_cmd_0, 
+        cont_esq_cmd_1, 
+        cont_esq_cmd_2, 
+        cont_esq_cmd_3, 
+        cont_esq_cmd_4 
         ]  = encontra_borda_esq(imagem_tresh)
         
         [
@@ -220,7 +217,12 @@ try:
         x_dir_cmd_1, y_dir_cmd_1,
         x_dir_cmd_2, y_dir_cmd_2,
         x_dir_cmd_3, y_dir_cmd_3,
-        x_dir_cmd_4, y_dir_cmd_4
+        x_dir_cmd_4, y_dir_cmd_4,
+        cont_dir_cmd_0, 
+        cont_dir_cmd_1, 
+        cont_dir_cmd_2, 
+        cont_dir_cmd_3, 
+        cont_dir_cmd_4 
         ] = encontra_borda_dir(imagem_tresh)
         
         
@@ -256,4 +258,24 @@ except KeyboardInterrupt:
 finally:
     cv2.destroyAllWindows()
 
+  
     
+    
+'''
+imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
+imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
+imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
+
+
+for x in range(341, 679):
+    #camada_0 = imagem[320, x] 
+    imagem_tresh[320, x] = 255
+
+
+
+cv2.imshow("Imagem tresh", imagem_tresh)
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+'''
