@@ -28,64 +28,38 @@ tamanho_camada_4 = 0
 
 
 
-def encontra_bordas(img):
-    tam_cam_esq_0 = 0
-    tam_cam_esq_1 = 0
-    tam_cam_esq_2 = 0
-    tam_cam_esq_3 = 0
-    tam_cam_esq_4 = 0
-    
-    tam_cam_dir_0 = 0
-    tam_cam_dir_1 = 0
-    tam_cam_dir_2 = 0
-    tam_cam_dir_3 = 0
-    tam_cam_dir_4 = 0
-    
-    enc_borda_esq_cmd_0 = False
-    enc_borda_dir_cmd_0 = False
-    
-    ref_y_borda_dir_cmd_0 = 0 
-    ref_x_borda_dir_cmd_0 = 0
+
+def encontra_borda_dir(img):
+    y_dir_cmd_0 = 0 
+    x_dir_cmd_0 = 0
             
-    ref_y_borda_esq_cmd_0 = 0 
-    ref_x_borda_esq_cmd_0 = 0
+    y_esq_cmd_0 = 0 
+    x_esq_cmd_0 = 0
     
     
-    ref_y_borda_dir_cmd_1 = 0 
-    ref_x_borda_dir_cmd_1 = 0
-            
-    ref_y_borda_esq_cmd_1 = 0 
-    ref_x_borda_esq_cmd_1 = 0
+    y_dir_cmd_1 = 0 
+    x_dir_cmd_1 = 0
+       
+     
+    y_dir_cmd_2 = 0 
+    x_dir_cmd_2 = 0
     
     
-    ref_y_borda_dir_cmd_2 = 0 
-    ref_x_borda_dir_cmd_2 = 0
-            
-    ref_y_borda_esq_cmd_2 = 0 
-    ref_x_borda_esq_cmd_2 = 0
+    y_dir_cmd_3 = 0 
+    x_dir_cmd_3 = 0
+ 
     
-    
-    ref_y_borda_dir_cmd_3 = 0 
-    ref_x_borda_dir_cmd_3 = 0
-            
-    ref_y_borda_esq_cmd_3 = 0 
-    ref_x_borda_esq_cmd_3 = 0   
-    
-    
-    ref_y_borda_dir_cmd_4 = 0 
-    ref_x_borda_dir_cmd_4 = 0
-            
-    ref_y_borda_esq_cmd_4 = 0 
-    ref_x_borda_esq_cmd_4 = 0
-    ############ Direita ############
+    y_dir_cmd_4 = 0 
+    x_dir_cmd_4 = 0
+
     for x in range(341, 679):
         canal_borda_dir_0 = img[320, x]
         if canal_borda_dir_0 <= 254:
             img[320, x] = 255   
         else:
             enc_borda_dir_cmd_0 = True
-            ref_y_borda_dir_cmd_0 = 320 
-            ref_x_borda_dir_cmd_0 = x
+            y_dir_cmd_0 = 320 
+            x_dir_cmd_0 = x
             break
         
     for x in range(341, 679):
@@ -94,8 +68,8 @@ def encontra_bordas(img):
             img[340, x] = 255   
         else:
             enc_borda_dir_cmd_1 = True
-            ref_y_borda_dir_cmd_1 = 340 
-            ref_x_borda_dir_cmd_1 = x
+            y_dir_cmd_1 = 340 
+            x_dir_cmd_1 = x
             break
  
     for x in range(341, 679):
@@ -104,8 +78,8 @@ def encontra_bordas(img):
             img[360, x] = 255   
         else:
             enc_borda_dir_cmd_2 = True
-            ref_y_borda_dir_cmd_2 = 360 
-            ref_x_borda_dir_cmd_2 = x
+            y_dir_cmd_2 = 360 
+            x_dir_cmd_2 = x
             break
         
     for x in range(341, 679):
@@ -114,8 +88,8 @@ def encontra_bordas(img):
             img[380, x] = 255   
         else:
             enc_borda_dir_cmd_3 = True
-            ref_y_borda_dir_cmd_3 = 380 
-            ref_x_borda_dir_cmd_3 = x
+            y_dir_cmd_3 = 380 
+            x_dir_cmd_3 = x
             break
         
     for x in range(341, 679):
@@ -124,19 +98,39 @@ def encontra_bordas(img):
             img[400, x] = 255   
         else:
             enc_borda_dir_cmd_4 = True
-            ref_y_borda_dir_cmd_4 = 400 
-            ref_x_borda_dir_cmd_4 = x
+            y_dir_cmd_4 = 400 
+            x_dir_cmd_4 = x
             break
-        
-    ############ Esquerda ################   
+
+    return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4
+
+    
+
+def encontra_borda_esq(img):    
+       
+    y_esq_cmd_1 = 0 
+    x_esq_cmd_1 = 0
+            
+    y_esq_cmd_2 = 0 
+    x_esq_cmd_2 = 0
+            
+    y_esq_cmd_3 = 0 
+    x_esq_cmd_3 = 0   
+
+
+            
+    y_esq_cmd_4 = 0 
+    x_esq_cmd_4 = 0
+
+   
+          
     for x in range(339, 1, -1):
         canal_borda_esq_0 = img[320, x]
         if canal_borda_esq_0 <= 254:
             img[320, x] = 255   
         else:
-            enc_borda_esq_cmd_0 = True
-            ref_y_borda_esq_cmd_0 = 320 
-            ref_x_borda_esq_cmd_0 = x
+            y_esq_cmd_0 = 320 
+            x_esq_cmd_0 = x
             break
         
         
@@ -145,9 +139,8 @@ def encontra_bordas(img):
         if canal_borda_esq_1 <= 254:
             img[340, x] = 255   
         else:
-            enc_borda_esq_cmd_1 = True
-            ref_y_borda_esq_cmd_1 = 340 
-            ref_x_borda_esq_cmd_1 = x
+            y_esq_cmd_1 = 340 
+            x_esq_cmd_1 = x
             break
  
 
@@ -156,9 +149,8 @@ def encontra_bordas(img):
         if canal_borda_esq_2 <= 254:
             img[360, x] = 255   
         else:
-            enc_borda_esq_cmd_2 = True
-            ref_y_borda_esq_cmd_2 = 360 
-            ref_x_borda_esq_cmd_2 = x
+            y_esq_cmd_2 = 360 
+            x_esq_cmd_2 = x
             break       
   
 
@@ -167,9 +159,8 @@ def encontra_bordas(img):
         if canal_borda_esq_3 <= 254:
             img[380, x] = 255   
         else:
-            enc_borda_esq_cmd_3 = True
-            ref_y_borda_esq_cmd_3 = 380 
-            ref_x_borda_esq_cmd_3 = x
+            y_esq_cmd_3 = 380 
+            x_esq_cmd_3 = x
             break 
         
     for x in range(339, 1, -1):
@@ -177,20 +168,13 @@ def encontra_bordas(img):
         if canal_borda_esq_4 <= 254:
             img[400, x] = 255   
         else:
-            enc_borda_esq_cmd_4 = True
-            ref_y_borda_esq_cmd_4 = 400 
-            ref_x_borda_esq_cmd_4 = x
+            y_esq_cmd_4 = 400 
+            x_esq_cmd_4 = x
             break 
 
+    return x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4
 
-    '''
-    tamanho_camada_0 = tam_cam_dir_0 + tam_cam_esq_0
-    tamanho_camada_1 = tam_cam_dir_1 + tam_cam_esq_1
-    tamanho_camada_2 = tam_cam_dir_2 + tam_cam_esq_2
-    tamanho_camada_3 = tam_cam_dir_3 + tam_cam_esq_3
-    tamanho_camada_4 = tam_cam_dir_4 + tam_cam_esq_4
-    
-    
+'''
     camada_ORG_0 = imagem[320, 340]
     camada_ORG_1 = imagem[340, 340]
     camada_ORG_2 = imagem[360, 340]
@@ -203,8 +187,7 @@ def encontra_bordas(img):
     #print("CMD_0: {0} \tCMD_1: {1} \tCMD_2: {2} \tCMD_3: {3} \tCMD_4: {4}".format(tamanho_camada_0, tamanho_camada_1, tamanho_camada_2, tamanho_camada_3, tamanho_camada_4))
     #print()
 
-    return ref_x_borda_esq_cmd_0, ref_y_borda_esq_cmd_0, ref_x_borda_esq_cmd_1, ref_y_borda_esq_cmd_1, ref_x_borda_esq_cmd_2, ref_y_borda_esq_cmd_2, ref_x_borda_esq_cmd_3, ref_y_borda_esq_cmd_3, ref_x_borda_esq_cmd_4, ref_y_borda_esq_cmd_4, ref_x_borda_dir_cmd_0, ref_y_borda_dir_cmd_0, ref_x_borda_dir_cmd_1, ref_y_borda_dir_cmd_1, ref_x_borda_dir_cmd_2, ref_y_borda_dir_cmd_2, ref_x_borda_dir_cmd_3, ref_y_borda_dir_cmd_3, ref_x_borda_dir_cmd_4, ref_y_borda_dir_cmd_4
-
+    
 '''
 imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
 imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
@@ -233,34 +216,36 @@ try:
     
 
         [
-        ref_x_borda_esq_cmd_0, ref_y_borda_esq_cmd_0,
-        ref_x_borda_esq_cmd_1, ref_y_borda_esq_cmd_1,
-        ref_x_borda_esq_cmd_2, ref_y_borda_esq_cmd_2,
-        ref_x_borda_esq_cmd_3, ref_y_borda_esq_cmd_3,
-        ref_x_borda_esq_cmd_4, ref_y_borda_esq_cmd_4,
+        x_esq_cmd_0, y_esq_cmd_0,
+        x_esq_cmd_1, y_esq_cmd_1,
+        x_esq_cmd_2, y_esq_cmd_2,
+        x_esq_cmd_3, y_esq_cmd_3,
+        x_esq_cmd_4, y_esq_cmd_4,
+        ]  = encontra_borda_esq(imagem_tresh)
         
-        ref_x_borda_dir_cmd_0, ref_y_borda_dir_cmd_0,
-        ref_x_borda_dir_cmd_1, ref_y_borda_dir_cmd_1,
-        ref_x_borda_dir_cmd_2, ref_y_borda_dir_cmd_2,
-        ref_x_borda_dir_cmd_3, ref_y_borda_dir_cmd_3,
-        ref_x_borda_dir_cmd_4, ref_y_borda_dir_cmd_4
-        ] = encontra_bordas(imagem_tresh)
+        [
+        x_dir_cmd_0, y_dir_cmd_0,
+        x_dir_cmd_1, y_dir_cmd_1,
+        x_dir_cmd_2, y_dir_cmd_2,
+        x_dir_cmd_3, y_dir_cmd_3,
+        x_dir_cmd_4, y_dir_cmd_4
+        ] = encontra_borda_dir(imagem_tresh)
         
         
-        cv2.line(imagem, (ref_x_borda_esq_cmd_0, ref_y_borda_esq_cmd_0), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (ref_x_borda_dir_cmd_0, ref_y_borda_dir_cmd_0), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_esq_cmd_0, y_esq_cmd_0), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_dir_cmd_0, y_dir_cmd_0), (340,419), (255,0,0), 2)
 
-        cv2.line(imagem, (ref_x_borda_esq_cmd_1, ref_y_borda_esq_cmd_1), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (ref_x_borda_dir_cmd_1, ref_y_borda_dir_cmd_1), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_esq_cmd_1, y_esq_cmd_1), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_dir_cmd_1, y_dir_cmd_1), (340,419), (255,0,0), 2)
     
-        cv2.line(imagem, (ref_x_borda_esq_cmd_2, ref_y_borda_esq_cmd_2), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (ref_x_borda_dir_cmd_2, ref_y_borda_dir_cmd_2), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_esq_cmd_2, y_esq_cmd_2), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_dir_cmd_2, y_dir_cmd_2), (340,419), (255,0,0), 2)
     
-        cv2.line(imagem, (ref_x_borda_esq_cmd_3, ref_y_borda_esq_cmd_3), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (ref_x_borda_dir_cmd_3, ref_y_borda_dir_cmd_3), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_esq_cmd_3, y_esq_cmd_3), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_dir_cmd_3, y_dir_cmd_3), (340,419), (255,0,0), 2)
     
-        cv2.line(imagem, (ref_x_borda_esq_cmd_4, ref_y_borda_esq_cmd_4), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (ref_x_borda_dir_cmd_4, ref_y_borda_dir_cmd_4), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_esq_cmd_4, y_esq_cmd_4), (340,419), (255,0,0), 2)
+        cv2.line(imagem, (x_dir_cmd_4, y_dir_cmd_4), (340,419), (255,0,0), 2)
         
     
         cv2.imshow("Imagem Pista", imagem)
