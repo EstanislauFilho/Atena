@@ -105,6 +105,8 @@ def encontra_borda_dir(img):
             x_dir_cmd_4 = x
             break
 
+
+    print(cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4)
     return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4, cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4 
 
     
@@ -225,21 +227,28 @@ try:
         cont_dir_cmd_4 
         ] = encontra_borda_dir(imagem_tresh)
         
-        
+        '''
         cv2.line(imagem, (x_esq_cmd_0, y_esq_cmd_0), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (x_dir_cmd_0, y_dir_cmd_0), (340,419), (255,0,0), 2)
-
         cv2.line(imagem, (x_esq_cmd_1, y_esq_cmd_1), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (x_dir_cmd_1, y_dir_cmd_1), (340,419), (255,0,0), 2)
-    
         cv2.line(imagem, (x_esq_cmd_2, y_esq_cmd_2), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (x_dir_cmd_2, y_dir_cmd_2), (340,419), (255,0,0), 2)
-    
         cv2.line(imagem, (x_esq_cmd_3, y_esq_cmd_3), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (x_dir_cmd_3, y_dir_cmd_3), (340,419), (255,0,0), 2)
-    
         cv2.line(imagem, (x_esq_cmd_4, y_esq_cmd_4), (340,419), (255,0,0), 2)
-        cv2.line(imagem, (x_dir_cmd_4, y_dir_cmd_4), (340,419), (255,0,0), 2)
+        '''
+        
+        if cont_dir_cmd_0 > 30 and cont_dir_cmd_0 < 300: 
+            cv2.line(imagem, (x_dir_cmd_0, y_dir_cmd_0), (340,419), (255,0,0), 2)
+        
+        if cont_dir_cmd_1 > 30 and cont_dir_cmd_1 < 300: 
+            cv2.line(imagem, (x_dir_cmd_1, y_dir_cmd_1), (340,419), (255,0,0), 2)
+            
+        if cont_dir_cmd_2 > 30 and cont_dir_cmd_2 < 300: 
+            cv2.line(imagem, (x_dir_cmd_2, y_dir_cmd_2), (340,419), (255,0,0), 2)
+            
+        if cont_dir_cmd_3 > 30 and cont_dir_cmd_3 < 300: 
+            cv2.line(imagem, (x_dir_cmd_3, y_dir_cmd_3), (340,419), (255,0,0), 2) 
+            
+        if cont_dir_cmd_4 > 30 and cont_dir_cmd_4 < 300: 
+            cv2.line(imagem, (x_dir_cmd_4, y_dir_cmd_4), (340,419), (255,0,0), 2)
         
     
         cv2.imshow("Imagem Pista", imagem)
