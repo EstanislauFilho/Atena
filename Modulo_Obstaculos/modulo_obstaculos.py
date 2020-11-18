@@ -187,22 +187,47 @@ def define_pontos(imagem):
     print()
     '''
     
-    cv2.line(imagem, (ref_x_borda_esq_cmd_0,ref_y_borda_esq_cmd_0), (340,419), (255,0,0), 2)
-    cv2.line(imagem, (ref_x_borda_dir_cmd_0,ref_y_borda_dir_cmd_0), (340,419), (255,0,0), 2)
+    #cv2.line(imagem, (ref_x_borda_esq_cmd_0,ref_y_borda_esq_cmd_0), (340,419), (255,0,0), 2)
+    #cv2.line(imagem, (ref_x_borda_dir_cmd_0,ref_y_borda_dir_cmd_0), (340,419), (255,0,0), 2)
 
     
-    cv2.line(imagem, (ref_x_borda_esq_cmd_3,ref_y_borda_esq_cmd_3), (340,419), (255,0,0), 2)
-    cv2.line(imagem, (ref_x_borda_dir_cmd_3,ref_y_borda_dir_cmd_3), (340,419), (255,0,0), 2)
+    #cv2.line(imagem, (ref_x_borda_esq_cmd_3,ref_y_borda_esq_cmd_3), (340,419), (255,0,0), 2)
+    #cv2.line(imagem, (ref_x_borda_dir_cmd_3,ref_y_borda_dir_cmd_3), (340,419), (255,0,0), 2)
 
 
+''''
+imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
+imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
+imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
+
+
+for x in range(341, 679):
+    #camada_0 = imagem[320, x] 
+    imagem_tresh[320, x] = 255
+
+
+
+cv2.imshow("Imagem tresh", imagem_tresh)
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+'''
 
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
+        imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+        imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
+        imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
     
-        define_pontos(imagem)
-        
-        cv2.imshow("Imagem Pista", imagem)
+    
+           
+    
+        #cv2.imshow("Imagem Pista", imagem)
+        #cv2.imshow("Imagem Cinza", imagem_cinza)
+        #cv2.imshow("Imagem Blur", imagem_blur)
+        cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
             
         if cv2.waitKey(1) & 0xFF == 27:
