@@ -26,79 +26,71 @@ tamanho_camada_2 = 0
 tamanho_camada_3 = 0
 tamanho_camada_4 = 0
 
-
+Y_CMD_0 = 320
+Y_CMD_1 = 340
+Y_CMD_2 = 360
+Y_CMD_3 = 380
+Y_CMD_4 = 400 
 
 
 def encontra_borda_dir(img):
     y_dir_cmd_0 = 0 
     x_dir_cmd_0 = 0
-            
-    y_esq_cmd_0 = 0 
-    x_esq_cmd_0 = 0
-    
-    
+      
     y_dir_cmd_1 = 0 
-    x_dir_cmd_1 = 0
-       
+    x_dir_cmd_1 = 0     
      
     y_dir_cmd_2 = 0 
-    x_dir_cmd_2 = 0
-    
+    x_dir_cmd_2 = 0    
     
     y_dir_cmd_3 = 0 
     x_dir_cmd_3 = 0
- 
-    
+     
     y_dir_cmd_4 = 0 
     x_dir_cmd_4 = 0
 
     for x in range(341, 679):
-        canal_borda_dir_0 = img[320, x]
+        canal_borda_dir_0 = img[Y_CMD_0, x]
         if canal_borda_dir_0 <= 254:
-            img[320, x] = 255   
+            img[Y_CMD_0, x] = 255   
         else:
-            enc_borda_dir_cmd_0 = True
-            y_dir_cmd_0 = 320 
+            y_dir_cmd_0 = Y_CMD_0
             x_dir_cmd_0 = x
             break
         
     for x in range(341, 679):
-        canal_borda_dir_1 = img[340, x]
+        canal_borda_dir_1 = img[Y_CMD_1, x]
         if canal_borda_dir_1 <= 254:
-            img[340, x] = 255   
+            img[Y_CMD_1, x] = 255   
         else:
-            enc_borda_dir_cmd_1 = True
-            y_dir_cmd_1 = 340 
+            y_dir_cmd_1 = Y_CMD_1 
             x_dir_cmd_1 = x
             break
  
     for x in range(341, 679):
-        canal_borda_dir_2 = img[360, x]
+        canal_borda_dir_2 = img[Y_CMD_2, x]
         if canal_borda_dir_2 <= 254:
-            img[360, x] = 255   
+            img[Y_CMD_2, x] = 255   
         else:
-            enc_borda_dir_cmd_2 = True
-            y_dir_cmd_2 = 360 
+            y_dir_cmd_2 = Y_CMD_2
             x_dir_cmd_2 = x
             break
         
     for x in range(341, 679):
-        canal_borda_dir_3 = img[380, x]
+        canal_borda_dir_3 = img[Y_CMD_3, x]
         if canal_borda_dir_3 <= 254:
-            img[380, x] = 255   
+            img[Y_CMD_3, x] = 255   
         else:
-            enc_borda_dir_cmd_3 = True
             y_dir_cmd_3 = 380 
             x_dir_cmd_3 = x
             break
         
     for x in range(341, 679):
-        canal_borda_dir_4 = img[400, x]
+        canal_borda_dir_4 = img[Y_CMD_4, x]
         if canal_borda_dir_4 <= 254:
-            img[400, x] = 255   
+            img[Y_CMD_4, x] = 255   
         else:
-            enc_borda_dir_cmd_4 = True
-            y_dir_cmd_4 = 400 
+            y_dir_cmd_4 = Y_CMD_4
             x_dir_cmd_4 = x
             break
 
@@ -107,7 +99,9 @@ def encontra_borda_dir(img):
     
 
 def encontra_borda_esq(img):    
-       
+    y_esq_cmd_0 = 0 
+    x_esq_cmd_0 = 0
+    
     y_esq_cmd_1 = 0 
     x_esq_cmd_1 = 0
             
@@ -116,8 +110,6 @@ def encontra_borda_esq(img):
             
     y_esq_cmd_3 = 0 
     x_esq_cmd_3 = 0   
-
-
             
     y_esq_cmd_4 = 0 
     x_esq_cmd_4 = 0
@@ -125,50 +117,50 @@ def encontra_borda_esq(img):
    
           
     for x in range(339, 1, -1):
-        canal_borda_esq_0 = img[320, x]
+        canal_borda_esq_0 = img[Y_CMD_0, x]
         if canal_borda_esq_0 <= 254:
-            img[320, x] = 255   
+            img[Y_CMD_0, x] = 255   
         else:
-            y_esq_cmd_0 = 320 
+            y_esq_cmd_0 = Y_CMD_0 
             x_esq_cmd_0 = x
             break
         
         
     for x in range(339, 1, -1):
-        canal_borda_esq_1 = img[340, x]
+        canal_borda_esq_1 = img[Y_CMD_1, x]
         if canal_borda_esq_1 <= 254:
-            img[340, x] = 255   
+            img[Y_CMD_1, x] = 255   
         else:
-            y_esq_cmd_1 = 340 
+            y_esq_cmd_1 = Y_CMD_1
             x_esq_cmd_1 = x
             break
  
 
     for x in range(339, 1, -1):
-        canal_borda_esq_2 = img[360, x]
+        canal_borda_esq_2 = img[Y_CMD_2, x]
         if canal_borda_esq_2 <= 254:
-            img[360, x] = 255   
+            img[Y_CMD_2, x] = 255   
         else:
-            y_esq_cmd_2 = 360 
+            y_esq_cmd_2 = Y_CMD_2
             x_esq_cmd_2 = x
             break       
   
 
     for x in range(339, 1, -1):
-        canal_borda_esq_3 = img[380, x]
+        canal_borda_esq_3 = img[Y_CMD_3, x]
         if canal_borda_esq_3 <= 254:
-            img[380, x] = 255   
+            img[Y_CMD_3, x] = 255   
         else:
-            y_esq_cmd_3 = 380 
+            y_esq_cmd_3 = Y_CMD_3
             x_esq_cmd_3 = x
             break 
         
     for x in range(339, 1, -1):
-        canal_borda_esq_4 = img[400, x]
+        canal_borda_esq_4 = img[Y_CMD_4, x]
         if canal_borda_esq_4 <= 254:
-            img[400, x] = 255   
+            img[Y_CMD_4, x] = 255   
         else:
-            y_esq_cmd_4 = 400 
+            y_esq_cmd_4 = Y_CMD_4
             x_esq_cmd_4 = x
             break 
 
