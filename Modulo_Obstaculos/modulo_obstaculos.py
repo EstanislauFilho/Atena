@@ -27,6 +27,84 @@ tamanho_camada_3 = 0
 tamanho_camada_4 = 0
 
 
+
+def encontra_bordas(img):
+    
+    ############ Direita ############
+    for x in range(341, 679):
+        canal_borda_dir_0 = img[320, x]
+        if canal_borda_dir_0 <= 254:
+            img[320, x] = 255   
+        else:
+            break
+        
+    for x in range(341, 679):
+        canal_borda_dir_1 = img[340, x]
+        if canal_borda_dir_1 <= 254:
+            img[340, x] = 255   
+        else:
+            break
+ 
+    for x in range(341, 679):
+        canal_borda_dir_2 = img[360, x]
+        if canal_borda_dir_2 <= 254:
+            img[360, x] = 255   
+        else:
+            break
+        
+    for x in range(341, 679):
+        canal_borda_dir_3 = img[380, x]
+        if canal_borda_dir_3 <= 254:
+            img[380, x] = 255   
+        else:
+            break
+        
+    for x in range(341, 679):
+        canal_borda_dir_4 = img[400, x]
+        if canal_borda_dir_4 <= 254:
+            img[400, x] = 255   
+        else:
+            break
+        
+    ############ Esquerda ################   
+    for x in range(339, 1, -1):
+        canal_borda_esq_0 = img[320, x]
+        if canal_borda_esq_0 <= 254:
+            img[320, x] = 255   
+        else:
+            break
+        
+        
+    for x in range(339, 1, -1):
+        canal_borda_esq_1 = img[340, x]
+        if canal_borda_esq_1 <= 254:
+            img[340, x] = 255   
+        else:
+            break
+ 
+
+    for x in range(339, 1, -1):
+        canal_borda_esq_2 = img[360, x]
+        if canal_borda_esq_2 <= 254:
+            img[360, x] = 255   
+        else:
+            break       
+  
+
+    for x in range(339, 1, -1):
+        canal_borda_esq_3 = img[380, x]
+        if canal_borda_esq_3 <= 254:
+            img[380, x] = 255   
+        else:
+            break 
+        
+    for x in range(339, 1, -1):
+        canal_borda_esq_4 = img[400, x]
+        if canal_borda_esq_4 <= 254:
+            img[400, x] = 255   
+        else:
+            break 
+
 def define_pontos(imagem):
     tam_cam_esq_0 = 0
     tam_cam_esq_1 = 0
@@ -222,7 +300,7 @@ try:
         imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
     
     
-           
+        encontra_bordas(imagem_tresh)
     
         #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
