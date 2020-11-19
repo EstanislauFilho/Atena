@@ -106,7 +106,7 @@ def encontra_borda_dir(img):
             break
 
 
-    print(cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4)
+    #print(cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4)
     return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4, cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4 
 
     
@@ -186,14 +186,16 @@ def encontra_borda_esq(img):
             x_esq_cmd_4 = x
             break 
         
-    print(cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4)
+    #print(cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4)
     return x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4, cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4 
 
 
 
 def detecta_obstaculos(img, x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4, x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4, cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4, cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4):
-    for x in range(x_dir_cmd_0, (x_dir_cmd_0-cont_dir_cmd_0), -1):
+    for x in range(x_dir_cmd_0, x_esq_cmd_0, -1):
+        print(img[Y_CMD_0, x])
         img[Y_CMD_0, x] = 255
+    
     
     
 
