@@ -199,7 +199,6 @@ def detecta_obstaculos(img, x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, 
     
     
 
-
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -207,7 +206,7 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
     
-    
+        '''
         st_esq_cmd_0 = False
         st_esq_cmd_1 = False
         st_esq_cmd_2 = False
@@ -345,7 +344,7 @@ try:
         
         if (st_dir_cmd_0 is False and st_dir_cmd_1 is True and st_dir_cmd_2 is True and st_dir_cmd_3 is True and st_dir_cmd_4 is True):
            pass
-
+       '''
             
             
             
@@ -367,20 +366,41 @@ except KeyboardInterrupt:
 finally:
     cv2.destroyAllWindows()
 
-  
+
     
     
 '''
 imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
 imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
+imagem_tresh = cv2.inRange(imagem_blur, 200, 255) 
 
 
-for x in range(341, 679):
-    #camada_0 = imagem[320, x] 
-    imagem_tresh[320, x] = 255
+for x in range(679, 339, -1):
+    canalCoresBordaDir0 = imagem_tresh[410, x]  
+    if canalCoresBordaDir0 < 240:
+        imagem_tresh[410, x] = 255
+    else:
+        for x in range(x, 339, -1):
+            canalCoresBordaDir0 = imagem_tresh[410, x]  
+            if canalCoresBordaDir0 > 240:
+                imagem_tresh[410, x] = 0
+            else:
+                break
+        break
 
+for x in range(1, 339):
+    canalCoresBordaEsq0 = imagem_tresh[410, x]  
+    if canalCoresBordaEsq0 < 240:
+        imagem_tresh[410, x] = 255
+    else:
+        for x in range(x, 339):
+            canalCoresBordaEsq0 = imagem_tresh[410, x]  
+            if canalCoresBordaEsq0 > 240:
+                imagem_tresh[410, x] = 0
+            else:
+                break
+        break       
 
 
 cv2.imshow("Imagem tresh", imagem_tresh)
