@@ -19,212 +19,92 @@ imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg"
 
 
 
-
-tamanho_camada_0 = 0
-tamanho_camada_1 = 0
-tamanho_camada_2 = 0
-tamanho_camada_3 = 0
-tamanho_camada_4 = 0
-
-Y_CMD_0 = 320
-Y_CMD_1 = 340
-Y_CMD_2 = 360
-Y_CMD_3 = 380
-Y_CMD_4 = 400 
+Y0 = 410 
+Y1 = 390
+Y2 = 370
+Y3 = 350
+Y4 = 330
+Y5 = 310
+Y6 = 290
+Y7 = 270
+Y8 = 250
+Y9 = 230
 
 
-def encontra_borda_dir(img):
-    y_dir_cmd_0 = 0 
-    x_dir_cmd_0 = 0
-      
-    y_dir_cmd_1 = 0 
-    x_dir_cmd_1 = 0     
-     
-    y_dir_cmd_2 = 0 
-    x_dir_cmd_2 = 0    
-    
-    y_dir_cmd_3 = 0 
-    x_dir_cmd_3 = 0
-     
-    y_dir_cmd_4 = 0 
-    x_dir_cmd_4 = 0
-    
-    cont_dir_cmd_0 = 0
-    cont_dir_cmd_1 = 0
-    cont_dir_cmd_2 = 0
-    cont_dir_cmd_3 = 0
-    cont_dir_cmd_4 = 0
 
-    for x in range(341, 679):
-        canal_borda_dir_0 = img[Y_CMD_0, x]
-        if canal_borda_dir_0 <= 254:
-            img[Y_CMD_0, x] = 255
-            cont_dir_cmd_0 += 1
+def detectaBordaDirCMD1(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y1
+    for x in range(679, 339, -1):
+        canalCoresBordaDir1 = img[Y1, x]  
+        if canalCoresBordaDir1 < 240:
+            img[Y1, x] = 255
         else:
-            y_dir_cmd_0 = Y_CMD_0
-            x_dir_cmd_0 = x
+            for x in range(x, 339, -1):
+                canalCoresBordaDir1 = img[Y1, x]  
+                if canalCoresBordaDir1 > 240:
+                    img[Y1, x] = 0
+                else:
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y1
+                    break
             break
-        
-    for x in range(341, 679):
-        canal_borda_dir_1 = img[Y_CMD_1, x]
-        if canal_borda_dir_1 <= 254:
-            img[Y_CMD_1, x] = 255
-            cont_dir_cmd_1 += 1
-        else:
-            y_dir_cmd_1 = Y_CMD_1 
-            x_dir_cmd_1 = x
-            break
- 
-    for x in range(341, 679):
-        canal_borda_dir_2 = img[Y_CMD_2, x]
-        if canal_borda_dir_2 <= 254:
-            img[Y_CMD_2, x] = 255
-            cont_dir_cmd_2 += 1
-        else:
-            y_dir_cmd_2 = Y_CMD_2
-            x_dir_cmd_2 = x
-            break
-        
-    for x in range(341, 679):
-        canal_borda_dir_3 = img[Y_CMD_3, x]
-        if canal_borda_dir_3 <= 254:
-            img[Y_CMD_3, x] = 255 
-            cont_dir_cmd_3 += 1
-        else:
-            y_dir_cmd_3 = 380 
-            x_dir_cmd_3 = x
-            break
-        
-    for x in range(341, 679):
-        canal_borda_dir_4 = img[Y_CMD_4, x]
-        if canal_borda_dir_4 <= 254:
-            img[Y_CMD_4, x] = 255
-            cont_dir_cmd_4 += 1
-        else:
-            y_dir_cmd_4 = Y_CMD_4
-            x_dir_cmd_4 = x
-            break
+    return x_Dir_CMD, y_Dir_CMD
 
 
-    #print(cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4)
-    return x_dir_cmd_0, y_dir_cmd_0, x_dir_cmd_1, y_dir_cmd_1, x_dir_cmd_2, y_dir_cmd_2, x_dir_cmd_3, y_dir_cmd_3, x_dir_cmd_4, y_dir_cmd_4, cont_dir_cmd_0, cont_dir_cmd_1, cont_dir_cmd_2, cont_dir_cmd_3, cont_dir_cmd_4 
-
-    
-
-def encontra_borda_esq(img):    
-    y_esq_cmd_0 = 0 
-    x_esq_cmd_0 = 0
-    
-    y_esq_cmd_1 = 0 
-    x_esq_cmd_1 = 0
-            
-    y_esq_cmd_2 = 0 
-    x_esq_cmd_2 = 0
-            
-    y_esq_cmd_3 = 0 
-    x_esq_cmd_3 = 0   
-            
-    y_esq_cmd_4 = 0 
-    x_esq_cmd_4 = 0
-
-    cont_esq_cmd_0 = 0
-    cont_esq_cmd_1 = 0
-    cont_esq_cmd_2 = 0
-    cont_esq_cmd_3 = 0
-    cont_esq_cmd_4 = 0
-          
-    for x in range(339, 1, -1):
-        canal_borda_esq_0 = img[Y_CMD_0, x]
-        if canal_borda_esq_0 <= 254:
-            img[Y_CMD_0, x] = 255 
-            cont_esq_cmd_0 += 1
+def detectaBordaEsqCMD1(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y1
+    for x in range(1, 339):
+        canalCoresBordaEsq1 = img[Y1, x]  
+        if canalCoresBordaEsq1 < 240:
+            img[Y1, x]  = 255
         else:
-            y_esq_cmd_0 = Y_CMD_0 
-            x_esq_cmd_0 = x
-            break
-        
-        
-    for x in range(339, 1, -1):
-        canal_borda_esq_1 = img[Y_CMD_1, x]
-        if canal_borda_esq_1 <= 254:
-            img[Y_CMD_1, x] = 255 
-            cont_esq_cmd_1 += 1
-        else:
-            y_esq_cmd_1 = Y_CMD_1
-            x_esq_cmd_1 = x
-            break
- 
-
-    for x in range(339, 1, -1):
-        canal_borda_esq_2 = img[Y_CMD_2, x]
-        if canal_borda_esq_2 <= 254:
-            img[Y_CMD_2, x] = 255   
-            cont_esq_cmd_2 += 1
-        else:
-            y_esq_cmd_2 = Y_CMD_2
-            x_esq_cmd_2 = x
-            break       
-  
-
-    for x in range(339, 1, -1):
-        canal_borda_esq_3 = img[Y_CMD_3, x]
-        if canal_borda_esq_3 <= 254:
-            img[Y_CMD_3, x] = 255
-            cont_esq_cmd_3 += 1
-        else:
-            y_esq_cmd_3 = Y_CMD_3
-            x_esq_cmd_3 = x
-            break 
-        
-    for x in range(339, 1, -1):
-        canal_borda_esq_4 = img[Y_CMD_4, x]
-        if canal_borda_esq_4 <= 254:
-            img[Y_CMD_4, x] = 255
-            cont_esq_cmd_4 += 1
-        else:
-            y_esq_cmd_4 = Y_CMD_4
-            x_esq_cmd_4 = x
-            break 
-        
-    #print(cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4)
-    return x_esq_cmd_0, y_esq_cmd_0, x_esq_cmd_1, y_esq_cmd_1, x_esq_cmd_2, y_esq_cmd_2, x_esq_cmd_3, y_esq_cmd_3, x_esq_cmd_4, y_esq_cmd_4, cont_esq_cmd_0, cont_esq_cmd_1, cont_esq_cmd_2, cont_esq_cmd_3, cont_esq_cmd_4 
-
-
+            for x in range(x, 339):
+                canalCoresBordaEsq1 = img[Y1, x]  
+                if canalCoresBordaEsq1 > 240:
+                    img[Y1, x]  = 0
+                else:
+                    x_Esq_CMD = x
+                    y_Esq_CMD = Y1
+                    break
+            break  
+    return x_Esq_CMD, y_Esq_CMD
 
 
     
     
 def detectaBordaDirCMD0(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y0
     for x in range(679, 339, -1):
-        canalCoresBordaDir0 = img[410, x]  
+        canalCoresBordaDir0 = img[Y0, x]  
         if canalCoresBordaDir0 < 240:
-            img[410, x] = 255
+            img[Y0, x] = 255
         else:
             for x in range(x, 339, -1):
-                canalCoresBordaDir0 = img[410, x]  
+                canalCoresBordaDir0 = img[Y0, x]  
                 if canalCoresBordaDir0 > 240:
-                    img[410, x] = 0
+                    img[Y0, x] = 0
                 else:
-                    x_Dir_CMD = 410 
-                    y_Dir_CMD = x
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y0
                     break
             break
     return x_Dir_CMD, y_Dir_CMD
 
 
 def detectaBordaEsqCMD0(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y0
     for x in range(1, 339):
-        canalCoresBordaEsq0 = img[410, x]  
+        canalCoresBordaEsq0 = img[Y0, x]  
         if canalCoresBordaEsq0 < 240:
-            img[410, x]  = 255
+            img[Y0, x]  = 255
         else:
             for x in range(x, 339):
-                canalCoresBordaEsq0 = img[410, x]  
+                canalCoresBordaEsq0 = img[Y0, x]  
                 if canalCoresBordaEsq0 > 240:
-                    img[410, x]  = 0
+                    img[Y0, x]  = 0
                 else:
-                    x_Esq_CMD = 410 
-                    y_Esq_CMD = x
+                    x_Esq_CMD = x 
+                    y_Esq_CMD = Y0
                     break
             break  
     return x_Esq_CMD, y_Esq_CMD
@@ -242,6 +122,9 @@ try:
                 
         detectaBordaEsqCMD0(imagem_tresh)
         detectaBordaDirCMD0(imagem_tresh)
+        
+        detectaBordaEsqCMD1(imagem_tresh)
+        detectaBordaDirCMD1(imagem_tresh)
     
         cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
