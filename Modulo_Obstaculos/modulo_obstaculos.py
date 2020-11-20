@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 13
+numero_pasta = 0
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -30,6 +30,171 @@ Y7 = 270
 Y8 = 250
 Y9 = 230
 
+
+x_dir0, y_dir0 = 0, 0
+x_dir1, y_dir1 = 0, 0
+x_dir2, y_dir2 = 0, 0
+x_dir3, y_dir3 = 0, 0
+x_dir4, y_dir4 = 0, 0
+x_dir5, y_dir5 = 0, 0
+
+x_esq0, y_esq0 = 0, 0
+x_esq1, y_esq1 = 0, 0
+x_esq2, y_esq2 = 0, 0
+x_esq3, y_esq3 = 0, 0
+x_esq4, y_esq4 = 0, 0
+x_esq5, y_esq5 = 0, 0
+
+
+def detectaBordaDirCMD5(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y5
+    for x in range(679, 339, -1):
+        canalCoresBordaDir5 = img[Y5, x]  
+        if canalCoresBordaDir5 < 240:
+            img[Y5, x] = 255
+        else:
+            for x in range(x, 339, -1):
+                canalCoresBordaDir5 = img[Y5, x]  
+                if canalCoresBordaDir5 > 240:
+                    img[Y5, x] = 0
+                else:
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y5
+                    break
+            break
+    return x_Dir_CMD, y_Dir_CMD
+
+
+def detectaBordaEsqCMD5(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y5
+    for x in range(1, 339):
+        canalCoresBordaEsq5 = img[Y5, x]  
+        if canalCoresBordaEsq5 < 240:
+            img[Y5, x]  = 255
+        else:
+            for x in range(x, 339):
+                canalCoresBordaEsq5 = img[Y5, x]  
+                if canalCoresBordaEsq5 > 240:
+                    img[Y5, x]  = 0
+                else:
+                    x_Esq_CMD = x
+                    y_Esq_CMD = Y5
+                    break
+            break  
+    return x_Esq_CMD, y_Esq_CMD
+
+def detectaBordaDirCMD4(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y4
+    for x in range(679, 339, -1):
+        canalCoresBordaDir4 = img[Y4, x]  
+        if canalCoresBordaDir4 < 240:
+            img[Y4, x] = 255
+        else:
+            for x in range(x, 339, -1):
+                canalCoresBordaDir4 = img[Y4, x]  
+                if canalCoresBordaDir4 > 240:
+                    img[Y4, x] = 0
+                else:
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y4
+                    break
+            break
+    return x_Dir_CMD, y_Dir_CMD
+
+
+def detectaBordaEsqCMD4(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y4
+    for x in range(1, 339):
+        canalCoresBordaEsq4 = img[Y4, x]  
+        if canalCoresBordaEsq4 < 240:
+            img[Y4, x]  = 255
+        else:
+            for x in range(x, 339):
+                canalCoresBordaEsq4 = img[Y4, x]  
+                if canalCoresBordaEsq4 > 240:
+                    img[Y4, x]  = 0
+                else:
+                    x_Esq_CMD = x
+                    y_Esq_CMD = Y4
+                    break
+            break  
+    return x_Esq_CMD, y_Esq_CMD
+
+
+def detectaBordaDirCMD3(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y3
+    for x in range(679, 339, -1):
+        canalCoresBordaDir3 = img[Y3, x]  
+        if canalCoresBordaDir3 < 240:
+            img[Y3, x] = 255
+        else:
+            for x in range(x, 339, -1):
+                canalCoresBordaDir3 = img[Y3, x]  
+                if canalCoresBordaDir3 > 240:
+                    img[Y3, x] = 0
+                else:
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y3
+                    break
+            break
+    return x_Dir_CMD, y_Dir_CMD
+
+
+def detectaBordaEsqCMD3(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y3
+    for x in range(1, 339):
+        canalCoresBordaEsq3 = img[Y3, x]  
+        if canalCoresBordaEsq3 < 240:
+            img[Y3, x]  = 255
+        else:
+            for x in range(x, 339):
+                canalCoresBordaEsq3 = img[Y3, x]  
+                if canalCoresBordaEsq3 > 240:
+                    img[Y3, x]  = 0
+                else:
+                    x_Esq_CMD = x
+                    y_Esq_CMD = Y3
+                    break
+            break  
+    return x_Esq_CMD, y_Esq_CMD
+
+
+def detectaBordaDirCMD2(img):
+    x_Dir_CMD, y_Dir_CMD = 0, Y2
+    for x in range(679, 339, -1):
+        canalCoresBordaDir2 = img[Y2, x]  
+        if canalCoresBordaDir2 < 240:
+            img[Y2, x] = 255
+        else:
+            for x in range(x, 339, -1):
+                canalCoresBordaDir2 = img[Y2, x]  
+                if canalCoresBordaDir2 > 240:
+                    img[Y2, x] = 0
+                else:
+                    x_Dir_CMD = x 
+                    y_Dir_CMD = Y2
+                    break
+            break
+    return x_Dir_CMD, y_Dir_CMD
+
+
+def detectaBordaEsqCMD2(img):
+    x_Esq_CMD, y_Esq_CMD = 0, Y2
+    for x in range(1, 339):
+        canalCoresBordaEsq2 = img[Y2, x]  
+        if canalCoresBordaEsq2 < 240:
+            img[Y2, x]  = 255
+        else:
+            for x in range(x, 339):
+                canalCoresBordaEsq2 = img[Y2, x]  
+                if canalCoresBordaEsq2 > 240:
+                    img[Y2, x]  = 0
+                else:
+                    x_Esq_CMD = x
+                    y_Esq_CMD = Y2
+                    break
+            break  
+    return x_Esq_CMD, y_Esq_CMD
 
 
 def detectaBordaDirCMD1(img):
@@ -69,9 +234,7 @@ def detectaBordaEsqCMD1(img):
             break  
     return x_Esq_CMD, y_Esq_CMD
 
-
-    
-    
+   
 def detectaBordaDirCMD0(img):
     x_Dir_CMD, y_Dir_CMD = 0, Y0
     for x in range(679, 339, -1):
@@ -120,13 +283,25 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
                 
-        detectaBordaEsqCMD0(imagem_tresh)
+        x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         detectaBordaDirCMD0(imagem_tresh)
         
-        detectaBordaEsqCMD1(imagem_tresh)
+        x_esq0, y_esq0 = detectaBordaEsqCMD1(imagem_tresh)
         detectaBordaDirCMD1(imagem_tresh)
     
-        cv2.imshow("Imagem Pista", imagem)
+        x_esq0, y_esq0 = detectaBordaEsqCMD2(imagem_tresh)
+        detectaBordaDirCMD2(imagem_tresh)
+        
+        x_esq0, y_esq0 = detectaBordaEsqCMD3(imagem_tresh)
+        detectaBordaDirCMD3(imagem_tresh)
+        
+        x_esq0, y_esq0 = detectaBordaEsqCMD4(imagem_tresh)
+        detectaBordaDirCMD4(imagem_tresh)
+        
+        x_esq0, y_esq0 = detectaBordaEsqCMD5(imagem_tresh)
+        detectaBordaDirCMD5(imagem_tresh)
+    
+        #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
