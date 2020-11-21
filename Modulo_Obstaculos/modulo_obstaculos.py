@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 0
+numero_pasta = 13
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -19,7 +19,7 @@ imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg"
 
 
 
-Y0 = 350 
+Y0 = 410
 Y1 = 390
 Y2 = 370
 Y3 = 350
@@ -130,16 +130,52 @@ def detectaBordaDirCMD0(img):
 
 
 def deteccaoObstaculosCamada0(img, x_esq0, y_esq0, x_dir0, y_dir0):
-   
+    #print(x_esq0, y_esq0, x_dir0, y_dir0)
+    cont_esq = 0
+    cont_dir = 0
+    
+    auxEsq1 = 1000
+    auxEsq2 = 0
+    
+    auxDir1 = 1000
+    auxDir2 = 0
+
     for x in range(x_esq0, 339):
-        canalCoresBordaEsq0 = img[Y0, x] 
-        print(canalCoresBordaEsq0)
+        canalCoresBordaEsq0 = img[Y0, x]   
+        
+        if canalCoresBordaEsq0 >= auxEsq2:
+            auxEsq2 = canalCoresBordaEsq0
+            
+        if canalCoresBordaEsq0 < auxEsq1:
+            auxEsq1 = canalCoresBordaEsq0
+            
+        if auxEsq2 > (auxEsq1*1.20):
+            pass
+        
+        #print(auxEsq1, auxEsq2, canalCoresBordaEsq0)
         
         img[Y0, x] = 255
+        cont_esq += 1
 
-    for x in range(x_dir0, 341, -1):
-        #canalCoresBordaDir0 = img[Y0, x]
-        img[Y0, x] = 255
+    
+    if x_dir0 < 679:
+        for x in range(x_dir0, 341, -1):
+            canalCoresBordaDir0 = img[Y0, x]
+            
+            if canalCoresBordaDir0 >= auxDir2:
+                auxDir2 = canalCoresBordaDir0
+                
+            if canalCoresBordaDir0 < auxDir1:
+                auxDir1 = canalCoresBordaDir0
+                
+            if auxDir2 > (auxDir1*1.20):
+                pass
+            
+            #print(auxDir1, auxDir2, canalCoresBordaDir0)
+            
+            img[Y0, x] = 255
+            cont_dir += 1
+   
         
     print()   
         
@@ -196,10 +232,6 @@ imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg"
 imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
 imagem_tresh = cv2.inRange(imagem_blur, 200, 255) 
-
-
-     
-
 
 cv2.imshow("Imagem tresh", imagem_tresh)
 cv2.waitKey(0)
