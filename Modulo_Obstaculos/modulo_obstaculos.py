@@ -238,23 +238,7 @@ def detectaBordaEsqCMD1(img):
 
 
    
-def detectaBordaDirCMD0(img):
-    x_Dir_CMD, y_Dir_CMD = 0, Y0
-    for x in range(679, 339, -1):
-        canalCoresBordaDir0 = img[Y0, x]  
-        if canalCoresBordaDir0 < 240:
-            img[Y0, x] = 255
-        else:
-            for x in range(x, 339, -1):
-                canalCoresBordaDir0 = img[Y0, x]  
-                if canalCoresBordaDir0 > 240:
-                    img[Y0, x] = 0
-                else:
-                    x_Dir_CMD = x 
-                    y_Dir_CMD = Y0
-                    break
-            break
-    return x_Dir_CMD, y_Dir_CMD
+
 
 
 def detectaBordaEsqCMD0(img):
@@ -284,20 +268,61 @@ def detectaBordaEsqCMD0(img):
                     break
             break
     if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
-        print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
-        print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = xp, yp
     else:
-        print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = 0, Y0
     
     #print(cont_p, cont_b)
-    print(x_Esq, y_Esq)
-    print()
+    #print(x_Esq, y_Esq)
+    #print()
     return x_Esq, y_Esq
 
+
+def detectaBordaDirCMD0(img):
+    xp, yp = 679, Y0
+    xb, yb = 679, Y0
+    x_Dir, y_Dir = 0, Y0
+    
+    cont_p = 0
+    cont_b = 0
+    
+    for x in range(679, 341, -1):
+        canalCoresBordaDir0 = img[Y0, x]  
+        if canalCoresBordaDir0 < 240:
+            img[Y0, x]  = 255
+            cont_p += 1
+        else:
+            xp = x 
+            yp = Y0
+            for x in range(x, 341, -1):
+                canalCoresBordaDir0 = img[Y0, x]  
+                if canalCoresBordaDir0 > 240:
+                    img[Y0, x] = 0
+                    cont_b += 1
+                else:
+                    xb = x 
+                    yb = Y0
+                    break
+            break
+    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+        print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Dir, y_Dir = xb, yb
+    elif(cont_b > 40) and (cont_p <= 336):
+        print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Dir, y_Dir = xp, yp
+    else:
+        print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Dir, y_Dir = 0, Y0
+    
+    #print(cont_p, cont_b)
+    print(x_Dir, y_Dir)
+    print()
+    return x_Dir, y_Dir
 
 def detecta_obstaculos():
     pass
@@ -309,7 +334,7 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
                 
-        x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
+        #x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         
         '''
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
