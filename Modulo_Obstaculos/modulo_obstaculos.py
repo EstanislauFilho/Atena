@@ -83,6 +83,7 @@ def detectaBordaEsqCMD5(img):
             break  
     return x_Esq_CMD, y_Esq_CMD
 
+
 def detectaBordaDirCMD4(img):
     x_Dir_CMD, y_Dir_CMD = 0, Y4
     for x in range(679, 339, -1):
@@ -234,6 +235,8 @@ def detectaBordaEsqCMD1(img):
             break  
     return x_Esq_CMD, y_Esq_CMD
 
+
+
    
 def detectaBordaDirCMD0(img):
     x_Dir_CMD, y_Dir_CMD = 0, Y0
@@ -255,22 +258,45 @@ def detectaBordaDirCMD0(img):
 
 
 def detectaBordaEsqCMD0(img):
-    x_Esq_CMD, y_Esq_CMD = 0, Y0
+    xp, yp = 0, Y0
+    xb, yb = 0, Y0
+    x_Esq, y_Esq = 0, Y0
+    
+    cont_p = 0
+    cont_b = 0
+    
     for x in range(1, 339):
         canalCoresBordaEsq0 = img[Y0, x]  
         if canalCoresBordaEsq0 < 240:
             img[Y0, x]  = 255
+            cont_p += 1
         else:
+            xp = x 
+            yp = Y0
             for x in range(x, 339):
                 canalCoresBordaEsq0 = img[Y0, x]  
                 if canalCoresBordaEsq0 > 240:
-                    img[Y0, x]  = 0
+                    img[Y0, x] = 0
+                    cont_b += 1
                 else:
-                    x_Esq_CMD = x 
-                    y_Esq_CMD = Y0
+                    xb = x 
+                    yb = Y0
                     break
-            break  
-    return x_Esq_CMD, y_Esq_CMD
+            break
+    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+        print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Esq, y_Esq = xb, yb
+    elif(cont_b > 40) and (cont_p <= 336):
+        print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Esq, y_Esq = xp, yp
+    else:
+        print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Esq, y_Esq = 0, Y0
+    
+    #print(cont_p, cont_b)
+    print(x_Esq, y_Esq)
+    print()
+    return x_Esq, y_Esq
 
 
 def detecta_obstaculos():
@@ -284,23 +310,26 @@ try:
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
                 
         x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
-        detectaBordaDirCMD0(imagem_tresh)
         
-        x_esq0, y_esq0 = detectaBordaEsqCMD1(imagem_tresh)
-        detectaBordaDirCMD1(imagem_tresh)
-    
-        x_esq0, y_esq0 = detectaBordaEsqCMD2(imagem_tresh)
-        detectaBordaDirCMD2(imagem_tresh)
+        '''
+        x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
+        x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
+        x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
+        x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
+        x_esq5, y_esq5 = detectaBordaEsqCMD5(imagem_tresh)
+        '''
         
-        x_esq0, y_esq0 = detectaBordaEsqCMD3(imagem_tresh)
-        detectaBordaDirCMD3(imagem_tresh)
+        x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
+        '''
+        x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
+        x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
+        x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
+        x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
+        x_dir5, y_dir5 = detectaBordaDirCMD5(imagem_tresh)
+        '''
         
-        x_esq0, y_esq0 = detectaBordaEsqCMD4(imagem_tresh)
-        detectaBordaDirCMD4(imagem_tresh)
         
-        x_esq0, y_esq0 = detectaBordaEsqCMD5(imagem_tresh)
-        detectaBordaDirCMD5(imagem_tresh)
-    
+        
         #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
