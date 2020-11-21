@@ -19,7 +19,7 @@ imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg"
 
 
 
-Y0 = 410 
+Y0 = 350 
 Y1 = 390
 Y2 = 370
 Y3 = 350
@@ -50,9 +50,7 @@ x_esq5, y_esq5 = 0, 0
 
 
 def detectaBordaEsqCMD0(img):
-    xp, yp = 0, Y0
-    xb, yb = 0, Y0
-    x_Esq, y_Esq = 0, Y0
+    xp, yp = xb, yb = x_Esq, y_Esq = 0, Y0 
     
     cont_p = 0
     cont_b = 0
@@ -83,7 +81,7 @@ def detectaBordaEsqCMD0(img):
         x_Esq, y_Esq = xp, yp
     else:
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        x_Esq, y_Esq = 0, Y0
+        pass
     
     #print(cont_p, cont_b)
     #print(x_Esq, y_Esq)
@@ -92,10 +90,8 @@ def detectaBordaEsqCMD0(img):
 
 
 def detectaBordaDirCMD0(img):
-    xp, yp = 679, Y0
-    xb, yb = 679, Y0
-    x_Dir, y_Dir = 0, Y0
-    
+    xp, yp = xb, yb = x_Dir, y_Dir = 679, Y0
+      
     cont_p = 0
     cont_b = 0
     
@@ -125,7 +121,7 @@ def detectaBordaDirCMD0(img):
         x_Dir, y_Dir = xp, yp
     else:
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        x_Dir, y_Dir = 0, Y0
+        pass
     
     #print(cont_p, cont_b)
     #print(x_Dir, y_Dir)
@@ -136,14 +132,16 @@ def detectaBordaDirCMD0(img):
 def deteccaoObstaculosCamada0(img, x_esq0, y_esq0, x_dir0, y_dir0):
    
     for x in range(x_esq0, 339):
-        #canalCoresBordaEsq0 = img[Y0, x]  
+        canalCoresBordaEsq0 = img[Y0, x] 
+        print(canalCoresBordaEsq0)
+        
         img[Y0, x] = 255
 
     for x in range(x_dir0, 341, -1):
         #canalCoresBordaDir0 = img[Y0, x]
         img[Y0, x] = 255
         
-        
+    print()   
         
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
@@ -177,7 +175,7 @@ try:
         #cv2.imshow("Imagem Pista", imagem)
         cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
-        #cv2.imshow("Imagem tresh", imagem_tresh)
+        cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
             
         if cv2.waitKey(1) & 0xFF == 27:
