@@ -439,9 +439,56 @@ def detectaBordaDirCMD0(img):
     return x_Dir, y_Dir
 
 
-def deteccaoObstaculosCamada1(img, x_esq0, y_esq0, x_dir0, y_dir0):
-    pass
 
+
+def deteccaoObstaculosCamada1(img, x_esq1, y_esq1, x_dir1, y_dir1):
+    #print(x_esq0, y_esq0, x_dir0, y_dir0)
+    cont_esq = 0
+    cont_dir = 0
+    
+    auxEsq1 = 1000
+    auxEsq2 = 0
+    
+    auxDir1 = 1000
+    auxDir2 = 0
+
+    for x in range(x_esq0, 339):
+        canalCoresBordaEsq1 = img[Y1, x]   
+        
+        if canalCoresBordaEsq1 >= auxEsq2:
+            auxEsq2 = canalCoresBordaEsq1
+            
+        if canalCoresBordaEsq1 < auxEsq1:
+            auxEsq1 = canalCoresBordaEsq1
+            
+        if auxEsq2 > (auxEsq1*1.20):
+            pass
+        
+        #print(auxEsq1, auxEsq2, canalCoresBordaEsq0)
+        
+        img[Y1, x] = 255
+        cont_esq += 1
+
+    
+    if x_dir1 < 679:
+        for x in range(x_dir1, 341, -1):
+            canalCoresBordaDir1 = img[Y1, x]
+            
+            if canalCoresBordaDir1 >= auxDir2:
+                auxDir2 = canalCoresBordaDir1
+                
+            if canalCoresBordaDir1 < auxDir1:
+                auxDir1 = canalCoresBordaDir1
+                
+            if auxDir2 > (auxDir1*1.20):
+                pass
+            
+            #print(auxDir1, auxDir2, canalCoresBordaDir0)
+            
+            img[Y1, x] = 255
+            cont_dir += 1
+   
+        
 def deteccaoObstaculosCamada0(img, x_esq0, y_esq0, x_dir0, y_dir0):
     #print(x_esq0, y_esq0, x_dir0, y_dir0)
     cont_esq = 0
@@ -490,7 +537,7 @@ def deteccaoObstaculosCamada0(img, x_esq0, y_esq0, x_dir0, y_dir0):
             cont_dir += 1
    
         
-    print()   
+     
         
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
@@ -515,11 +562,11 @@ try:
         #x_dir5, y_dir5 = detectaBordaDirCMD5(imagem_tresh)
        
         
-        #deteccaoObstaculosCamada0(imagem_cinza, x_esq0, y_esq0, x_dir0, y_dir0)
-        
+        deteccaoObstaculosCamada0(imagem_cinza, x_esq0, y_esq0, x_dir0, y_dir0)
+        deteccaoObstaculosCamada1(imagem_cinza, x_esq1, y_esq1, x_dir1, y_dir1)
         
         #cv2.imshow("Imagem Pista", imagem)
-        #cv2.imshow("Imagem Cinza", imagem_cinza)
+        cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
