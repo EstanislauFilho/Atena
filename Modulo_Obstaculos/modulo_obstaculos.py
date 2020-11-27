@@ -668,8 +668,15 @@ def deteccaoObstaculosCamada0(img, x_esq0, y_esq0, x_dir0, y_dir0):
             cont_dir += 1
    
         
-     
-        
+   
+def definePontosBordaEsq(img, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4):
+    pass
+    
+    
+def definePontosBordaDir(img, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4):
+    pass
+ 
+       
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -682,26 +689,25 @@ try:
         x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
         x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
         x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
-        #x_esq5, y_esq5 = detectaBordaEsqCMD5(imagem_tresh)
 
-        
+   
         x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
         x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
         x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
         x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
         x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-        #x_dir5, y_dir5 = detectaBordaDirCMD5(imagem_tresh)
+
        
         
-        deteccaoObstaculosCamada0(imagem_cinza, x_esq0, y_esq0, x_dir0, y_dir0)
-        deteccaoObstaculosCamada1(imagem_cinza, x_esq1, y_esq1, x_dir1, y_dir1)
-        deteccaoObstaculosCamada2(imagem_cinza, x_esq2, y_esq2, x_dir2, y_dir2)
-        deteccaoObstaculosCamada3(imagem_cinza, x_esq3, y_esq3, x_dir3, y_dir3)
-        deteccaoObstaculosCamada4(imagem_cinza, x_esq4, y_esq4, x_dir4, y_dir4)
+        #deteccaoObstaculosCamada0(imagem_cinza, x_esq0, y_esq0, x_dir0, y_dir0)
+        #deteccaoObstaculosCamada1(imagem_cinza, x_esq1, y_esq1, x_dir1, y_dir1)
+        #deteccaoObstaculosCamada2(imagem_cinza, x_esq2, y_esq2, x_dir2, y_dir2)
+        #deteccaoObstaculosCamada3(imagem_cinza, x_esq3, y_esq3, x_dir3, y_dir3)
+        #deteccaoObstaculosCamada4(imagem_cinza, x_esq4, y_esq4, x_dir4, y_dir4)
         
         
         #cv2.imshow("Imagem Pista", imagem)
-        cv2.imshow("Imagem Cinza", imagem_cinza)
+        #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
