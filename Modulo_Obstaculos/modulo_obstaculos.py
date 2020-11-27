@@ -193,9 +193,9 @@ def detectaBordaEsqCMD1(img):
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         pass
     
-    print(cont_p, cont_b)
-    print(x_Esq, y_Esq)
-    print()
+    #print(cont_p, cont_b)
+    #print(x_Esq, y_Esq)
+    #print()
     return x_Esq, y_Esq
 
 def detectaBordaEsqCMD0(img):
@@ -434,13 +434,20 @@ def detectaBordaDirCMD0(img):
     return x_Dir, y_Dir
       
    
-def definePontosBordaEsq(img, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4):
-    print(x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
-    print()
+def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4):
+    
+    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
+    
+    #print(x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
+    #print()
     #pass
     
     
-def definePontosBordaDir(img, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4):
+def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
     pass
  
        
@@ -451,30 +458,26 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
                 
-        #x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
+        x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
-        #x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
-        #x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
-        #x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
+        x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
+        x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
+        x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
 
-        '''
+        
         x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
         x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
         x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
         x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
         x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-        '''
+        
 
-        #definePontosBordaEsq(imagem_tresh, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
-        
-        #deteccaoObstaculosCamada0(imagem_cinza, x_esq0, y_esq0, x_dir0, y_dir0)
-        #deteccaoObstaculosCamada1(imagem_cinza, x_esq1, y_esq1, x_dir1, y_dir1)
-        #deteccaoObstaculosCamada2(imagem_cinza, x_esq2, y_esq2, x_dir2, y_dir2)
-        #deteccaoObstaculosCamada3(imagem_cinza, x_esq3, y_esq3, x_dir3, y_dir3)
-        #deteccaoObstaculosCamada4(imagem_cinza, x_esq4, y_esq4, x_dir4, y_dir4)
+        definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
+        definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+
         
         
-        #cv2.imshow("Imagem Pista", imagem)
+        cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
