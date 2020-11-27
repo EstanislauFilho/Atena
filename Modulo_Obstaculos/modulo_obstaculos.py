@@ -435,17 +435,24 @@ def detectaBordaDirCMD0(img):
       
    
 def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4):
-    
-    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
-    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
-    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
-    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
-    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
-    
-    #print(x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
-    #print()
+   
+   if(x_esq0 == 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 != 0):
+       x_esq0 = x_esq1 = x_esq2 = x_esq3 = x_esq4 = 0
+   
 
+   cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
+   cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
+   cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
+   cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
+   cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
     
+   print(x_esq4, y_esq4)
+   print(x_esq3, y_esq3)
+   print(x_esq2, y_esq2)
+   print(x_esq1, y_esq1)
+   print(x_esq0, y_esq0)
+   print()
+
     
 def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
     cv2.circle(img, (x_dir0, y_dir0), 5, (255, 0, 0), 2)
@@ -480,7 +487,7 @@ try:
         
 
         definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
-        definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+        #definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
 
         
         
