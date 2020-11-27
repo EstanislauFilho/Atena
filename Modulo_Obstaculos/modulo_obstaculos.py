@@ -262,7 +262,7 @@ def detectaBordaDirCMD4(img):
                     yb = Y4
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Dir, y_Dir = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
@@ -301,7 +301,7 @@ def detectaBordaDirCMD3(img):
                     yb = Y3
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Dir, y_Dir = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
@@ -340,7 +340,7 @@ def detectaBordaDirCMD2(img):
                     yb = Y2
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Dir, y_Dir = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
@@ -379,7 +379,7 @@ def detectaBordaDirCMD1(img):
                     yb = Y1
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Dir, y_Dir = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
@@ -418,7 +418,7 @@ def detectaBordaDirCMD0(img):
                     yb = Y0
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Dir, y_Dir = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
