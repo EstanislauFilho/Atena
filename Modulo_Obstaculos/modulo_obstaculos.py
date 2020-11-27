@@ -183,7 +183,7 @@ def detectaBordaEsqCMD1(img):
                     yb = Y1
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+    if(cont_b >= 15 and cont_b <= 40) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = xb, yb
     elif(cont_b > 40) and (cont_p <= 336):
@@ -193,9 +193,9 @@ def detectaBordaEsqCMD1(img):
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         pass
     
-    #print(cont_p, cont_b)
-    #print(x_Esq, y_Esq)
-    #print()
+    print(cont_p, cont_b)
+    print(x_Esq, y_Esq)
+    print()
     return x_Esq, y_Esq
 
 def detectaBordaEsqCMD0(img):
@@ -689,8 +689,8 @@ try:
         imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
                 
         #x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
-        #x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
-        x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
+        x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
+        #x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
         #x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
         #x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
 
