@@ -75,7 +75,7 @@ def detectaBordaEsqCMD4(img):
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         pass
     
-    #print(cont_p, cont_b)
+    print(cont_p, cont_b)
     #print(x_Esq, y_Esq)
     #print()
     return x_Esq, y_Esq
@@ -436,7 +436,11 @@ def detectaBordaDirCMD0(img):
    
 def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4):
    
-   if(x_esq0 == 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 != 0):
+   if( (x_esq0 != 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 == 0) or
+       (x_esq0 == 0 and x_esq1 != 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 == 0) or
+       (x_esq0 == 0 and x_esq1 == 0 and x_esq2 != 0 and x_esq3 == 0 and x_esq4 == 0) or
+       (x_esq0 == 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 != 0 and x_esq4 == 0) or
+       (x_esq0 == 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 != 0)):
        x_esq0 = x_esq1 = x_esq2 = x_esq3 = x_esq4 = 0
    
 
@@ -445,12 +449,14 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
-    
+   
+   '''
    print(x_esq4, y_esq4)
    print(x_esq3, y_esq3)
    print(x_esq2, y_esq2)
    print(x_esq1, y_esq1)
    print(x_esq0, y_esq0)
+   '''
    print()
 
     
@@ -478,13 +484,13 @@ try:
         x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
         x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
 
-        
+        '''
         x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
         x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
         x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
         x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
         x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-        
+        '''
 
         definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
         #definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
