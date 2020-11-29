@@ -75,7 +75,7 @@ def detectaBordaEsqCMD4(img):
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = 0, Y4
     
-    print(cont_p, cont_b)
+    #print(cont_p, cont_b)
     #print(x_Esq, y_Esq)
     #print()
     return x_Esq, y_Esq
@@ -108,14 +108,14 @@ def detectaBordaEsqCMD3(img):
     if(cont_b >= 15 and cont_b <= 35) and (cont_p <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = xb, yb
-    elif(cont_b > 35) and (cont_p <= 336):
+    elif(cont_b > 35) and (cont_b  < 50) and (cont_p <= 336):
         #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = xp, yp
     else:
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        pass
+        x_Esq, y_Esq = 0, Y3
     
-    #print(cont_p, cont_b)
+    print(cont_p, cont_b)
     #print(x_Esq, y_Esq)
     #print()
     return x_Esq, y_Esq
