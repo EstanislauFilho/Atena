@@ -154,7 +154,7 @@ def detectaBordaEsqCMD2(img):
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         x_Esq, y_Esq = 0, Y2 
         
-    print(cont_p, cont_b)
+    #print(cont_p, cont_b)
     #print(x_Esq, y_Esq)
     #print()
     return x_Esq, y_Esq
@@ -444,19 +444,33 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
        x_esq0 = x_esq1 = x_esq2 = x_esq3 = x_esq4 = 0
    
 
+   if(x_esq0 != 0 and x_esq1 != 0 and x_esq2 != 0 and x_esq3 != 0 and x_esq4 == 0):
+        x_esq4 = int((x_esq0 + x_esq1 + x_esq2 + x_esq3)/4)
+        
+   if(x_esq0 != 0 and x_esq1 != 0 and x_esq2 != 0 and x_esq3 == 0 and x_esq4 != 0):
+        x_esq3 = int((x_esq0 + x_esq1 + x_esq2 + x_esq4)/4)
+        
+   if(x_esq0 != 0 and x_esq1 != 0 and x_esq2 == 0 and x_esq3 != 0 and x_esq4 != 0):
+        x_esq2 = int((x_esq0 + x_esq1 + x_esq3 + x_esq4)/4)  
+        
+   if(x_esq0 != 0 and x_esq1 == 0 and x_esq2 != 0 and x_esq3 != 0 and x_esq4 != 0):
+        x_esq1 = int((x_esq0 + x_esq2 + x_esq3 + x_esq4)/4)  
+  
+   if(x_esq0 == 0 and x_esq1 != 0 and x_esq2 != 0 and x_esq3 != 0 and x_esq4 != 0):
+        x_esq0 = int((x_esq1 + x_esq2 + x_esq3 + x_esq4)/4)
+        
    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
    
-   '''
+   
    print(x_esq4, y_esq4)
    print(x_esq3, y_esq3)
    print(x_esq2, y_esq2)
    print(x_esq1, y_esq1)
    print(x_esq0, y_esq0)
-   '''
    print()
 
     
