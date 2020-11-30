@@ -484,6 +484,14 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
 
     
 def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
+    
+    if( (x_dir0 != 0 and x_dir1 == 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 == 0) or
+       (x_dir0 == 0 and x_dir1 != 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 == 0) or
+       (x_dir0 == 0 and x_dir1 == 0 and x_dir2 != 0 and x_dir3 == 0 and x_dir4 == 0) or
+       (x_dir0 == 0 and x_dir1 == 0 and x_dir2 == 0 and x_dir3 != 0 and x_dir4 == 0) or
+       (x_dir0 == 0 and x_dir1 == 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 != 0)):
+       x_dir0 = x_dir1 = x_dir2 = x_dir3 = x_dir4 = 0
+    
     cv2.circle(img, (x_dir0, y_dir0), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir1, y_dir1), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir2, y_dir2), 5, (255, 0, 0), 2)
@@ -499,24 +507,25 @@ try:
         imagem = cv2.imread(i)
         imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-        imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
-                
+        imagem_tresh = cv2.inRange(imagem_blur,  215, 255) 
+          
+        '''
         x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
         x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
         x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
         x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
-
         '''
+
         x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
         x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
         x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
         x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
         x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-        '''
-
-        definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
-        #definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+        
+        
+        #definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
+        definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
 
         
         
