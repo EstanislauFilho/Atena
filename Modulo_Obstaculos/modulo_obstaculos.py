@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 0
+numero_pasta = 1
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -458,14 +458,16 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
   
    if(x_esq0 == 0 and x_esq1 != 0 and x_esq2 != 0 and x_esq3 != 0 and x_esq4 != 0):
         x_esq0 = int((x_esq1 + x_esq2 + x_esq3 + x_esq4)/4)
-        
-        
-   if(x_esq4 > (x_esq0 + x_esq1 + x_esq2)):
-       x_esq4 = int((x_esq0 + x_esq1 + x_esq2)/3)
+
+
     
+   if(x_esq4 > (x_esq0 + x_esq1 + x_esq2)):
+       x_esq4 = int(((x_esq0 + x_esq1 + x_esq2)/3) - 15)
+    
+   
    if(x_esq3 > (x_esq0 + x_esq1 + x_esq2)):
-       x_esq3 = int((x_esq0 + x_esq1 + x_esq2)/3)
-       
+       x_esq3 = int(((x_esq0 + x_esq1 + x_esq2)/3) - 15) 
+   
    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
@@ -497,7 +499,7 @@ try:
         imagem = cv2.imread(i)
         imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-        imagem_tresh = cv2.inRange(imagem_blur,  200, 255) 
+        imagem_tresh = cv2.inRange(imagem_blur,  220, 255) 
                 
         x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
