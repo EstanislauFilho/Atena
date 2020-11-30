@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 1
+numero_pasta = 13
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -434,7 +434,7 @@ def detectaBordaDirCMD0(img):
     return x_Dir, y_Dir
       
    
-def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4):
+def definePontosBordaEsq(img, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4):
    
    if( (x_esq0 != 0 and x_esq1 == 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 == 0) or
        (x_esq0 == 0 and x_esq1 != 0 and x_esq2 == 0 and x_esq3 == 0 and x_esq4 == 0) or
@@ -467,13 +467,13 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
    
    if(x_esq3 > (x_esq0 + x_esq1 + x_esq2)):
        x_esq3 = int(((x_esq0 + x_esq1 + x_esq2)/3) - 15) 
-   
+   '''
    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
-   
+   '''
    '''
    print(x_esq4, y_esq4)
    print(x_esq3, y_esq3)
@@ -482,8 +482,10 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
    print(x_esq0, y_esq0)
    print()
    '''
+   return x_esq0, x_esq1, x_esq2, x_esq3, x_esq4
+
     
-def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
+def definePontosBordaDir(img, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4):
     
     if( (x_dir0 != 0 and x_dir1 == 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 == 0) or
        (x_dir0 == 0 and x_dir1 != 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 == 0) or
@@ -516,16 +518,34 @@ def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_
     
     if(x_dir3 > (x_dir0 + x_dir1 + x_dir2)):
        x_dir3 = int(((x_dir0 + x_dir1 + x_dir2)/3) - 15)
-        
+      
+    '''
     cv2.circle(img, (x_dir0, y_dir0), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir1, y_dir1), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir2, y_dir2), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir3, y_dir3), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir4, y_dir4), 5, (255, 0, 0), 2)
-    
+    '''
     #print(x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
     #print()
+    
+    return x_dir0, x_dir1, x_dir2, x_dir3, x_dir4
+
+
  
+def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
+      
+    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq2, y_esq2), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq3, y_esq3), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_esq4, y_esq4), 5, (255, 0, 0), 2)
+   
+    cv2.circle(img, (x_dir0, y_dir0), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_dir1, y_dir1), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_dir2, y_dir2), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_dir3, y_dir3), 5, (255, 0, 0), 2)
+    cv2.circle(img, (x_dir4, y_dir4), 5, (255, 0, 0), 2)
        
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
@@ -534,13 +554,13 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  215, 255) 
           
-        '''
+        
         x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
         x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
         x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
         x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
-        '''
+        
 
         x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
         x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
@@ -549,9 +569,10 @@ try:
         x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
         
         
-        #definePontosBordaEsq(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4)
-        definePontosBordaDir(imagem, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+        x_esq0, x_esq1, x_esq2, x_esq3, x_esq4 = definePontosBordaEsq(imagem, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
+        x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
+        areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
         
         
         cv2.imshow("Imagem Pista", imagem)
