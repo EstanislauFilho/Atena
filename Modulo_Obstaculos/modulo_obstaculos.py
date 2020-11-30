@@ -462,7 +462,9 @@ def definePontosBordaEsq(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_
         
    if(x_esq4 > (x_esq0 + x_esq1 + x_esq2)):
        x_esq4 = int((x_esq0 + x_esq1 + x_esq2)/3)
-       
+    
+   if(x_esq3 > (x_esq0 + x_esq1 + x_esq2)):
+       x_esq3 = int((x_esq0 + x_esq1 + x_esq2)/3)
        
    cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
    cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
