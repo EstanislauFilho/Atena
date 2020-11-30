@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 13
+numero_pasta = 0
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -546,7 +546,28 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     cv2.circle(img, (x_dir2, y_dir2), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir3, y_dir3), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir4, y_dir4), 5, (255, 0, 0), 2)
-       
+     
+    
+    cv2.line(img, (x_esq4, y_esq4), (x_dir4, y_dir4), (255, 0, 0), 2)
+    cv2.line(img, (x_esq3, y_esq3), (x_dir3, y_dir3), (255, 0, 0), 2)
+    cv2.line(img, (x_esq2, y_esq2), (x_dir2, y_dir2), (255, 0, 0), 2)
+    cv2.line(img, (x_esq1, y_esq1), (x_dir1, y_dir1), (255, 0, 0), 2)
+    cv2.line(img, (x_esq0, y_esq0), (x_dir0, y_dir0), (255, 0, 0), 2)
+    
+    
+    cv2.line(img, (x_esq4, y_esq4), (x_esq3, y_esq3), (255, 0, 0), 2)
+    cv2.line(img, (x_esq3, y_esq3), (x_esq2, y_esq2), (255, 0, 0), 2)
+    cv2.line(img, (x_esq2, y_esq2), (x_esq1, y_esq1), (255, 0, 0), 2)
+    cv2.line(img, (x_esq1, y_esq1), (x_esq0, y_esq0), (255, 0, 0), 2)
+    
+    cv2.line(img, (x_dir4, y_dir4), (x_dir3, y_dir3), (255, 0, 0), 2)
+    cv2.line(img, (x_dir3, y_dir3), (x_dir2, y_dir2), (255, 0, 0), 2)
+    cv2.line(img, (x_dir2, y_dir2), (x_dir1, y_dir1), (255, 0, 0), 2)
+    cv2.line(img, (x_dir1, y_dir1), (x_dir0, y_dir0), (255, 0, 0), 2)
+    
+    
+    
+    
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -578,7 +599,7 @@ try:
         cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
-        cv2.imshow("Imagem tresh", imagem_tresh)
+        #cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
             
         if cv2.waitKey(1) & 0xFF == 27:
