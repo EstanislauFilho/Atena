@@ -492,6 +492,24 @@ def definePontosBordaDir(img, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_
        (x_dir0 == 0 and x_dir1 == 0 and x_dir2 == 0 and x_dir3 == 0 and x_dir4 != 0)):
        x_dir0 = x_dir1 = x_dir2 = x_dir3 = x_dir4 = 0
     
+    
+    
+    if(x_dir0 != 0 and x_dir1 != 0 and x_dir2 != 0 and x_dir3 != 0 and x_dir4 == 0):
+        x_dir4 = int((x_dir0 + x_dir1 + x_dir2 + x_dir3)/4)
+        
+    if(x_dir0 != 0 and x_dir1 != 0 and x_dir2 != 0 and x_dir3 == 0 and x_dir4 != 0):
+        x_dir3 = int((x_dir0 + x_dir1 + x_dir2 + x_dir4)/4)
+        
+    if(x_dir0 != 0 and x_dir1 != 0 and x_dir2 == 0 and x_dir3 != 0 and x_dir4 != 0):
+        x_dir2 = int((x_dir0 + x_dir1 + x_dir3 + x_dir4)/4)  
+        
+    if(x_dir0 != 0 and x_dir1 == 0 and x_dir2 != 0 and x_dir3 != 0 and x_dir4 != 0):
+        x_dir1 = int((x_dir0 + x_dir2 + x_dir3 + x_dir4)/4)  
+  
+    if(x_dir0 == 0 and x_dir1 != 0 and x_dir2 != 0 and x_dir3 != 0 and x_dir4 != 0):
+        x_dir0 = int((x_dir1 + x_dir2 + x_dir3 + x_dir4)/4)
+        
+        
     cv2.circle(img, (x_dir0, y_dir0), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir1, y_dir1), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_dir2, y_dir2), 5, (255, 0, 0), 2)
