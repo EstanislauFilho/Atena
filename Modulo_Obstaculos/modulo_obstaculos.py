@@ -567,40 +567,50 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     
     
 def detectaBordasCMD0(img):
-    X_LIM_0 = 300
-    X_LIM_1 = 340
-    X_LIM_2 = 380
+    X_LIM_E = 300
+    X_LIM_C = 340
+    X_LIM_D = 380
     
-    contPt0 = contPt1 = contPt2 = 0
-    for y in range(419, 280, -1):
-        canalCoresPt0 = img[y, X_LIM_0]      
-        if canalCoresPt0 <= 250:
-            img[y, X_LIM_0] = 255
-            contPt0 += 1
+    contPtE = contPtC = contPtD = 0
+    
+    x_final, y_final = 340, 419
+    
+    for ye in range(419, 280, -1):
+        canalCoresPtE = img[ye, X_LIM_E]      
+        if canalCoresPtE <= 250:
+            img[ye, X_LIM_E] = 255
+            contPtE += 1
         else:
             break
         
-    for y in range(419, 280, -1):
-        canalCoresPt1 = img[y, X_LIM_1]
-        if canalCoresPt1 <= 250:
-            img[y, X_LIM_1] = 255
-            contPt1 += 1
+    for yc in range(419, 280, -1):
+        canalCoresPtC = img[yc, X_LIM_C]
+        if canalCoresPtC <= 250:
+            img[yc, X_LIM_C] = 255
+            contPtC += 1
         else:
             break
         
-    for y in range(419, 280, -1):
-        canalCoresPt2 = img[y, X_LIM_2]
-        if canalCoresPt2 <= 250:
-            img[y, X_LIM_2] = 255
-            contPt2 += 1
+    for yd in range(419, 280, -1):
+        canalCoresPtD = img[yd, X_LIM_D]
+        if canalCoresPtD <= 250:
+            img[yd, X_LIM_D] = 255
+            contPtD += 1
         else:
             break
         
-    if contPt0 == 139 and contPt1 == 139 and contPt2 == 139:
+    if contPtE == 139 and contPtC == 139 and contPtD == 139:
         print("Condições normais para detecção das bordas.")
-        
-        
-    print(contPt0, contPt1, contPt2)
+        x_final, y_final = X_LIM_C, yc
+    elif(contPtE > contPtC and contPtC > contPtD):
+        print("Provável situação de curva para esquerda.")
+        x_final, y_final = X_LIM_E, ye
+    elif(contPtE <= 20 and contPtC <= 20 and contPtD <= 20):
+        print("Impossível criar area para detectar obstáculos!")
+        x_final, y_final = 340, 419
+    
+    
+    print(contPtE, contPtC, contPtD)
     print()
     
     
