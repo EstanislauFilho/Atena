@@ -566,6 +566,43 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     cv2.line(img, (x_dir1, y_dir1), (x_dir0, y_dir0), (255, 0, 0), 2)
     
     
+def detectaBordasCMD0(img):
+    X_LIM_0 = 300
+    X_LIM_1 = 340
+    X_LIM_2 = 380
+    
+    contPt0 = contPt1 = contPt2 = 0
+    for y in range(419, 280, -1):
+        canalCoresPt0 = img[y, X_LIM_0]      
+        if canalCoresPt0 <= 250:
+            img[y, X_LIM_0] = 255
+            contPt0 += 1
+        else:
+            break
+        
+    for y in range(419, 280, -1):
+        canalCoresPt1 = img[y, X_LIM_1]
+        if canalCoresPt1 <= 250:
+            img[y, X_LIM_1] = 255
+            contPt1 += 1
+        else:
+            break
+        
+    for y in range(419, 280, -1):
+        canalCoresPt2 = img[y, X_LIM_2]
+        if canalCoresPt2 <= 250:
+            img[y, X_LIM_2] = 255
+            contPt2 += 1
+        else:
+            break
+        
+    if contPt0 == 139 and contPt1 == 139 and contPt2 == 139:
+        print("Condições normais para detecção das bordas.")
+        
+        
+    print(contPt0, contPt1, contPt2)
+    print()
+    
     
     
 try:
@@ -575,7 +612,7 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  215, 255) 
           
-        
+        '''
         x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
         x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
         x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
@@ -594,12 +631,15 @@ try:
         x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
         areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+        '''
+        
+        detectaBordasCMD0(imagem_tresh)
         
         
-        cv2.imshow("Imagem Pista", imagem)
+        #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
-        #cv2.imshow("Imagem tresh", imagem_tresh)
+        cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
             
         if cv2.waitKey(1) & 0xFF == 27:
