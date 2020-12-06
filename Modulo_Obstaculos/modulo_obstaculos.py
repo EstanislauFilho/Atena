@@ -649,12 +649,45 @@ def definePontosVerticais(img):
 
     
  
-def camada0Esq(img, x, y):   
+def camadasEsq(img, x, y0, y1, y2, y3, y4):   
     for xe in range(x, 0, -1):
-        canalCoresXE = img[y, xe]    
+        canalCoresXE = img[y0, xe]    
         
         if canalCoresXE < 200 :
-            img[y, xe] = 255
+            img[y0, xe] = 255
+        else:
+            break
+        
+    for xe in range(x, 0, -1):
+        canalCoresXE = img[y1, xe]    
+        
+        if canalCoresXE < 200 :
+            img[y1, xe] = 255
+        else:
+            break
+        
+        
+    for xe in range(x, 0, -1):
+        canalCoresXE = img[y2, xe]    
+        
+        if canalCoresXE < 200 :
+            img[y2, xe] = 255
+        else:
+            break
+        
+    for xe in range(x, 0, -1):
+        canalCoresXE = img[y3, xe]    
+        
+        if canalCoresXE < 200 :
+            img[y3, xe] = 255
+        else:
+            break
+        
+    for xe in range(x, 0, -1):
+        canalCoresXE = img[y4, xe]    
+        
+        if canalCoresXE < 200 :
+            img[y4, xe] = 255
         else:
             break
       
@@ -702,7 +735,7 @@ try:
         #print(y0, y1, y2, y3, y4)
         
 
-        camada0Esq(imagem_tresh, x, y0)
+        camadasEsq(imagem_tresh, x, y0, y1, y2, y3, y4)
 
         
         #cv2.imshow("Imagem Pista", imagem)
