@@ -697,16 +697,25 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
         else:
             break
  
-    print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
+    #print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
  
     
-def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):   
+def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4): 
+    
+    xCMD0 = xCMD1 = xCMD2 = xCMD3 = xCMD4 = 340
+    yCMD0 = yCMD1 = yCMD2 = yCMD3 = yCMD4 = 419
+    
+    contCMD0 = contCMD1 = contCMD2 = contCMD3 = contCMD4 = 0
+    
     for xd in range(x, 680):
         canalCoresXD = img[y0, xd]    
         
         if canalCoresXD < 200 :
             img[y0, xd] = 255
+            contCMD0 += 1
         else:
+            xCMD0 = xd
+            yCMD0 = y0
             break
         
     for xd in range(x, 680):
@@ -714,7 +723,10 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXD < 200 :
             img[y1, xd] = 255
+            contCMD1 += 1
         else:
+            xCMD1 = xd
+            yCMD1 = y1
             break
         
         
@@ -723,7 +735,10 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXD < 200 :
             img[y2, xd] = 255
+            contCMD2 += 1
         else:
+            xCMD2 = xd
+            yCMD2 = y2
             break
         
     for xd in range(x, 680):
@@ -731,7 +746,10 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXD < 200 :
             img[y3, xd] = 255
+            contCMD3 += 1
         else:
+            xCMD3 = xd
+            yCMD3 = y3
             break
         
     for xd in range(x, 680):
@@ -739,9 +757,19 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXD < 200 :
             img[y4, xd] = 255
+            contCMD4 += 1
         else:
+            xCMD4 = xd
+            yCMD4 = y4
             break
-
+        
+    print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
+    print(xCMD0, yCMD0)
+    print(xCMD1, yCMD1)
+    print(xCMD2, yCMD2)
+    print(xCMD3, yCMD3)
+    print(xCMD4, yCMD4)
+    print()
 
 
 def camadasEsqMetodo2(img, x, y0, y1, y2, y3, y4):
@@ -789,7 +817,7 @@ try:
         imagem = cv2.imread(i)
         imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-        imagem_tresh = cv2.inRange(imagem_blur,  215, 255) 
+        imagem_tresh = cv2.inRange(imagem_blur, 220, 255) 
           
 
         x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
@@ -806,8 +834,8 @@ try:
         #print(y0, y1, y2, y3, y4)
         
         if tamanhoLinha > 5:
-            camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-            #camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            #camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
             pass
             '''
