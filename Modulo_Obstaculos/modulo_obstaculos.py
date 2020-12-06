@@ -577,6 +577,7 @@ def definePontosVerticais(img):
     X_LIM_D = 380
     
     contPtE = contPtC = contPtD = 0
+    tamanhoLinha = 280
     
     x_final, y_final = 340, 419
     
@@ -607,43 +608,50 @@ def definePontosVerticais(img):
     if contPtE == 140 and contPtC == 140 and contPtD == 140:
         print("Condições normais para detecção das bordas.")
         x_final, y_final = X_LIM_C, yc
+        tamanhoLinha = contPtC
         
     elif(contPtE > contPtC and contPtC > contPtD):
         print("Provável situação de curva para esquerda.")
-        x_final, y_final = X_LIM_E, ye 
+        x_final, y_final = X_LIM_E, ye
+        tamanhoLinha = contPtE
                
     elif(contPtE == 140 and contPtC == 140 and contPtD < 140):
         print("E e C iguais. D diferente!")
         x_final, y_final = X_LIM_C, yc
+        tamanhoLinha = contPtC
         
     elif(contPtE == 140 and contPtC < 140 and contPtD < 140):
         print("Definindo com E")
         x_final, y_final = X_LIM_E, ye
+        tamanhoLinha = contPtE
         
     elif(contPtE < 140 and contPtC == 140 and contPtD < 140):
         print("Definindo com E")
         x_final, y_final = X_LIM_C, yc
+        tamanhoLinha = contPtC
         
     elif(contPtE < 140 and contPtC < 140 and contPtD == 140):
         print("Definindo com D")
         x_final, y_final = X_LIM_D, yd
+        tamanhoLinha = contPtD
     else:
         print("Falha!")
         x_final, y_final = 340, 419
-        
-        
+        tamanhoLinha = 5
+ 
         
     if(contPtE <= 80 and contPtC <= 80 and contPtD <= 80):
         print("Impossível criar area para detectar obstáculos!")
         x_final, y_final = 340, 419
+        tamanhoLinha = 5
     
     
     print(x_final, y_final)
     print(contPtE, contPtC, contPtD)
     print()
     
-    return x_final, y_final
-    return x_final, y_final
+    return x_final, y_final, tamanhoLinha
+
     
  
 def camada0(img, x, y):
@@ -684,9 +692,24 @@ try:
         areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
         '''
         
-        x, y = definePontosVerticais(imagem_tresh)
+        x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
         
-        camada0(imagem_tresh, x, y)
+        parte_y = int(tamanhoLinha/5)
+        
+        y0 = 419 - parte_y 
+        y1 = 419 - parte_y * 2
+        y2 = 419 - parte_y * 3
+        y3 = 419 - parte_y * 4
+        y4 = 419 - parte_y * 5
+        
+        print(parte_y)
+        print(y0, y1, y2, y3, y4)
+        
+        camada0(imagem_tresh, x, y0)
+        camada0(imagem_tresh, x, y1)
+        camada0(imagem_tresh, x, y2)
+        camada0(imagem_tresh, x, y3)
+        camada0(imagem_tresh, x, y4)
         
         #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
