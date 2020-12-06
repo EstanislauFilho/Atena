@@ -532,7 +532,6 @@ def definePontosBordaDir(img, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4):
     return x_dir0, x_dir1, x_dir2, x_dir3, x_dir4
 
 
- 
 def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
       
     cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
@@ -566,11 +565,7 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     cv2.line(img, (x_dir1, y_dir1), (x_dir0, y_dir0), (255, 0, 0), 2)
     
     
-    
-
-
-
-    
+ 
 def definePontosVerticais(img):
     X_LIM_E = 300
     X_LIM_C = 340
@@ -655,10 +650,15 @@ def definePontosVerticais(img):
     
  
 def camada0(img, x, y):
+    canalCoresXE = canalCoresXD = 0
     
     for xe in range(x, 0, -1):
+        canalCoresXE = img[y, xe]
         img[y, xe] = 255
-        
+      
+    for xd in range(x, 680):
+        canalCoresXD = img[y, xd]
+        img[y, xd] = 255  
     pass
 
 
