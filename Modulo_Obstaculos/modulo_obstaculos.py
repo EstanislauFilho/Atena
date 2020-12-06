@@ -575,7 +575,7 @@ def detectaBordasCMD0(img):
     
     x_final, y_final = 340, 419
     
-    for ye in range(419, 280, -1):
+    for ye in range(419, 279, -1):
         canalCoresPtE = img[ye, X_LIM_E]      
         if canalCoresPtE <= 250:
             img[ye, X_LIM_E] = 255
@@ -583,7 +583,7 @@ def detectaBordasCMD0(img):
         else:
             break
         
-    for yc in range(419, 280, -1):
+    for yc in range(419, 279, -1):
         canalCoresPtC = img[yc, X_LIM_C]
         if canalCoresPtC <= 250:
             img[yc, X_LIM_C] = 255
@@ -591,7 +591,7 @@ def detectaBordasCMD0(img):
         else:
             break
         
-    for yd in range(419, 280, -1):
+    for yd in range(419, 279, -1):
         canalCoresPtD = img[yd, X_LIM_D]
         if canalCoresPtD <= 250:
             img[yd, X_LIM_D] = 255
@@ -599,33 +599,34 @@ def detectaBordasCMD0(img):
         else:
             break
         
-    if contPtE == 139 and contPtC == 139 and contPtD == 139:
+    if contPtE == 140 and contPtC == 140 and contPtD == 140:
         print("Condições normais para detecção das bordas.")
         x_final, y_final = X_LIM_C, yc
         
     elif(contPtE > contPtC and contPtC > contPtD):
         print("Provável situação de curva para esquerda.")
         x_final, y_final = X_LIM_E, ye 
-        
-        
-    elif(contPtE == 139 and contPtC == 139 and contPtD < 139):
+               
+    elif(contPtE == 140 and contPtC == 140 and contPtD < 140):
         print("E e C iguais. D diferente!")
         x_final, y_final = X_LIM_C, yc
         
-    elif(contPtE == 139 and contPtC < 139 and contPtD < 139):
+    elif(contPtE == 140 and contPtC < 140 and contPtD < 140):
         print("Definindo com E")
         x_final, y_final = X_LIM_E, ye
         
-    elif(contPtE < 139 and contPtC == 139 and contPtD < 139):
+    elif(contPtE < 140 and contPtC == 140 and contPtD < 140):
         print("Definindo com E")
         x_final, y_final = X_LIM_C, yc
         
-    elif(contPtE < 139 and contPtC < 139 and contPtD == 139):
+    elif(contPtE < 140 and contPtC < 140 and contPtD == 140):
         print("Definindo com D")
         x_final, y_final = X_LIM_D, yd
     else:
         print("Falha!")
         x_final, y_final = 340, 419
+        
+        
         
     if(contPtE <= 80 and contPtC <= 80 and contPtD <= 80):
         print("Impossível criar area para detectar obstáculos!")
