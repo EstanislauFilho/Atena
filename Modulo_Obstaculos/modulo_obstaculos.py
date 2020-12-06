@@ -602,14 +602,37 @@ def detectaBordasCMD0(img):
     if contPtE == 139 and contPtC == 139 and contPtD == 139:
         print("Condições normais para detecção das bordas.")
         x_final, y_final = X_LIM_C, yc
+        
     elif(contPtE > contPtC and contPtC > contPtD):
         print("Provável situação de curva para esquerda.")
+        x_final, y_final = X_LIM_E, ye 
+        
+        
+    elif(contPtE == 139 and contPtC == 139 and contPtD < 139):
+        print("E e C iguais. D diferente!")
+        x_final, y_final = X_LIM_C, yc
+        
+    elif(contPtE == 139 and contPtC < 139 and contPtD < 139):
+        print("Definindo com E")
         x_final, y_final = X_LIM_E, ye
-    elif(contPtE <= 20 and contPtC <= 20 and contPtD <= 20):
+        
+    elif(contPtE < 139 and contPtC == 139 and contPtD < 139):
+        print("Definindo com E")
+        x_final, y_final = X_LIM_C, yc
+        
+    elif(contPtE < 139 and contPtC < 139 and contPtD == 139):
+        print("Definindo com D")
+        x_final, y_final = X_LIM_D, yd
+    else:
+        print("Falha!")
+        x_final, y_final = 340, 419
+        
+    if(contPtE <= 80 and contPtC <= 80 and contPtD <= 80):
         print("Impossível criar area para detectar obstáculos!")
         x_final, y_final = 340, 419
     
     
+    print(x_final, y_final)
     print(contPtE, contPtC, contPtD)
     print()
     
