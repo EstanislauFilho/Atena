@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 0
+numero_pasta = 13
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
@@ -647,12 +647,16 @@ def definePontosVerticais(img):
     
     return x_final, y_final, tamanhoLinha
 
-def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):   
+def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):  
+    
+    contCMD0 = contCMD1 = contCMD2 = contCMD3 = contCMD4 = 0
+    
     for xe in range(x, 0, -1):
         canalCoresXE = img[y0, xe]    
         
         if canalCoresXE < 200 :
             img[y0, xe] = 255
+            contCMD0 += 1
         else:
             break
         
@@ -661,6 +665,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXE < 200 :
             img[y1, xe] = 255
+            contCMD1 += 1
         else:
             break
         
@@ -670,6 +675,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXE < 200 :
             img[y2, xe] = 255
+            contCMD2 += 1
         else:
             break
         
@@ -678,6 +684,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXE < 200 :
             img[y3, xe] = 255
+            contCMD3 += 1
         else:
             break
         
@@ -686,9 +693,13 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
         
         if canalCoresXE < 200 :
             img[y4, xe] = 255
+            contCMD4 += 1
         else:
             break
-      
+ 
+    print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
+ 
+    
 def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):   
     for xd in range(x, 680):
         canalCoresXD = img[y0, xd]    
@@ -733,6 +744,46 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
 
 
 
+def camadasEsqMetodo2(img, x, y0, y1, y2, y3, y4):
+    xp, yp = xb, yb = x_Esq, y_Esq = 0, y0 
+    
+    cont_p = 0
+    cont_b = 0
+    
+    for x in range(1, 339):
+        canalCoresXE = img[y0, x]  
+        if canalCoresXE < 240:
+            img[y0, x]  = 255
+            cont_p += 1
+        else:
+            xp = x 
+            yp = Y0
+            for x in range(x, 339):
+                canalCoresXE = img[Y0, x]  
+                if canalCoresXE > 240:
+                    img[Y0, x] = 0
+                    cont_b += 1
+                else:
+                    xb = x 
+                    yb = Y0
+                    break
+            break
+    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Esq, y_Esq = xb, yb
+    elif(cont_b > 40) and (cont_p <= 336):
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        x_Esq, y_Esq = xp, yp
+    else:
+        #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        pass
+    
+    #print(cont_p, cont_b)
+    #print(x_Esq, y_Esq)
+    #print()
+    return x_Esq, y_Esq
+
+
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -745,19 +796,21 @@ try:
        
         parte_y = int(tamanhoLinha/5)
         
-        y0 = 419 - parte_y 
-        y1 = 419 - parte_y * 2
+        y0 = 419 - parte_y * 5 
+        y1 = 419 - parte_y * 4
         y2 = 419 - parte_y * 3
-        y3 = 419 - parte_y * 4
-        y4 = 419 - parte_y * 5
+        y3 = 419 - parte_y * 2
+        y4 = 419 - parte_y
         
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
         if tamanhoLinha > 5:
             camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-            camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            #camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
+            pass
+            '''
             x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
             x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
             x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
@@ -775,11 +828,11 @@ try:
             x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
             #areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
-
+            '''
             
 
         
-        cv2.imshow("Imagem Pista", imagem)
+        #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
