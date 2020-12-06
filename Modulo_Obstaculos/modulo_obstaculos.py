@@ -647,9 +647,7 @@ def definePontosVerticais(img):
     
     return x_final, y_final, tamanhoLinha
 
-    
- 
-def camadasEsq(img, x, y0, y1, y2, y3, y4):   
+def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):   
     for xe in range(x, 0, -1):
         canalCoresXE = img[y0, xe]    
         
@@ -691,6 +689,49 @@ def camadasEsq(img, x, y0, y1, y2, y3, y4):
         else:
             break
       
+def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):   
+    for xd in range(x, 680):
+        canalCoresXD = img[y0, xd]    
+        
+        if canalCoresXD < 200 :
+            img[y0, xd] = 255
+        else:
+            break
+        
+    for xd in range(x, 680):
+        canalCoresXD = img[y1, xd]    
+        
+        if canalCoresXD < 200 :
+            img[y1, xd] = 255
+        else:
+            break
+        
+        
+    for xd in range(x, 680):
+        canalCoresXD = img[y2, xd]    
+        
+        if canalCoresXD < 200 :
+            img[y2, xd] = 255
+        else:
+            break
+        
+    for xd in range(x, 680):
+        canalCoresXD = img[y3, xd]    
+        
+        if canalCoresXD < 200 :
+            img[y3, xd] = 255
+        else:
+            break
+        
+    for xd in range(x, 680):
+        canalCoresXD = img[y4, xd]    
+        
+        if canalCoresXD < 200 :
+            img[y4, xd] = 255
+        else:
+            break
+
+
 
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
@@ -699,27 +740,6 @@ try:
         imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
         imagem_tresh = cv2.inRange(imagem_blur,  215, 255) 
           
-        '''
-        x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
-        x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
-        x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
-        x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
-        x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
-        
-
-        x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
-        x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
-        x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
-        x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
-        x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-        
-        
-        x_esq0, x_esq1, x_esq2, x_esq3, x_esq4 = definePontosBordaEsq(imagem, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
-        x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
-
-        areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
-        '''
-        
 
         x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
        
@@ -731,14 +751,35 @@ try:
         y3 = 419 - parte_y * 4
         y4 = 419 - parte_y * 5
         
-        print( x, y, tamanhoLinha)
+        #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
+        if tamanhoLinha > 5:
+            camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+        else:
+            x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
+            x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
+            x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
+            x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
+            x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
+            
+    
+            x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
+            x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
+            x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
+            x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
+            x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
+            
+            x_esq0, x_esq1, x_esq2, x_esq3, x_esq4 = definePontosBordaEsq(imagem, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
+            x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
-        camadasEsq(imagem_tresh, x, y0, y1, y2, y3, y4)
+            #areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
+
+            
 
         
-        #cv2.imshow("Imagem Pista", imagem)
+        cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
         cv2.imshow("Imagem tresh", imagem_tresh)
