@@ -567,8 +567,6 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     
     
     
-def camada0(img, x, y):
-    pass
 
 
 
@@ -645,9 +643,19 @@ def definePontosVerticais(img):
     print()
     
     return x_final, y_final
+    return x_final, y_final
     
+ 
+def camada0(img, x, y):
     
-    
+    for xe in range(x, 0, -1):
+        img[y, xe] = 255
+        
+    pass
+
+
+
+ 
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -676,8 +684,9 @@ try:
         areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
         '''
         
-        definePontosVerticais(imagem_tresh)
+        x, y = definePontosVerticais(imagem_tresh)
         
+        camada0(imagem_tresh, x, y)
         
         #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
