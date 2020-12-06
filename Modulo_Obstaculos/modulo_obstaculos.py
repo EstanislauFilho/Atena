@@ -579,7 +579,7 @@ def definePontosVerticais(img):
     for ye in range(419, 279, -1):
         canalCoresPtE = img[ye, X_LIM_E]      
         if canalCoresPtE <= 250:
-            img[ye, X_LIM_E] = 255
+            #img[ye, X_LIM_E] = 255
             contPtE += 1
         else:
             break
@@ -587,7 +587,7 @@ def definePontosVerticais(img):
     for yc in range(419, 279, -1):
         canalCoresPtC = img[yc, X_LIM_C]
         if canalCoresPtC <= 250:
-            img[yc, X_LIM_C] = 255
+            #img[yc, X_LIM_C] = 255
             contPtC += 1
         else:
             break
@@ -595,75 +595,70 @@ def definePontosVerticais(img):
     for yd in range(419, 279, -1):
         canalCoresPtD = img[yd, X_LIM_D]
         if canalCoresPtD <= 250:
-            img[yd, X_LIM_D] = 255
+            #img[yd, X_LIM_D] = 255
             contPtD += 1
         else:
             break
         
     if contPtE == 140 and contPtC == 140 and contPtD == 140:
-        print("Condições normais para detecção das bordas.")
+        #print("Condições normais para detecção das bordas.")
         x_final, y_final = X_LIM_C, yc
         tamanhoLinha = contPtC
         
     elif(contPtE > contPtC and contPtC > contPtD):
-        print("Provável situação de curva para esquerda.")
+        #print("Provável situação de curva para esquerda.")
         x_final, y_final = X_LIM_E, ye
         tamanhoLinha = contPtE
                
     elif(contPtE == 140 and contPtC == 140 and contPtD < 140):
-        print("E e C iguais. D diferente!")
+        #print("E e C iguais. D diferente!")
         x_final, y_final = X_LIM_C, yc
         tamanhoLinha = contPtC
         
     elif(contPtE == 140 and contPtC < 140 and contPtD < 140):
-        print("Definindo com E")
+        #print("Definindo com E")
         x_final, y_final = X_LIM_E, ye
         tamanhoLinha = contPtE
         
     elif(contPtE < 140 and contPtC == 140 and contPtD < 140):
-        print("Definindo com E")
+        #print("Definindo com E")
         x_final, y_final = X_LIM_C, yc
         tamanhoLinha = contPtC
         
     elif(contPtE < 140 and contPtC < 140 and contPtD == 140):
-        print("Definindo com D")
+        #print("Definindo com D")
         x_final, y_final = X_LIM_D, yd
         tamanhoLinha = contPtD
     else:
-        print("Falha!")
+        #print("Falha!")
         x_final, y_final = 340, 419
         tamanhoLinha = 5
  
         
     if(contPtE <= 80 and contPtC <= 80 and contPtD <= 80):
-        print("Impossível criar area para detectar obstáculos!")
+        #print("Impossível criar area para detectar obstáculos!")
         x_final, y_final = 340, 419
         tamanhoLinha = 5
     
     
-    print(x_final, y_final)
-    print(contPtE, contPtC, contPtD)
-    print()
+    #print(x_final, y_final)
+    #print(contPtE, contPtC, contPtD)
+    #print()
     
     return x_final, y_final, tamanhoLinha
 
     
  
-def camada0(img, x, y):
-    canalCoresXE = canalCoresXD = 0
-    
+def camada0Esq(img, x, y):   
     for xe in range(x, 0, -1):
-        canalCoresXE = img[y, xe]
-        img[y, xe] = 255
+        canalCoresXE = img[y, xe]    
+        
+        if canalCoresXE < 200 :
+            img[y, xe] = 255
+        else:
+            break
       
-    for xd in range(x, 680):
-        canalCoresXD = img[y, xd]
-        img[y, xd] = 255  
-    pass
 
-
-
- 
 try:
     for i in sorted(glob.glob(caminho_pasta)):  
         imagem = cv2.imread(i)
@@ -692,8 +687,9 @@ try:
         areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
         '''
         
+
         x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
-        
+       
         parte_y = int(tamanhoLinha/5)
         
         y0 = 419 - parte_y 
@@ -702,14 +698,12 @@ try:
         y3 = 419 - parte_y * 4
         y4 = 419 - parte_y * 5
         
-        print(parte_y)
-        print(y0, y1, y2, y3, y4)
+        print( x, y, tamanhoLinha)
+        #print(y0, y1, y2, y3, y4)
         
-        camada0(imagem_tresh, x, y0)
-        camada0(imagem_tresh, x, y1)
-        camada0(imagem_tresh, x, y2)
-        camada0(imagem_tresh, x, y3)
-        camada0(imagem_tresh, x, y4)
+
+        camada0Esq(imagem_tresh, x, y0)
+
         
         #cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
