@@ -439,8 +439,8 @@ def camadasEsqMetodo2(img):
         xCMD4, yCMD4 = 0, Y4
         
         
-    print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
-    print()
+    #print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
+    #print()
         
     if(xCMD0 != 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 == 0):
         xCMD0 = 0
@@ -452,14 +452,15 @@ def camadasEsqMetodo2(img):
         xCMD3 = 0
     elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 != 0):
         xCMD4 = 0    
-
+    '''
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
     print(xCMD2, yCMD2)
     print(xCMD3, yCMD3)
     print(xCMD4, yCMD4)
     print()
-    
+    '''
+    print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
     return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
 
 def camadasDirMetodo2(img):
@@ -623,8 +624,8 @@ def camadasDirMetodo2(img):
         xCMD4, yCMD4 = 0, Y4
         
         
-    print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
-    print()
+    #print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
+    #print()
         
     if(xCMD0 != 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 == 0):
         xCMD0 = 0
@@ -650,14 +651,15 @@ def camadasDirMetodo2(img):
             xCMD4 = xCMD2 + 40
         else:
             xCMD4 = xCMD0 + 75
-
+    '''
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
     print(xCMD2, yCMD2)
     print(xCMD3, yCMD3)
     print(xCMD4, yCMD4)
     print()
-    
+    '''
+    print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
     return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
 
 try:
@@ -681,35 +683,19 @@ try:
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
-        #camadasEsqMetodo2(imagem_tresh)
+        camadasEsqMetodo2(imagem_tresh)
         camadasDirMetodo2(imagem_tresh)
+        print()
         
         
-        '''
         if tamanhoLinha > 5:
-            camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-            camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            pass
+            #camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            #camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
-          pass
+            pass
             
-            x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
-            x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
-            x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
-            x_esq3, y_esq3 = detectaBordaEsqCMD3(imagem_tresh)
-            x_esq4, y_esq4 = detectaBordaEsqCMD4(imagem_tresh)
-            
-    
-            x_dir0, y_dir0 = detectaBordaDirCMD0(imagem_tresh)
-            x_dir1, y_dir1 = detectaBordaDirCMD1(imagem_tresh)
-            x_dir2, y_dir2 = detectaBordaDirCMD2(imagem_tresh)           
-            x_dir3, y_dir3 = detectaBordaDirCMD3(imagem_tresh)
-            x_dir4, y_dir4 = detectaBordaDirCMD4(imagem_tresh)
-            
-            x_esq0, x_esq1, x_esq2, x_esq3, x_esq4 = definePontosBordaEsq(imagem, x_esq0, x_esq1, x_esq2, x_esq3, x_esq4)
-            x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
-            #areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
-        '''
             
 
         
