@@ -452,6 +452,17 @@ def camadasEsqMetodo2(img):
         xCMD3 = 0
     elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 != 0):
         xCMD4 = 0    
+        
+        
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD1 == 0):
+        xCMD1 = int((xCMD0+xCMD4)/2)
+        
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD2 == 0):
+        xCMD2 = int((xCMD0+xCMD4)/2)
+        
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD3 == 0):
+        xCMD3 = int((xCMD0+xCMD4)/2)
+        
     '''
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
@@ -651,6 +662,17 @@ def camadasDirMetodo2(img):
             xCMD4 = xCMD2 + 40
         else:
             xCMD4 = xCMD0 + 75
+            
+            
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD1 == 0):
+        xCMD1 = int((xCMD0+xCMD4)/2)
+        
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD2 == 0):
+        xCMD2 = int((xCMD0+xCMD4)/2)
+        
+    if(xCMD0 != 0 and xCMD4 != 0 and xCMD3 == 0):
+        xCMD3 = int((xCMD0+xCMD4)/2)
+        
     '''
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
