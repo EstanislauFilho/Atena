@@ -568,7 +568,6 @@ def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_
     cv2.line(img, (x_dir1, y_dir1), (x_dir0, y_dir0), (255, 0, 0), 2)
     
     
- 
 def definePontosVerticais(img):
     X_LIM_E = 300
     X_LIM_C = 340
@@ -879,7 +878,7 @@ def camadasEsqMetodo2(img):
                     break
             break
     
-    if(cont_b0 >= 15 and cont_b0 <= 40) and (cont_p0 <= 336):
+    if(cont_b0 >= 10 and cont_b0 <= 40) and (cont_p0 <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         xCMD0, yCMD0 = xb0, yb0
     elif(cont_b0 > 40) and (cont_b0 < 50) and (cont_p0 <= 336):
@@ -923,15 +922,37 @@ def camadasEsqMetodo2(img):
         xCMD3, yCMD3 = 0, Y3
         
     
-    if(cont_b4 >= 25 and cont_b4 <= 40) and (cont_p4 <= 336):
+    if(cont_b4 >= 10 and cont_b4 <= 40) and (cont_p4 <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         xCMD4, yCMD4 = xb4, yb4
     elif(cont_b4 > 40) and (cont_p4 <= 336):
         #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
         xCMD4, yCMD4 = xp4, yp4
     else:
-        xCMD4, yCMD4 = 340, 419
+        xCMD4, yCMD4 = 0, Y4
+        
+        
+    print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
+    print()
+        
+    if(xCMD0 != 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 == 0):
+        xCMD0 = 0
+    elif(xCMD0 == 0 and xCMD1 != 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 == 0):
+        xCMD1 = 0
+    elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 != 0 and xCMD3 == 0 and xCMD4 == 0):
+        xCMD2 = 0
+    elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 != 0 and xCMD4 == 0):
+        xCMD3 = 0
+    elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 != 0):
+        xCMD4 = 0    
 
+    print(xCMD0, yCMD0)
+    print(xCMD1, yCMD1)
+    print(xCMD2, yCMD2)
+    print(xCMD3, yCMD3)
+    print(xCMD4, yCMD4)
+    print()
+    
     return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
 
 
