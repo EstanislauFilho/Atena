@@ -10,7 +10,7 @@ import cv2
 import glob
 import sys
 
-numero_pasta = 13
+numero_pasta = 0
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
 
