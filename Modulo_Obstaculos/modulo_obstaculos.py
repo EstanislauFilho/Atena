@@ -637,6 +637,16 @@ def camadasDirMetodo2(img):
     elif(xCMD0 == 0 and xCMD1 == 0 and xCMD2 == 0 and xCMD3 == 0 and xCMD4 != 0):
         xCMD4 = 0    
 
+
+    if(xCMD0 == 0 and xCMD4 != 0):
+         if(xCMD1 != 0):
+             xCMD0 = xCMD1 - 20
+         elif(xCMD2 != 0):
+             xCMD0 = xCMD2 - 35
+    if(xCMD0 != 0 and xCMD4 == 0):
+        xCMD4 = xCMD0 + 35
+    
+
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
     print(xCMD2, yCMD2)
