@@ -18,12 +18,15 @@ caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pas
 imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
 
 
-
-Y0 = 400
-Y1 = 370
+Y0 = 280
+Y1 = 310
 Y2 = 340
-Y3 = 310
-Y4 = 280
+Y3 = 370
+Y4 = 400
+
+
+
+
 
 x_dir0, y_dir0 = 0, 0
 x_dir1, y_dir1 = 0, 0
@@ -696,10 +699,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             contCMD4 += 1
         else:
             break
- 
-    #print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
- 
-    
+   
 def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4): 
     
     xCMD0 = xCMD1 = xCMD2 = xCMD3 = xCMD4 = 340
@@ -772,44 +772,168 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
     print()
 
 
-def camadasEsqMetodo2(img, x, y0, y1, y2, y3, y4):
-    xp, yp = xb, yb = x_Esq, y_Esq = 0, y0 
+def camadasEsqMetodo2(img):
+    xp0, yp0 = xb0, yb0 = 0, Y0 
+    xp1, yp1 = xb1, yb1 = 0, Y1 
+    xp2, yp2 = xb2, yb2 = 0, Y2 
+    xp3, yp3 = xb3, yb3 = 0, Y3 
+    xp4, yp4 = xb4, yb4 = 0, Y4 
     
-    cont_p = 0
-    cont_b = 0
+    cont_p0 = cont_p1 = cont_p2 = cont_p3 = cont_p4 = 0
+    cont_b0 = cont_b1 = cont_b2 = cont_b3 = cont_b4 = 0
     
     for x in range(1, 339):
-        canalCoresXE = img[y0, x]  
+        canalCoresXE = img[Y0, x]  
         if canalCoresXE < 240:
-            img[y0, x]  = 255
-            cont_p += 1
+            img[Y0, x]  = 255
+            cont_p0 += 1
         else:
-            xp = x 
-            yp = Y0
+            xp0 = x 
+            yp0 = Y0
             for x in range(x, 339):
                 canalCoresXE = img[Y0, x]  
                 if canalCoresXE > 240:
                     img[Y0, x] = 0
-                    cont_b += 1
+                    cont_b0 += 1
                 else:
-                    xb = x 
-                    yb = Y0
+                    xb0 = x 
+                    yb0 = Y0
                     break
             break
-    if(cont_b >= 25 and cont_b <= 40) and (cont_p <= 336):
+        
+    for x in range(1, 339):
+        canalCoresXE = img[Y1, x]  
+        if canalCoresXE < 240:
+            img[Y1, x]  = 255
+            cont_p1 += 1
+        else:
+            xp1 = x 
+            yp1 = Y1
+            for x in range(x, 339):
+                canalCoresXE = img[Y1, x]  
+                if canalCoresXE > 240:
+                    img[Y1, x] = 0
+                    cont_b1 += 1
+                else:
+                    xb1 = x 
+                    yb1 = Y1
+                    break
+            break
+        
+    for x in range(1, 339):
+        canalCoresXE = img[Y2, x]  
+        if canalCoresXE < 240:
+            img[Y2, x]  = 255
+            cont_p2 += 1
+        else:
+            xp2 = x 
+            yp2 = Y2
+            for x in range(x, 339):
+                canalCoresXE = img[Y2, x]  
+                if canalCoresXE > 240:
+                    img[Y2, x] = 0
+                    cont_b2 += 1
+                else:
+                    xb2 = x 
+                    yb2 = Y2
+                    break
+            break
+        
+        
+    for x in range(1, 339):
+        canalCoresXE = img[Y3, x]  
+        if canalCoresXE < 240:
+            img[Y3, x]  = 255
+            cont_p3 += 1
+        else:
+            xp3 = x 
+            yp3 = Y3
+            for x in range(x, 339):
+                canalCoresXE = img[Y3, x]  
+                if canalCoresXE > 240:
+                    img[Y3, x] = 0
+                    cont_b3 += 1
+                else:
+                    xb3 = x 
+                    yb3 = Y3
+                    break
+            break
+        
+        
+    for x in range(1, 339):
+        canalCoresXE = img[Y4, x]  
+        if canalCoresXE < 240:
+            img[Y4, x]  = 255
+            cont_p4 += 1
+        else:
+            xp4 = x 
+            yp4 = Y4
+            for x in range(x, 339):
+                canalCoresXE = img[Y4, x]  
+                if canalCoresXE > 240:
+                    img[Y4, x] = 0
+                    cont_b4 += 1
+                else:
+                    xb4 = x 
+                    yb4 = Y4
+                    break
+            break
+    
+    if(cont_b0 >= 15 and cont_b0 <= 40) and (cont_p0 <= 336):
         #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        x_Esq, y_Esq = xb, yb
-    elif(cont_b > 40) and (cont_p <= 336):
+        xCMD0, yCMD0 = xb0, yb0
+    elif(cont_b0 > 40) and (cont_b0 < 50) and (cont_p0 <= 336):
         #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        x_Esq, y_Esq = xp, yp
+        xCMD0, yCMD0 = xp0, yp0
     else:
         #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
-        pass
+        xCMD0, yCMD0 = 0, Y0 
+        
+        
+    if(cont_b1 >= 15 and cont_b1 <= 40) and (cont_p1 <= 336):
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD1, yCMD1 = xb1, yb1
+    elif(cont_b1 > 40) and (cont_b1 < 50) and (cont_p1 <= 336):
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD1, yCMD1 = xp1, yp1
+    else:
+        #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD1, yCMD1 = 0, Y1 
     
-    #print(cont_p, cont_b)
-    #print(x_Esq, y_Esq)
-    #print()
-    return x_Esq, y_Esq
+    
+    if(cont_b2 >= 15 and cont_b2 <= 40) and (cont_p2 <= 336):
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD2, yCMD2 = xb2, yb2
+    elif(cont_b2 > 40) and (cont_b2 < 50) and (cont_p2 <= 336):
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD2, yCMD2 = xp2, yp2
+    else:
+        #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD2, yCMD2 = 0, Y2 
+        
+    
+    if(cont_b3 >= 15 and cont_b3 <= 35) and (cont_p3 <= 336):
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD3, yCMD3 = xb3, yb3
+    elif(cont_b3 > 35) and (cont_b3 < 50) and (cont_p3 <= 336):
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD3, yCMD3 = xp3, yp3
+    else:
+        #print("n achou \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD3, yCMD3 = 0, Y3
+        
+    
+    if(cont_b4 >= 25 and cont_b4 <= 40) and (cont_p4 <= 336):
+        #print("achou b \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD4, yCMD4 = xb4, yb4
+    elif(cont_b4 > 40) and (cont_p4 <= 336):
+        #print("achou p \t{0} \t{1} \t{2} \t{3}".format(xp, yp, xb, yb))
+        xCMD4, yCMD4 = xp4, yp4
+    else:
+        xCMD4, yCMD4 = 340, 419
+
+    return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
+
 
 
 try:
@@ -833,12 +957,16 @@ try:
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
+        camadasEsqMetodo2(imagem_tresh)
+        
+        
+        '''
         if tamanhoLinha > 5:
-            #camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
             camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
-            pass
-            '''
+          pass
+            
             x_esq0, y_esq0 = detectaBordaEsqCMD0(imagem_tresh)
             x_esq1, y_esq1 = detectaBordaEsqCMD1(imagem_tresh)
             x_esq2, y_esq2 = detectaBordaEsqCMD2(imagem_tresh)
@@ -856,7 +984,7 @@ try:
             x_dir0, x_dir1, x_dir2, x_dir3, x_dir4 = definePontosBordaDir(imagem, x_dir0, x_dir1, x_dir2, x_dir3, x_dir4)
 
             #areaDeteccao(imagem, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4)
-            '''
+        '''
             
 
         
