@@ -8,14 +8,10 @@ Created on Mon Nov 16 19:08:54 2020
 
 import cv2
 import glob
-import sys
 
-numero_pasta = 0
+numero_pasta = 8
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
-
-
-imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
 
 
 Y0 = 280
@@ -23,24 +19,7 @@ Y1 = 310
 Y2 = 340
 Y3 = 370
 Y4 = 400
-
-
-
-
-
-x_dir0, y_dir0 = 0, 0
-x_dir1, y_dir1 = 0, 0
-x_dir2, y_dir2 = 0, 0
-x_dir3, y_dir3 = 0, 0
-x_dir4, y_dir4 = 0, 0
-
-x_esq0, y_esq0 = 0, 0
-x_esq1, y_esq1 = 0, 0
-x_esq2, y_esq2 = 0, 0
-x_esq3, y_esq3 = 0, 0
-x_esq4, y_esq4 = 0, 0
-
-   
+  
     
 def definePontosVerticais(img):
     X_LIM_E = 300
@@ -664,7 +643,7 @@ def camadasDirMetodo2(img):
     return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
 
 
-def desenhaAreaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
+def areaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
       
     cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
     cv2.circle(img, (x_esq1, y_esq1), 5, (255, 0, 0), 2)
@@ -719,31 +698,24 @@ try:
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
-        xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-        xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
-       
-                
+        
         
         if tamanhoLinha > 5:
-            pass
-            #xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-            #xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
-            #xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
-            #xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
-            pass
-          
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
+         
 
-        desenhaAreaDeteccao(imagem, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
+        areaDeteccao(imagem, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
 
-
-            
 
         
         cv2.imshow("Imagem Pista", imagem)
         #cv2.imshow("Imagem Cinza", imagem_cinza)
         #cv2.imshow("Imagem Blur", imagem_blur)
-        cv2.imshow("Imagem tresh", imagem_tresh)
+        #cv2.imshow("Imagem tresh", imagem_tresh)
         cv2.waitKey(0)
             
         if cv2.waitKey(1) & 0xFF == 27:
@@ -751,22 +723,7 @@ try:
 
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
-    sys.exit()
     
 finally:
     cv2.destroyAllWindows()
 
-
-    
-    
-'''
-imagem = cv2.imread("/home/estanislau/Projetos/TCC/frames_video_plc_0/10000.jpg")
-imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
-imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-imagem_tresh = cv2.inRange(imagem_blur, 200, 255) 
-
-cv2.imshow("Imagem tresh", imagem_tresh)
-cv2.waitKey(0)
-
-cv2.destroyAllWindows()
-'''
