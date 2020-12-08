@@ -123,9 +123,12 @@ def definePontosVerticais(img):
     
     return x_final, y_final, tamanhoLinha
 
+
 def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):  
     
     contCMD0 = contCMD1 = contCMD2 = contCMD3 = contCMD4 = 0
+    xCMD0, xCMD1, xCMD2, xCMD3, xCMD4 = 0, 0, 0, 0, 0 
+    yCMD0, yCMD1, yCMD2, yCMD3, yCMD4 = y0, y1, y2, y3, y4
     
     for xe in range(x, 0, -1):
         canalCoresXE = img[y0, xe]    
@@ -134,6 +137,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             img[y0, xe] = 255
             contCMD0 += 1
         else:
+            xCMD0, yCMD0 = xe, y0
             break
         
     for xe in range(x, 0, -1):
@@ -143,6 +147,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             img[y1, xe] = 255
             contCMD1 += 1
         else:
+            xCMD1, yCMD1 = xe, y1
             break
         
         
@@ -153,6 +158,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             img[y2, xe] = 255
             contCMD2 += 1
         else:
+            xCMD2, yCMD2 = xe, y2
             break
         
     for xe in range(x, 0, -1):
@@ -162,6 +168,7 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             img[y3, xe] = 255
             contCMD3 += 1
         else:
+            xCMD3, yCMD3 = xe, y3
             break
         
     for xe in range(x, 0, -1):
@@ -171,8 +178,11 @@ def camadasEsqMetodo1(img, x, y0, y1, y2, y3, y4):
             img[y4, xe] = 255
             contCMD4 += 1
         else:
+            xCMD4, yCMD4 = xe, y4
             break
-   
+        
+    return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
+  
 def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4): 
     
     xCMD0 = xCMD1 = xCMD2 = xCMD3 = xCMD4 = 340
@@ -235,7 +245,7 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
             xCMD4 = xd
             yCMD4 = y4
             break
-        
+    '''
     print(contCMD0, contCMD1, contCMD2, contCMD3, contCMD4)
     print(xCMD0, yCMD0)
     print(xCMD1, yCMD1)
@@ -243,6 +253,9 @@ def camadasDirMetodo1(img, x, y0, y1, y2, y3, y4):
     print(xCMD3, yCMD3)
     print(xCMD4, yCMD4)
     print()
+    '''
+    return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
+
 
 def camadasEsqMetodo2(img):
     xp0, yp0 = xb0, yb0 = 0, Y0 
@@ -650,6 +663,7 @@ def camadasDirMetodo2(img):
     #print(xCMD0, xCMD1, xCMD2, xCMD3, xCMD4)
     return xCMD0, yCMD0, xCMD1, yCMD1, xCMD2, yCMD2, xCMD3, yCMD3, xCMD4, yCMD4
 
+
 def desenhaAreaDeteccao(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq2, x_esq3, y_esq3, x_esq4, y_esq4, x_dir0, y_dir0, x_dir1, y_dir1, x_dir2, y_dir2, x_dir3, y_dir3, x_dir4, y_dir4):
       
     cv2.circle(img, (x_esq0, y_esq0), 5, (255, 0, 0), 2)
@@ -705,16 +719,18 @@ try:
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
-        xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
-        xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
-        
+        xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+        xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+       
                 
         
         if tamanhoLinha > 5:
             pass
-            #camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-            #camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            #xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            #xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
         else:
+            #xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
+            #xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
             pass
           
 
