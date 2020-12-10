@@ -13,5 +13,9 @@ largura, altura = 499, 325
 pygame.init()
 
 pygame.display.set_mode((largura, altura))
+pygame.display.set_caption("Atena v1")
+
+pygame.display.update()
+
 
 pygame.quit()
