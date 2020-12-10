@@ -17,7 +17,7 @@ cor_azul = (0, 0, 255)
 
 pygame.init()
 
-pygame.display.set_mode((largura, altura))
+fundo = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Atena v1")
 
 executa = True
@@ -30,6 +30,9 @@ while(executa):
         
         if event.type == pygame.QUIT:
             executa = False
+    
+    fundo.fill(cor_azul)
+    pygame.draw.rect(fundo, cor_vermelho, [50, 50, 20, 20])
     
     pygame.display.update()
 
