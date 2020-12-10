@@ -10,6 +10,11 @@ import pygame
 
 largura, altura = 499, 325
 
+cor_vermelho = (255, 0, 0)
+cor_verde = (0, 255, 0)
+cor_azul = (0, 0, 255)
+
+
 pygame.init()
 
 pygame.display.set_mode((largura, altura))
