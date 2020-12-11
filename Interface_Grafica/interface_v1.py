@@ -38,6 +38,8 @@ while(executa):
         print(event)
         
         if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
             executa = False
     
     fundo.fill(cor_azul)
@@ -57,3 +59,4 @@ while(executa):
 
 
 pygame.quit()
+quit()
