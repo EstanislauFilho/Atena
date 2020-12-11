@@ -27,6 +27,7 @@ clock = pygame.time.Clock()
 
 imgFundoOriginal = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaInicial.png")
 
+configTexto = pygame.font.Font('freesansbold.ttf', 30)
 
 executa = True
 
@@ -44,6 +45,12 @@ while(executa):
     
     pygame.draw.rect(fundo, cor_verde, btn_entrar)
     pygame.draw.rect(fundo, cor_vermelho, btn_sair)
+    
+    textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
+    fundo.blit(textoEntrar, (206, 154))
+    
+    textoSair = configTexto.render("Sair", True, (0, 0, 0))
+    fundo.blit(textoSair, (220, 199))
     
     pygame.display.update()
     clock.tick(60)
