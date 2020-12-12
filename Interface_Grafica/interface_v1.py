@@ -52,10 +52,8 @@ while(executaTelaInicial):
         
         if event.type == pygame.QUIT:
             executaTelaInicial = False
-            pygame.quit()
+           
             
-            
-    
     fundo.fill(cor_azul)
     fundo.blit(imgFundoTelaInicial, (0, 0))
     
@@ -73,4 +71,3 @@ while(executaTelaInicial):
 
 
 pygame.quit()
-quit()
