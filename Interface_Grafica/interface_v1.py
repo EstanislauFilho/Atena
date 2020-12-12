@@ -15,9 +15,9 @@ corVermelhoForte = (255, 0, 0)
 corVerdeForte = (0, 255, 0)
 corAzulForte = (0, 0, 255)
 
-corVermelhoFraco = (210, 0, 0)
-corVerdeFraco = (0, 210, 0)
-corAzulFraco = (0, 0, 210)
+corVermelhoFraco = (200, 0, 0)
+corVerdeFraco = (0, 200, 0)
+corAzulFraco = (0, 0, 200)
 
 
 btnEntrarTelaInicial = [175, 150, 150, 35]
@@ -52,18 +52,28 @@ destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
 
 while(executaTelaInicial):
     
+    mouse = pygame.mouse.get_pos()
+    
     for event in pygame.event.get():       
-        print(event)
+        #print(event)
         
         if event.type == pygame.QUIT:
             executaTelaInicial = False
-           
+         
+    #print(mouse)
             
     fundo.fill((0, 0, 0))
     fundo.blit(imgFundoTelaInicial, (0, 0))
     
-    pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
-    pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
+    if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
+        pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+    else:
+        pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+    
+    if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
+        pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
+    else:
+        pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
     
     textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
     fundo.blit(textoEntrar, (206, 154))
