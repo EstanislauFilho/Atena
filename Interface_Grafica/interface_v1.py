@@ -11,9 +11,14 @@ import pygame
 
 largura, altura = 499, 325
 
-cor_vermelho = (255, 0, 0)
-cor_verde = (0, 255, 0)
-cor_azul = (0, 0, 255)
+corVermelhoForte = (255, 0, 0)
+corVerdeForte = (0, 255, 0)
+corAzulForte = (0, 0, 255)
+
+corVermelhoFraco = (210, 0, 0)
+corVerdeFraco = (0, 210, 0)
+corAzulFraco = (0, 0, 210)
+
 
 btnEntrarTelaInicial = [175, 150, 150, 35]
 btnSairTelaInicial = [175, 195, 150, 35]
@@ -54,11 +59,11 @@ while(executaTelaInicial):
             executaTelaInicial = False
            
             
-    fundo.fill(cor_azul)
+    fundo.fill((0, 0, 0))
     fundo.blit(imgFundoTelaInicial, (0, 0))
     
-    pygame.draw.rect(fundo, cor_verde, btnEntrarTelaInicial)
-    pygame.draw.rect(fundo, cor_vermelho, btnSairTelaInicial)
+    pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+    pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
     
     textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
     fundo.blit(textoEntrar, (206, 154))
