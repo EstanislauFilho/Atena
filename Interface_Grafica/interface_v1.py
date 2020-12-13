@@ -23,6 +23,10 @@ corAzulFraco = (0, 0, 200)
 btnEntrarTelaInicial = [175, 150, 150, 35]
 btnSairTelaInicial = [175, 195, 150, 35]
 
+btnSelecionaFutebol = [15, 240, 150, 35]
+btnSelecionaIgreja = [175, 240, 150, 35]
+btnSelecionaTeatro = [335, 240, 150, 35]
+
 
 pygame.init()
 
@@ -108,6 +112,12 @@ def TelaSelecionaDestino():
                 
         fundo.fill((0, 0, 0))
         fundo.blit(imgFundoSelecionaDestino, (0, 0))
+        
+        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaFutebol)
+        
+        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaIgreja)
+        
+        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaTeatro)
         
         pygame.display.update()
         clock.tick(60)
