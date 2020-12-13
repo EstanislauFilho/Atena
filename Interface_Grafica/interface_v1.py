@@ -53,6 +53,7 @@ destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
 while(executaTelaInicial):
     
     mouse = pygame.mouse.get_pos()
+    clickMouse = pygame.mouse.get_pressed()
     
     for event in pygame.event.get():       
         #print(event)
@@ -67,11 +68,15 @@ while(executaTelaInicial):
     
     if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
         pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+        if clickMouse[0] == 1:
+            print("Clicando no botão entrar")
     else:
         pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
     
     if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
         pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
+        if clickMouse[0] == 1:
+            print("Clicando no botão sair")
     else:
         pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
     
