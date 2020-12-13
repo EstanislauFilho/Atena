@@ -43,51 +43,54 @@ imgFundoCarregaConfiguracoes6 = pygame.image.load("/home/estanislau/Projetos/Ate
 
 configTexto = pygame.font.Font('freesansbold.ttf', 25)
 
-executaTelaInicial = True
+
 executaTelaSelecionaDestino = True
 executaTelaConfirmaDestino = True
 executaTelaCarregaConfiguracoes = True
 
 destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
 
-while(executaTelaInicial):
+def telaInicial():
+    executaTelaInicial = True
     
-    mouse = pygame.mouse.get_pos()
-    clickMouse = pygame.mouse.get_pressed()
-    
-    for event in pygame.event.get():       
-        #print(event)
+    while(executaTelaInicial):      
+        mouse = pygame.mouse.get_pos()
+        clickMouse = pygame.mouse.get_pressed()
         
-        if event.type == pygame.QUIT:
-            executaTelaInicial = False
-         
-    #print(mouse)
+        for event in pygame.event.get():       
+            #print(event)
             
-    fundo.fill((0, 0, 0))
-    fundo.blit(imgFundoTelaInicial, (0, 0))
-    
-    if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
-        pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
-        if clickMouse[0] == 1:
-            print("Clicando no botão entrar")
-    else:
-        pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
-    
-    if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
-        pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
-        if clickMouse[0] == 1:
-            print("Clicando no botão sair")
-    else:
-        pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
-    
-    textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
-    fundo.blit(textoEntrar, (206, 154))
-    
-    textoSair = configTexto.render("Sair", True, (0, 0, 0))
-    fundo.blit(textoSair, (220, 199))
-    
-    pygame.display.update()
-    clock.tick(60)
+            if event.type == pygame.QUIT:
+                executaTelaInicial = False
+             
+        #print(mouse)
+                
+        fundo.fill((0, 0, 0))
+        fundo.blit(imgFundoTelaInicial, (0, 0))
+        
+        if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
+            pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+            if clickMouse[0] == 1:
+                print("Clicando no botão entrar")
+        else:
+            pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+        
+        if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
+            pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
+            if clickMouse[0] == 1:
+                print("Clicando no botão sair")
+        else:
+            pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
+        
+        textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
+        fundo.blit(textoEntrar, (206, 154))
+        
+        textoSair = configTexto.render("Sair", True, (0, 0, 0))
+        fundo.blit(textoSair, (220, 199))
+        
+        pygame.display.update()
+        clock.tick(60)
 
 
+telaInicial()
 pygame.quit()
