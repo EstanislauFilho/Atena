@@ -44,6 +44,11 @@ imgFundoCarregaConfiguracoes4 = pygame.image.load("/home/estanislau/Projetos/Ate
 imgFundoCarregaConfiguracoes5 = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaConfig5.png")
 imgFundoCarregaConfiguracoes6 = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaConfig6.png")
 
+imgFundoFutebol = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/futebol.png")
+imgFundoIgreja = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/igreja.png")
+imgFundoTeatro = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/teatro.png")
+
+
 
 configTexto = pygame.font.Font('freesansbold.ttf', 25)
 
@@ -77,6 +82,8 @@ def telaInicial():
             if clickMouse[0] == 1:
                 print("Clicando no botão entrar")
                 TelaSelecionaDestino()
+                executaTelaInicial = False
+                #executaTelaInicial = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
         
@@ -84,17 +91,19 @@ def telaInicial():
             pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
             if clickMouse[0] == 1:
                 print("Clicando no botão sair")
+                executaTelaInicial = False
         else:
             pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
         
-        textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
-        fundo.blit(textoEntrar, (206, 154))
-        
-        textoSair = configTexto.render("Sair", True, (0, 0, 0))
-        fundo.blit(textoSair, (220, 199))
-        
-        pygame.display.update()
-        clock.tick(60)
+        if executaTelaInicial is True:
+            textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
+            fundo.blit(textoEntrar, (206, 154))
+            
+            textoSair = configTexto.render("Sair", True, (0, 0, 0))
+            fundo.blit(textoSair, (220, 199))
+            
+            pygame.display.update()
+            clock.tick(60)
 
 
 def TelaSelecionaDestino():
@@ -113,14 +122,39 @@ def TelaSelecionaDestino():
         fundo.fill((0, 0, 0))
         fundo.blit(imgFundoSelecionaDestino, (0, 0))
         
-        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaFutebol)
+        fundo.blit(imgFundoFutebol, (15, 30))
         
-        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaIgreja)
         
-        pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaTeatro)
+        if 15+150 > mouse[0] > 15 and 240+35 > mouse[1] > 240:
+            pygame.draw.rect(fundo, corVerdeForte, btnSelecionaFutebol)
+        else:
+            pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaFutebol)
         
-        pygame.display.update()
-        clock.tick(60)
+        
+        if 175+150 > mouse[0] > 175 and 240+35 > mouse[1] > 240:
+            pygame.draw.rect(fundo, corVerdeForte, btnSelecionaIgreja)
+        else:
+            pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaIgreja)
+        
+        
+        if 335+150 > mouse[0] > 335 and 240+35 > mouse[1] > 240:
+            pygame.draw.rect(fundo, corVerdeForte, btnSelecionaTeatro)
+        else:
+            pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaTeatro)
+        
+        
+        if executaTelaSelecionaDestino is True:    
+            textoFutebol = configTexto.render("Futebol", True, (0, 0, 0))
+            fundo.blit(textoFutebol, (45, 245))
+            
+            textoIgreja = configTexto.render("Igreja", True, (0, 0, 0))
+            fundo.blit(textoIgreja, (215, 245))
+            
+            textoTeatro = configTexto.render("Teatro", True, (0, 0, 0))
+            fundo.blit(textoTeatro, (370, 245))
+                      
+            pygame.display.update()
+            clock.tick(60)
         
 telaInicial()
 pygame.quit()
