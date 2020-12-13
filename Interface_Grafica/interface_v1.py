@@ -72,6 +72,7 @@ def telaInicial():
             pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
             if clickMouse[0] == 1:
                 print("Clicando no botão entrar")
+                TelaSelecionaDestino()
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
         
@@ -92,5 +93,24 @@ def telaInicial():
         clock.tick(60)
 
 
+def TelaSelecionaDestino():
+    executaTelaSelecionaDestino = True
+    
+    while(executaTelaSelecionaDestino):      
+        mouse = pygame.mouse.get_pos()
+        clickMouse = pygame.mouse.get_pressed()
+        
+        for event in pygame.event.get():       
+            #print(event)
+            
+            if event.type == pygame.QUIT:
+                executaTelaSelecionaDestino = False
+                
+        fundo.fill((0, 0, 0))
+        fundo.blit(imgFundoSelecionaDestino, (0, 0))
+        
+        pygame.display.update()
+        clock.tick(60)
+        
 telaInicial()
 pygame.quit()
