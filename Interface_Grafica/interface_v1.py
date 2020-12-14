@@ -23,8 +23,8 @@ corAzulFraco = (0, 0, 200)
 btnEntrarTelaInicial = [175, 150, 150, 35]
 btnSairTelaInicial = [175, 195, 150, 35]
 
-btnConfirmaSim = [175, 150, 150, 35]
-btnConfirmaNao = [175, 195, 150, 35]
+btnConfirmaSim = [75, 230, 150, 35]
+btnConfirmaNao = [275, 230, 150, 35]
 
 
 btnSelecionaFutebol = [15, 240, 150, 35]
@@ -200,7 +200,7 @@ def confirmaDestino(destino):
         
         
         
-        if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
+        if 75+150 > mouse[0] > 75 and 230+35 > mouse[1] > 230:
             pygame.draw.rect(fundo, corVerdeForte, btnConfirmaSim)
             if clickMouse[0] == 1:
                 print("Clicando no botão sim")
@@ -208,10 +208,12 @@ def confirmaDestino(destino):
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnConfirmaSim)
         
-        if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
+        if 275+150 > mouse[0] > 275 and 230+35 > mouse[1] > 230:
             pygame.draw.rect(fundo, corVermelhoForte, btnConfirmaNao)
             if clickMouse[0] == 1:
                 print("Clicando no botão não")
+                TelaSelecionaDestino()
+                executaTelaConfirmaDestino = False
                 #executaTelaConfirmaDestino = False
         else:
             pygame.draw.rect(fundo, corVermelhoFraco, btnConfirmaNao)
