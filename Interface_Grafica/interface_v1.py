@@ -23,6 +23,10 @@ corAzulFraco = (0, 0, 200)
 btnEntrarTelaInicial = [175, 150, 150, 35]
 btnSairTelaInicial = [175, 195, 150, 35]
 
+btnConfirmaSim = [175, 150, 150, 35]
+btnConfirmaNao = [175, 195, 150, 35]
+
+
 btnSelecionaFutebol = [15, 240, 150, 35]
 btnSelecionaIgreja = [175, 240, 150, 35]
 btnSelecionaTeatro = [335, 240, 150, 35]
@@ -188,40 +192,38 @@ def confirmaDestino(destino):
         fundo.blit(imgFundoConfirmaDestino, (0, 0))
         
         if destino == "futebol":
-            fundo.blit(imgFundoFutebol, (250, 160))
+            fundo.blit(imgFundoFutebol, (210, 110))
         elif destino == "igreja":
-            fundo.blit(imgFundoIgreja, (250, 160))
+            fundo.blit(imgFundoIgreja, (210, 110))
         elif destino == "teatro":
-            fundo.blit(imgFundoTeatro, (250, 160))
+            fundo.blit(imgFundoTeatro, (210, 110))
         
         
-        '''
+        
         if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
-            pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+            pygame.draw.rect(fundo, corVerdeForte, btnConfirmaSim)
             if clickMouse[0] == 1:
-                print("Clicando no botão entrar")
-                TelaSelecionaDestino()
-                executaTelaInicial = False
-                #executaTelaInicial = False
+                print("Clicando no botão sim")
+                #executaTelaConfirmaDestino = False
         else:
-            pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+            pygame.draw.rect(fundo, corVerdeFraco, btnConfirmaSim)
         
         if 175+150 > mouse[0] > 175 and 195+35 > mouse[1] > 195:
-            pygame.draw.rect(fundo, corVermelhoForte, btnSairTelaInicial)
+            pygame.draw.rect(fundo, corVermelhoForte, btnConfirmaNao)
             if clickMouse[0] == 1:
-                print("Clicando no botão sair")
-                executaTelaInicial = False
+                print("Clicando no botão não")
+                #executaTelaConfirmaDestino = False
         else:
-            pygame.draw.rect(fundo, corVermelhoFraco, btnSairTelaInicial)
-        '''
+            pygame.draw.rect(fundo, corVermelhoFraco, btnConfirmaNao)
+        
         
         
         if executaTelaConfirmaDestino is True:
-            textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
-            fundo.blit(textoEntrar, (206, 154))
+            textoEntrar = configTexto.render("Sim", True, (0, 0, 0))
+            fundo.blit(textoEntrar, (126, 240))
             
-            textoSair = configTexto.render("Sair", True, (0, 0, 0))
-            fundo.blit(textoSair, (220, 199))
+            textoSair = configTexto.render("Não", True, (0, 0, 0))
+            fundo.blit(textoSair, (320, 240))
             
             pygame.display.update()
             clock.tick(60)
