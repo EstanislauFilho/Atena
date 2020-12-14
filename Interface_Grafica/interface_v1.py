@@ -101,10 +101,10 @@ def telaInicial():
         
         if executaTelaInicial is True:
             textoEntrar = configTexto.render("Entrar", True, (0, 0, 0))
-            fundo.blit(textoEntrar, (206, 154))
+            fundo.blit(textoEntrar, (210, 156))
             
             textoSair = configTexto.render("Sair", True, (0, 0, 0))
-            fundo.blit(textoSair, (220, 199))
+            fundo.blit(textoSair, (225, 201))
             
             pygame.display.update()
             clock.tick(60)
@@ -126,7 +126,7 @@ def TelaSelecionaDestino():
         fundo.fill((0, 0, 0))
         fundo.blit(imgFundoSelecionaDestino, (0, 0))
         
-        fundo.blit(imgFundoFutebol, (45, 130))
+        fundo.blit(imgFundoFutebol, (55, 130))
         fundo.blit(imgFundoIgreja, (215, 130))
         fundo.blit(imgFundoTeatro, (375, 130))
         
@@ -160,13 +160,13 @@ def TelaSelecionaDestino():
         
         if executaTelaSelecionaDestino is True:    
             textoFutebol = configTexto.render("Futebol", True, (0, 0, 0))
-            fundo.blit(textoFutebol, (45, 245))
+            fundo.blit(textoFutebol, (45, 246))
             
             textoIgreja = configTexto.render("Igreja", True, (0, 0, 0))
-            fundo.blit(textoIgreja, (215, 245))
+            fundo.blit(textoIgreja, (215, 246))
             
             textoTeatro = configTexto.render("Teatro", True, (0, 0, 0))
-            fundo.blit(textoTeatro, (370, 245))
+            fundo.blit(textoTeatro, (370, 246))
                       
             pygame.display.update()
             clock.tick(60)
@@ -193,25 +193,29 @@ def confirmaDestino(destino):
         
         if destino == "futebol":
             fundo.blit(imgFundoFutebol, (210, 110))
+            destinoEstadio, destinoIgreja, destinoTeatro = True, False, False
         elif destino == "igreja":
             fundo.blit(imgFundoIgreja, (210, 110))
+            destinoEstadio, destinoIgreja, destinoTeatro = False, True, False
         elif destino == "teatro":
             fundo.blit(imgFundoTeatro, (210, 110))
+            destinoEstadio, destinoIgreja, destinoTeatro = False, False, True
         
         
         
         if 75+150 > mouse[0] > 75 and 230+35 > mouse[1] > 230:
             pygame.draw.rect(fundo, corVerdeForte, btnConfirmaSim)
             if clickMouse[0] == 1:
-                print("Clicando no botão sim")
-                #executaTelaConfirmaDestino = False
+                #print("Clicando no botão sim")
+                print(destinoEstadio, destinoIgreja, destinoTeatro)
+                executaTelaConfirmaDestino = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnConfirmaSim)
         
         if 275+150 > mouse[0] > 275 and 230+35 > mouse[1] > 230:
             pygame.draw.rect(fundo, corVermelhoForte, btnConfirmaNao)
             if clickMouse[0] == 1:
-                print("Clicando no botão não")
+                #print("Clicando no botão não")
                 TelaSelecionaDestino()
                 executaTelaConfirmaDestino = False
                 #executaTelaConfirmaDestino = False
@@ -222,10 +226,10 @@ def confirmaDestino(destino):
         
         if executaTelaConfirmaDestino is True:
             textoEntrar = configTexto.render("Sim", True, (0, 0, 0))
-            fundo.blit(textoEntrar, (126, 240))
+            fundo.blit(textoEntrar, (122, 236))
             
             textoSair = configTexto.render("Não", True, (0, 0, 0))
-            fundo.blit(textoSair, (320, 240))
+            fundo.blit(textoSair, (325, 236))
             
             pygame.display.update()
             clock.tick(60)
