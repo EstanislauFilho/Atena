@@ -122,7 +122,9 @@ def TelaSelecionaDestino():
         fundo.fill((0, 0, 0))
         fundo.blit(imgFundoSelecionaDestino, (0, 0))
         
-        fundo.blit(imgFundoFutebol, (15, 30))
+        fundo.blit(imgFundoFutebol, (45, 120))
+        fundo.blit(imgFundoIgreja, (215, 120))
+        fundo.blit(imgFundoTeatro, (375, 120))
         
         
         if 15+150 > mouse[0] > 15 and 240+35 > mouse[1] > 240:
