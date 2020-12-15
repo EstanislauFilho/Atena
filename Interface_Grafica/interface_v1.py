@@ -7,7 +7,7 @@ Created on Wed Dec  9 20:54:18 2020
 """
 
 import pygame
-
+import time
 
 largura, altura = 499, 325
 
@@ -113,6 +113,8 @@ def telaInicial():
 
 
 def telaSelecionaDestino(executa):
+    time.sleep(0.3)
+    
     executaTelaSelecionaDestino = executa
     destino = "nda"
     
@@ -178,6 +180,7 @@ def telaSelecionaDestino(executa):
 
 
 def confirmaDestino(destino):
+    time.sleep(0.3)
     
     destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
     
@@ -222,17 +225,17 @@ def confirmaDestino(destino):
             if clickMouse[0] == 1 and destino == "futebol":
                 print("Clicando no botão sim")
                 destinoEstadio, destinoIgreja, destinoTeatro = True, False, False
-                #executaTelaConfirmaDestino = False
+                executaTelaConfirmaDestino = False
                 
             if clickMouse[0] == 1 and destino == "igreja":
                 print("Clicando no botão sim")
                 destinoEstadio, destinoIgreja, destinoTeatro = False, True, False
-                #executaTelaConfirmaDestino = False
+                executaTelaConfirmaDestino = False
                 
             if clickMouse[0] == 1 and destino == "teatro":
                 print("Clicando no botão sim")
                 destinoEstadio, destinoIgreja, destinoTeatro = False, False, True
-                #executaTelaConfirmaDestino = False
+                executaTelaConfirmaDestino = False
                 
                 
         else:
@@ -242,8 +245,10 @@ def confirmaDestino(destino):
             pygame.draw.rect(fundo, corVermelhoForte, btnConfirmaNao)
             if clickMouse[0] == 1:
                 print("Clicando no botão não")
-                #telaSelecionaDestino()
-                #executaTelaConfirmaDestino = False
+                destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
+                destino = telaSelecionaDestino(True)
+                destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
+                executaTelaConfirmaDestino = False
 
         else:
             pygame.draw.rect(fundo, corVermelhoFraco, btnConfirmaNao)
@@ -267,9 +272,6 @@ destino = telaSelecionaDestino(clickBtnEntrar)
 
 destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
 
-print(clickBtnEntrar)
-print(destino)
 print(destinoEstadio, destinoIgreja, destinoTeatro)
-
 
 pygame.quit()
