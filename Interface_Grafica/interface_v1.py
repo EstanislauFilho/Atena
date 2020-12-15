@@ -52,7 +52,7 @@ imgFundoFutebol = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_G
 imgFundoIgreja = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/igreja.png")
 imgFundoTeatro = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/teatro.png")
 
-
+frameRate = 15
 
 configTexto = pygame.font.Font('freesansbold.ttf', 25)
 
@@ -107,7 +107,7 @@ def telaInicial():
             fundo.blit(textoSair, (225, 201))
             
             pygame.display.update()
-            clock.tick(60)
+            clock.tick(frameRate)
             
     return clickBtnEntrar
 
@@ -172,7 +172,7 @@ def telaSelecionaDestino(executa):
             fundo.blit(textoTeatro, (370, 246))
                       
             pygame.display.update()
-            clock.tick(60)
+            clock.tick(frameRate)
 
     return destino
 
@@ -181,8 +181,10 @@ def confirmaDestino(destino):
     
     destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
     
-    
-    executaTelaConfirmaDestino = True
+    if destino == "nda":
+        executaTelaConfirmaDestino = False
+    else:
+        executaTelaConfirmaDestino = True
     
 
     while(executaTelaConfirmaDestino):      
@@ -216,9 +218,23 @@ def confirmaDestino(destino):
         
         if 75+150 > mouse[0] > 75 and 230+35 > mouse[1] > 230:
             pygame.draw.rect(fundo, corVerdeForte, btnConfirmaSim)
-            if clickMouse[0] == 1:
+            
+            if clickMouse[0] == 1 and destino == "futebol":
                 print("Clicando no botão sim")
+                destinoEstadio, destinoIgreja, destinoTeatro = True, False, False
                 #executaTelaConfirmaDestino = False
+                
+            if clickMouse[0] == 1 and destino == "igreja":
+                print("Clicando no botão sim")
+                destinoEstadio, destinoIgreja, destinoTeatro = False, True, False
+                #executaTelaConfirmaDestino = False
+                
+            if clickMouse[0] == 1 and destino == "teatro":
+                print("Clicando no botão sim")
+                destinoEstadio, destinoIgreja, destinoTeatro = False, False, True
+                #executaTelaConfirmaDestino = False
+                
+                
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnConfirmaSim)
         
@@ -241,7 +257,7 @@ def confirmaDestino(destino):
             fundo.blit(textoSair, (325, 236))
             
             pygame.display.update()
-            clock.tick(60)
+            clock.tick(frameRate)
             
     return destinoEstadio, destinoIgreja, destinoTeatro
                    
@@ -249,13 +265,11 @@ clickBtnEntrar = telaInicial()
 
 destino = telaSelecionaDestino(clickBtnEntrar)
 
-print(destino)
-
 destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
 
-#print(clickBtnEntrar)
-#print(destino)
-#print(destinoEstadio, destinoIgreja, destinoTeatro)
+print(clickBtnEntrar)
+print(destino)
+print(destinoEstadio, destinoIgreja, destinoTeatro)
 
 
 pygame.quit()
