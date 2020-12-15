@@ -65,6 +65,7 @@ destinoEstadio, destinoIgreja, destinoTeatro = False, False, False
 
 def telaInicial():
     executaTelaInicial = True
+    clickBtnEntrar = False
     
     while(executaTelaInicial):      
         mouse = pygame.mouse.get_pos()
@@ -85,9 +86,9 @@ def telaInicial():
             pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
             if clickMouse[0] == 1:
                 print("Clicando no botão entrar")
-                TelaSelecionaDestino()
                 executaTelaInicial = False
-                #executaTelaInicial = False
+                clickBtnEntrar = True
+
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
         
@@ -108,10 +109,13 @@ def telaInicial():
             
             pygame.display.update()
             clock.tick(60)
+            
+    return clickBtnEntrar
 
 
-def TelaSelecionaDestino():
-    executaTelaSelecionaDestino = True
+def telaSelecionaDestino(executa):
+    executaTelaSelecionaDestino = executa
+    destino = "nda"
     
     while(executaTelaSelecionaDestino):      
         mouse = pygame.mouse.get_pos()
@@ -134,7 +138,7 @@ def TelaSelecionaDestino():
         if 15+150 > mouse[0] > 15 and 240+35 > mouse[1] > 240:
             pygame.draw.rect(fundo, corVerdeForte, btnSelecionaFutebol)
             if clickMouse[0] == 1:
-                confirmaDestino("futebol")
+                destino = "futebol"
                 executaTelaSelecionaDestino = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaFutebol)
@@ -143,7 +147,7 @@ def TelaSelecionaDestino():
         if 175+150 > mouse[0] > 175 and 240+35 > mouse[1] > 240:
             pygame.draw.rect(fundo, corVerdeForte, btnSelecionaIgreja)
             if clickMouse[0] == 1:
-                confirmaDestino("igreja")
+                destino = "igreja"
                 executaTelaSelecionaDestino = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaIgreja)
@@ -152,7 +156,7 @@ def TelaSelecionaDestino():
         if 335+150 > mouse[0] > 335 and 240+35 > mouse[1] > 240:
             pygame.draw.rect(fundo, corVerdeForte, btnSelecionaTeatro)
             if clickMouse[0] == 1:
-                confirmaDestino("teatro")
+                destino = "teatro"
                 executaTelaSelecionaDestino = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnSelecionaTeatro)
@@ -170,6 +174,8 @@ def TelaSelecionaDestino():
                       
             pygame.display.update()
             clock.tick(60)
+
+    return destino
 
 
 def confirmaDestino(destino):
@@ -216,7 +222,7 @@ def confirmaDestino(destino):
             pygame.draw.rect(fundo, corVermelhoForte, btnConfirmaNao)
             if clickMouse[0] == 1:
                 #print("Clicando no botão não")
-                TelaSelecionaDestino()
+                telaSelecionaDestino()
                 executaTelaConfirmaDestino = False
                 #executaTelaConfirmaDestino = False
         else:
@@ -235,5 +241,11 @@ def confirmaDestino(destino):
             clock.tick(60)
             
                    
-telaInicial()
+clickBtnEntrar = telaInicial()
+
+destino = telaSelecionaDestino(clickBtnEntrar)
+
+print(clickBtnEntrar)
+print(destino)
+
 pygame.quit()
