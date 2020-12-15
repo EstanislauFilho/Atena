@@ -172,7 +172,6 @@ def TelaSelecionaDestino():
             clock.tick(60)
 
 
-
 def confirmaDestino(destino):
     executaTelaConfirmaDestino = True
     
@@ -208,6 +207,7 @@ def confirmaDestino(destino):
             if clickMouse[0] == 1:
                 #print("Clicando no botão sim")
                 print(destinoEstadio, destinoIgreja, destinoTeatro)
+                return destinoEstadio, destinoIgreja, destinoTeatro
                 executaTelaConfirmaDestino = False
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnConfirmaSim)
@@ -233,6 +233,7 @@ def confirmaDestino(destino):
             
             pygame.display.update()
             clock.tick(60)
-       
+            
+                   
 telaInicial()
 pygame.quit()
