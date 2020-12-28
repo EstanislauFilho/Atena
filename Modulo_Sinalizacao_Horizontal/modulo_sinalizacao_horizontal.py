@@ -7,14 +7,14 @@ import numpy as np
 
 
 ################################ Para Testes ################################ 
-numero_pasta = 1
+numero_pasta = "01"
 
-caminho_pasta = '/home/estanislau/Projetos/Atena/Modulo_Sinalizacao_Horizontal/frames_video_plc_7/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_SIN_VER_HOR_01/*.jpg'
 #############################################################################
 
 
-pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (105,380), (567,380), (80,410), (592,410)
-pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (190,0), (490,0), (190,420), (490,420)
+pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (105,380), (610,380), (80,410), (640,410)
+pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (220,0), (510,0), (220,420), (510,420)
 
 pontos_pista = np.float32([[pt_pista_1], [pt_pista_2], [pt_pista_3], [pt_pista_4]])
 pontos_destino = np.float32([[pt_destino_1], [pt_destino_2], [pt_destino_3], [pt_destino_4]])
@@ -23,7 +23,7 @@ pontos_destino = np.float32([[pt_destino_1], [pt_destino_2], [pt_destino_3], [pt
 def filtros(img):
     img_cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_blur = cv2.GaussianBlur(img_cinza,(5,5),0)
-    img_tresh = cv2.inRange(img_blur,  185, 255) 
+    img_tresh = cv2.inRange(img_blur, 200, 255) 
     return img_tresh
 
 
@@ -32,7 +32,7 @@ def calcula_media_imagem(img):
     return avarage
 
 def get_perspectiva_pista(img):
-    '''
+    
     cv2.line(img, pt_pista_1, pt_pista_2, (0,0,255), 4)
     cv2.line(img, pt_pista_1, pt_pista_3, (0,0,255), 4)
     cv2.line(img, pt_pista_2, pt_pista_4, (0,0,255), 4)
@@ -42,7 +42,7 @@ def get_perspectiva_pista(img):
     cv2.line(img, pt_destino_1, pt_destino_3, (0,255,0), 4)
     cv2.line(img, pt_destino_2, pt_destino_4, (0,255,0), 4)
     cv2.line(img, pt_destino_3, pt_destino_4, (0,255,0), 4)
-    '''    
+      
     matriz = cv2.getPerspectiveTransform(pontos_pista, pontos_destino)
     img = cv2.warpPerspective(img, matriz, (680, 420)) 
     return img
@@ -129,8 +129,11 @@ def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     img_pista = get_perspectiva_pista(img)
-    
+        
     img_filtro = filtros(img_pista)
+    
+    cv2.imshow("Apem", img_filtro)
+    
     avarage_img_filtro = int(calcula_media_imagem(img_filtro))
        
     img_borda_esq = img_filtro[0:420, 170:360]
@@ -171,8 +174,8 @@ try:
         quantidade_imagens -= 1
         
         cv2.imshow("Apresenta Imagem", img)
-        cv2.imshow("Faixa esq", img_borda_esq)
-        cv2.imshow("Faixa dir", img_borda_dir)
+        #cv2.imshow("Faixa esq", img_borda_esq)
+        #cv2.imshow("Faixa dir", img_borda_dir)
         cv2.waitKey(0)
         
         if quantidade_imagens == 0:
