@@ -13,8 +13,8 @@ caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAME
 #############################################################################
 
 
-pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (105,380), (610,380), (80,410), (640,410)
-pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (220,0), (510,0), (220,420), (510,420)
+pt_pista_1, pt_pista_2, pt_pista_3, pt_pista_4 = (128,370), (602,370), (100,410), (632,410)
+pt_destino_1, pt_destino_2, pt_destino_3, pt_destino_4 = (200,0), (525,0), (200,420), (525,420)
 
 pontos_pista = np.float32([[pt_pista_1], [pt_pista_2], [pt_pista_3], [pt_pista_4]])
 pontos_destino = np.float32([[pt_destino_1], [pt_destino_2], [pt_destino_3], [pt_destino_4]])
@@ -129,7 +129,9 @@ def detecta_faixa_pedestre(avg_img_fil, avg_img_borda_esq, avg_img_borda_dir):
 def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     img_pista = get_perspectiva_pista(img)
-        
+       
+    cv2.imshow("Aaem", img_pista)
+    
     img_filtro = filtros(img_pista)
     
     cv2.imshow("Apem", img_filtro)
