@@ -32,7 +32,7 @@ def calcula_media_imagem(img):
     return avarage
 
 def get_perspectiva_pista(img):
-    
+    '''
     cv2.line(img, pt_pista_1, pt_pista_2, (0,0,255), 4)
     cv2.line(img, pt_pista_1, pt_pista_3, (0,0,255), 4)
     cv2.line(img, pt_pista_2, pt_pista_4, (0,0,255), 4)
@@ -42,7 +42,8 @@ def get_perspectiva_pista(img):
     cv2.line(img, pt_destino_1, pt_destino_3, (0,255,0), 4)
     cv2.line(img, pt_destino_2, pt_destino_4, (0,255,0), 4)
     cv2.line(img, pt_destino_3, pt_destino_4, (0,255,0), 4)
-      
+    '''  
+    
     matriz = cv2.getPerspectiveTransform(pontos_pista, pontos_destino)
     img = cv2.warpPerspective(img, matriz, (680, 420)) 
     return img
@@ -51,7 +52,7 @@ def get_perspectiva_pista(img):
 def calcula_centro_de_massa_imagem(img):
     ret,thresh = cv2.threshold(img,145,250,cv2.THRESH_BINARY_INV)
 	
-    contours, hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
+    _, contours, hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
 	
     if len(contours) > 0:
         c = max(contours, key=cv2.contourArea)
@@ -92,7 +93,7 @@ def detecta_borda_dir(img):
         if cx >= 105 and cx <= 198:
             status = True
     except:
-        print("Problema na detecção da borda direita!")
+        #print("Problema na detecção da borda direita!")
         status = False
     return img, status
 
@@ -134,7 +135,7 @@ def sinalizacao_horizontal(img):
     
     img_filtro = filtros(img_pista)
     
-    cv2.imshow("Apem", img_filtro)
+    #cv2.imshow("Apem", img_filtro)
     
     avarage_img_filtro = int(calcula_media_imagem(img_filtro))
        
@@ -175,7 +176,7 @@ try:
         
         quantidade_imagens -= 1
         
-        #cv2.imshow("Apresenta Imagem", img)
+        cv2.imshow("Apresenta Imagem", img)
         cv2.imshow("Faixa esq", img_borda_esq)
         cv2.imshow("Faixa dir", img_borda_dir)
         cv2.waitKey(0)
