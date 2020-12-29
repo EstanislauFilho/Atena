@@ -130,7 +130,7 @@ def sinalizacao_horizontal(img):
     status_fxa_pedestre, status_correc_motor_dir, status_correc_motor_esq = False, False, False
     img_pista = get_perspectiva_pista(img)
        
-    cv2.imshow("Aaem", img_pista)
+    #cv2.imshow("Aaem", img_pista)
     
     img_filtro = filtros(img_pista)
     
@@ -139,7 +139,7 @@ def sinalizacao_horizontal(img):
     avarage_img_filtro = int(calcula_media_imagem(img_filtro))
        
     img_borda_esq = img_filtro[0:420, 170:360]
-    img_borda_dir = img_filtro[0:420, 300:490]
+    img_borda_dir = img_filtro[0:420, 360:550]
     avarage_img_borda_esq = int(calcula_media_imagem(img_borda_esq))
     avarage_img_borda_dir = int(calcula_media_imagem(img_borda_dir))
         
@@ -175,9 +175,9 @@ try:
         
         quantidade_imagens -= 1
         
-        cv2.imshow("Apresenta Imagem", img)
-        #cv2.imshow("Faixa esq", img_borda_esq)
-        #cv2.imshow("Faixa dir", img_borda_dir)
+        #cv2.imshow("Apresenta Imagem", img)
+        cv2.imshow("Faixa esq", img_borda_esq)
+        cv2.imshow("Faixa dir", img_borda_dir)
         cv2.waitKey(0)
         
         if quantidade_imagens == 0:
