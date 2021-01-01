@@ -1,0 +1,81 @@
+item {
+  id: 1
+  name: 'Placa Pare'
+}
+
+item {
+  id: 2
+  name: 'Placa Pedestres'
+}
+
+item {
+  id: 3
+  name: 'Placa Desvio'
+}
+
+item {
+  id: 4
+  name: 'Placa 80 km/h'
+}
+
+item {
+  id: 5
+  name: 'Placa Obras'
+}
+
+item {
+  id: 6
+  name: 'Placa Serviços'
+}
+
+item {
+  id: 7
+  name: 'Placa Est. Futebol'
+}
+
+item {
+  id: 8
+  name: 'Placa Igreja'
+}
+
+item {
+  id: 9
+  name: 'Placa Teatro'
+}
+
+item {
+  id: 10
+  name: 'Sem. Verde'
+}
+
+item {
+  id: 11
+  name: 'Sem. Amarelo'
+}
+
+item {
+  id: 12
+  name: 'Sem. Vermelho'
+}
+
+item {
+  id: 13
+  name: 'Pedestre'
+}
+
+item {
+  id: 14
+  name: 'Carro'
+}
+
+item {
+  id: 15
+  name: 'Caminhão'
+}
+
+item {
+  id: 16
+  name: 'Animal'
+}
+
+
