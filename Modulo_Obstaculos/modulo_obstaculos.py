@@ -9,9 +9,10 @@ Created on Mon Nov 16 19:08:54 2020
 import cv2
 import glob
 
-numero_pasta = 8
+numero_pasta = '05'
 
-caminho_pasta = '/home/estanislau/Projetos/TCC/frames_video_plc_'+str(numero_pasta)+'/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
+
 
 
 Y0 = 280
@@ -700,13 +701,31 @@ try:
         
         
         
+        
         if tamanhoLinha > 5:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
-        else:
+            print("Método 1")
+        elif tamanhoLinha <=5 and xEsq0 < 340 and xEsq1 < 340 and xDir0 > 340 and xDir1 > 340:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
-         
+            print("Método 2")
+        elif xEsq0 > 340 and xEsq1 > 340:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 218, 279, 205, 307, 193, 335, 179, 363, 165, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 475, 279, 493, 307, 510, 335, 526, 363, 544, 391
+            print("Método 3 esq")
+        elif xDir0 < 340 and xDir1 < 340:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 218, 279, 205, 307, 193, 335, 179, 363, 165, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 475, 279, 493, 307, 510, 335, 526, 363, 544, 391
+            print("Método 3 dir")
+        else:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 218, 279, 205, 307, 193, 335, 179, 363, 165, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 475, 279, 493, 307, 510, 335, 526, 363, 544, 391
+            print("Método 3")   
+            
+        print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
+        print(xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
+        print()
 
         areaDeteccao(imagem, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
 
