@@ -699,7 +699,8 @@ try:
         #print( x, y, tamanhoLinha)
         #print(y0, y1, y2, y3, y4)
         
-        
+        xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         
         
         if tamanhoLinha > 5:
@@ -711,16 +712,16 @@ try:
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
             print("Método 2")
         elif xEsq0 > 340 and xEsq1 > 340:
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 218, 279, 205, 307, 193, 335, 179, 363, 165, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 475, 279, 493, 307, 510, 335, 526, 363, 544, 391
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 180, 307, 168, 335, 154, 363, 141, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
             print("Método 3 esq")
         elif xDir0 < 340 and xDir1 < 340:
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 218, 279, 205, 307, 193, 335, 179, 363, 165, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 475, 279, 493, 307, 510, 335, 526, 363, 544, 391
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 180, 307, 168, 335, 154, 363, 141, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
             print("Método 3 dir")
         else:
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 208, 279, 195, 307, 183, 335, 169, 363, 155, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 485, 279, 503, 307, 520, 335, 536, 363, 554, 391
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 180, 307, 168, 335, 154, 363, 141, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
             print("Método 3")   
             
         print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
