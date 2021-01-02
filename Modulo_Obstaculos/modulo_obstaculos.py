@@ -9,7 +9,7 @@ Created on Mon Nov 16 19:08:54 2020
 import cv2
 import glob
 
-numero_pasta = '06'
+numero_pasta = '10'
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
 
@@ -702,7 +702,7 @@ try:
         xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         
-        '''
+        
         if tamanhoLinha > 5:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
@@ -712,65 +712,90 @@ try:
             if xDir0 == 340 and yDir0 == 419:
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("Método 1 0")
+                print("Método 1 a")
                    
             if xDir0 != 340 and xDir1 == 340:
                 xDir1 = xDir0 + 4
                 yDir1 = yEsq1
-                print("Método 1 a")
+                print("Método 1 b")
             if xDir0 != 340 and xDir2 == 340:
                 xDir2 = xDir1 + 9
                 yDir2 = yEsq2
-                print("Método 1 b")
+                print("Método 1 c")
             if xDir0 != 340 and xDir3 == 340:
                 xDir3 = xDir2 + 16
                 yDir3 = yEsq3
-                print("Método 1 c")
+                print("Método 1 d")
             if xDir0 != 340 and xDir4 == 340:
                 xDir4 = xDir3 + 25
                 yDir4 = yEsq4
-                print("Método 1 d")
+                print("Método 1 e")
                 
             if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro Dir")
+                print("Metodo 1 bizarro Dir")
             
             if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro Esq a")
+                print("Metodo 1 bizarro Esq a")
             if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro Esq b")
+                print("Metodo 1 bizarro Esq b")
                 
-        '''
-        if tamanhoLinha <=5 :
+        
+        elif tamanhoLinha <= 5:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
             print("Método 2")
             
+            if xDir0 == 0 and xDir1 == 0:
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("Método 2 a")
+            
+            if xDir0 != 340 and xDir1 == 340:
+                xDir1 = xDir0 + 4
+                yDir1 = yEsq1
+                print("Método 2 b")
+            if xDir0 != 340 and xDir2 == 340:
+                xDir2 = xDir1 + 9
+                yDir2 = yEsq2
+                print("Método 2 c")
+            if xDir0 != 340 and xDir3 == 340:
+                xDir3 = xDir2 + 16
+                yDir3 = yEsq3
+                print("Método 2 d")
+            if xDir0 != 340 and xDir4 == 340:
+                xDir4 = xDir3 + 25
+                yDir4 = yEsq4
+                print("Método 2 e")
+                
+            if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("Metodo 2 bizarro Dir")
+            
             if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro Esq a")
+                print("Metodo 2 bizarro Esq a")
                 
             if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro Esq b")
+                print("Metodo 2 bizarro Esq b")
             
-        
-        '''
         else:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
             print("Método 3")   
-        '''    
+        
 
-        print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
-        print(xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
+        #print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
+        #print(xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
         print()
 
         areaDeteccao(imagem, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
