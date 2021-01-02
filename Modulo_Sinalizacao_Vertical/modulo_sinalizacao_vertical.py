@@ -10,9 +10,9 @@ import glob
 
 
 
-numero_pasta = 1
+numero_pasta = '01'
 
-caminho_pasta = '/home/estanislau/Projetos/Avaliacao/frames_video_'+str(numero_pasta)+'/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_SIN_VER_HOR_'+numero_pasta+'/*.jpg'
 
 
 sys.path.append("..")
