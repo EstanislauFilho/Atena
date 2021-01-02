@@ -9,7 +9,7 @@ Created on Mon Nov 16 19:08:54 2020
 import cv2
 import glob
 
-numero_pasta = '09'
+numero_pasta = '06'
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
 
@@ -702,7 +702,7 @@ try:
         xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         
-        
+        '''
         if tamanhoLinha > 5:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
@@ -746,33 +746,29 @@ try:
                 print("bizarro Esq b")
                 
         '''
-        elif tamanhoLinha <=5 and xEsq0 < 340 and xEsq1 < 340 and xEsq2 < 340 and xEsq3 < 340 and xEsq4 < 340 and xDir0 > 340 and xDir1 > 340 and xDir2 > 340 and xDir3 > 340 and xDir4 > 340:
+        if tamanhoLinha <=5 :
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
             print("Método 2")
             
-        elif (xEsq0 == 0 and yEsq0 == 419) or (xDir0 == 0 and yDir0 == 419) or (xEsq0 == 340 and yEsq0 == 419) or (xDir0 == 340 and yDir0 == 419):
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-            print("Método 4 esq")
+            if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("bizarro Esq a")
+                
+            if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("bizarro Esq b")
             
-            
-        elif xEsq0 > 340 and xEsq1 > 340:
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-            print("Método 3 esq")
-            
-            
-        elif xDir0 < 340 and xDir1 < 340:
-            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-            print("Método 3 dir")
+        
+        '''
         else:
             xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
             xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
             print("Método 3")   
-            
-        '''
+        '''    
+
         print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
         print(xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
         print()
