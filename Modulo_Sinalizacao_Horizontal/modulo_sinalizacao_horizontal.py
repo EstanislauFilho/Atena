@@ -8,7 +8,7 @@ import numpy as np
 
 ################################ Para Testes ################################ 
 
-caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_SIN_VER_HOR_05/*.jpg'
+caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_SIN_VER_HOR_10/*.jpg'
 #############################################################################
 
 
