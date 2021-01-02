@@ -709,29 +709,37 @@ try:
             print("Método 1")
             
             
+            if xDir0 == 340 and yDir0 == 419:
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("Método 1 0")
+                   
+            if xDir0 != 340 and xDir1 == 340:
+                xDir1 = xDir0 + 4
+                yDir1 = yEsq1
+                print("Método 1 a")
+            if xDir0 != 340 and xDir2 == 340:
+                xDir2 = xDir1 + 9
+                yDir2 = yEsq2
+                print("Método 1 b")
+            if xDir0 != 340 and xDir3 == 340:
+                xDir3 = xDir2 + 16
+                yDir3 = yEsq3
+                print("Método 1 c")
+            if xDir0 != 340 and xDir4 == 340:
+                xDir4 = xDir3 + 25
+                yDir4 = yEsq4
+                print("Método 1 d")
+            
+            '''
             if xDir0 == 340 and xDir1 == 340 and xDir2 == 340 and xDir3 == 340 and xDir4 == 340:
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
                 print("Método 1 1")
-            
-            if xDir0 != 340 and xDir1 == 340:
-                xDir1 = xDir0 + 4
-                print("Método 1 a")
-            if xDir0 != 340 and xDir2 == 340:
-                xDir2 = xDir1 + 9
-                print("Método 1 b")
-            if xDir0 != 340 and xDir3 == 340:
-                xDir3 = xDir2 + 16
-                print("Método 1 c")
-            if xDir0 != 340 and xDir4 == 340:
-                xDir4 = xDir3 + 25
-                yDir4 = yDir3 + 20
-                print("Método 1 d")
+             
+
                 
-            if xDir0 == 340 and yDir0 == 410:
-                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("Método FTC")
+            '''
                 
         '''
         elif tamanhoLinha <=5 and xEsq0 < 340 and xEsq1 < 340 and xEsq2 < 340 and xEsq3 < 340 and xEsq4 < 340 and xDir0 > 340 and xDir1 > 340 and xDir2 > 340 and xDir3 > 340 and xDir4 > 340:
