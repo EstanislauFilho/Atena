@@ -9,7 +9,7 @@ Created on Mon Nov 16 19:08:54 2020
 import cv2
 import glob
 
-numero_pasta = '05'
+numero_pasta = '06'
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
 
@@ -734,8 +734,16 @@ try:
             if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-                print("bizarro")
+                print("bizarro Dir")
             
+            if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("bizarro Esq a")
+            elif xEsq1 > (xEsq2 + 200) or xEsq2 > (xEsq3 + 200) or xEsq3 > (xEsq4 + 200):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                print("bizarro Esq b")
                 
         '''
         elif tamanhoLinha <=5 and xEsq0 < 340 and xEsq1 < 340 and xEsq2 < 340 and xEsq3 < 340 and xEsq4 < 340 and xDir0 > 340 and xDir1 > 340 and xDir2 > 340 and xDir3 > 340 and xDir4 > 340:
