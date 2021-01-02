@@ -9,7 +9,7 @@ Created on Mon Nov 16 19:08:54 2020
 import cv2
 import glob
 
-numero_pasta = '06'
+numero_pasta = '09'
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
 
@@ -740,7 +740,7 @@ try:
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
                 print("bizarro Esq a")
-            elif xEsq1 > (xEsq2 + 200) or xEsq2 > (xEsq3 + 200) or xEsq3 > (xEsq4 + 200):
+            if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
                 xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
                 xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
                 print("bizarro Esq b")
