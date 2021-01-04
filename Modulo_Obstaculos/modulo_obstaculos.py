@@ -13,8 +13,7 @@ numero_pasta = '10'
 
 caminho_pasta = '/home/estanislau/Projetos/TCC/Avaliacao/Imagens_Avaliacao/FRAMES_VIDEO_DET_OBS_'+numero_pasta+'/*.jpg'
 
-
-
+# Constantes
 Y0 = 280
 Y1 = 310
 Y2 = 340
