@@ -66,7 +66,7 @@ try:
 			[detection_boxes, detection_scores, detection_classes, num_detections],
 			feed_dict={image_tensor: image_expanded})
 
-		_, vetorClasses, vetorCoorden = vis_util.visualize_boxes_and_labels_on_image_array(
+		_, vetorCoorden = vis_util.visualize_boxes_and_labels_on_image_array(
 			image,
 			np.squeeze(boxes),
 			np.squeeze(classes).astype(np.int32),
@@ -76,17 +76,13 @@ try:
 			line_thickness=5,
 			min_score_thresh=0.60)
 
-		for i in vetorClasses:
-			print(i)
 
 
-		
-		for j in vetorCoorden:
-			print(str(j))
-        
 
+		for coord in vetorCoorden:
+			print(str(coord))
 
-		print("Frame: {}".format(cont_imagem))   
+		#print("Frame: {}".format(cont_imagem))   
 
 		cv2.imshow("Object detector ", image)
 		cv2.waitKey(0)
