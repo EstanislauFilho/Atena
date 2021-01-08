@@ -1185,7 +1185,7 @@ def visualize_boxes_and_labels_on_image_array(
   box_to_keypoint_scores_map = collections.defaultdict(list)
   box_to_track_ids_map = {}
   vetorClasses = []
-  vetorCoorden = []	
+  vetorDicionario = []	
   #im_W, im_H = 2, 5
 	
   if not max_boxes_to_draw:
@@ -1272,7 +1272,11 @@ def visualize_boxes_and_labels_on_image_array(
     refY0 = int(ymin*im_H)
     refY1 = int(ymax*im_H)
 
-    vetorCoorden.append([refX0, refX1, refY0, refY1])
+    coordenadas = [refX0, refX1, refY0, refY1]
+
+    itemDicionario = {vetorClasses.pop(0): coordenadas}
+ 
+    vetorDicionario.append(itemDicionario)
     
 
     if keypoints is not None:
@@ -1291,7 +1295,7 @@ def visualize_boxes_and_labels_on_image_array(
           keypoint_edge_color=color,
           keypoint_edge_width=line_thickness // 2)
 
-  return image, vetorClasses, vetorCoorden
+  return image, vetorDicionario
 
 
 def add_cdf_image_summary(values, name):
