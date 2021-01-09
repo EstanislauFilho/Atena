@@ -66,7 +66,7 @@ try:
 			[detection_boxes, detection_scores, detection_classes, num_detections],
 			feed_dict={image_tensor: image_expanded})
 
-		_, vetorCoorden = vis_util.visualize_boxes_and_labels_on_image_array(
+		_, vetorDicionario = vis_util.visualize_boxes_and_labels_on_image_array(
 			image,
 			np.squeeze(boxes),
 			np.squeeze(classes).astype(np.int32),
@@ -77,13 +77,16 @@ try:
 			min_score_thresh=0.60)
 
 
+		print(len(vetorDicionario))
 
-
-		for coord in vetorCoorden:
-			print(str(coord))
+		for dicionario in vetorDicionario:
+			for classe, coord in dicionario.items():
+				print("Classe: {0}, Coordenadas: {1}".format(classe, coord))
+			
 
 		#print("Frame: {}".format(cont_imagem))   
 
+		print()
 		cv2.imshow("Object detector ", image)
 		cv2.waitKey(0)
 
