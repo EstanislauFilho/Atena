@@ -891,8 +891,17 @@ try:
 				print("Classe: {0}, Coordenadas: {1}".format(classe, coord))
 				x0, x1, y0, y1 = coord
 				if classe == "Animal" or classe == "Carro" or classe == "Caminhão" or classe == "Pedestre":
-					if (((x0 >= xEsq0 and y0 >= yEsq0) and (x0 <= xDir0 and y0 >= yDir0)) or ((x1 >= xEsq0 and y0 >= yEsq0) and (x1 <= xDir0 and y0 >= yDir0)) or
-						((x0 >= xEsq0 and y1 >= yEsq0) and (x0 <= xDir0 and y1 >= yDir0)) or ((x1 >= xEsq0 and y0 >= yEsq0) and (x1 <= xDir0 and y0 >= yDir0))):
+					if ((
+                        ((x0 >= xEsq0 and y0 >= yEsq0) and (x0 <= xDir0 and y0 >= yDir0)) or 
+                        ((x1 >= xEsq0 and y0 >= yEsq0) and (x1 <= xDir0 and y0 >= yDir0)) or 
+                        ((x0 >= xEsq0 and y1 >= yEsq0) and (x0 <= xDir0 and y1 >= yDir0)) or 
+                        ((x1 >= xEsq0 and y1 >= yEsq0) and (x1 <= xDir0 and y1 >= yDir0))
+                        ) and (
+                        ((x0 >= xEsq4 and y0 <= yEsq4) and (x0 <= xDir4 and y0 <= yDir4)) or 
+                        ((x1 >= xEsq4 and y0 <= yEsq4) and (x1 <= xDir4 and y0 <= yDir4)) or 
+                        ((x0 >= xEsq4 and y1 <= yEsq4) and (x0 <= xDir4 and y1 <= yDir4)) or  
+                        ((x1 >= xEsq4 and y1 <= yEsq4) and (x1 <= xDir4 and y1 <= yDir4))
+                       )):
 						print("Obstaculo")
 
 				print(x0, x1, y0, y1)
