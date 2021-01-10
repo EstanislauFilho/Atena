@@ -731,9 +731,9 @@ def areaDeteccaoComObstaculos(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq
     cv2.circle(img, (x_dir4, y_dir4), 5, (0, 0, 255), 2)
      
     
+
+    #cv2.line(img, (x_esq0, y_esq0), (x_dir0, y_dir0), (0, 0, 255), 2)
     cv2.line(img, (x_esq4, y_esq4), (x_dir4, y_dir4), (0, 0, 255), 2)
-    cv2.line(img, (x_esq0, y_esq0), (x_dir0, y_dir0), (0, 0, 255), 2)
-    
     
     cv2.line(img, (x_esq4, y_esq4), (x_esq3, y_esq3), (0, 0, 255), 2)
     cv2.line(img, (x_esq3, y_esq3), (x_esq2, y_esq2), (0, 0, 255), 2)
@@ -744,154 +744,155 @@ def areaDeteccaoComObstaculos(img, x_esq0, y_esq0, x_esq1, y_esq1, x_esq2, y_esq
     cv2.line(img, (x_dir3, y_dir3), (x_dir2, y_dir2), (0, 0, 255), 2)
     cv2.line(img, (x_dir2, y_dir2), (x_dir1, y_dir1), (0, 0, 255), 2)
     cv2.line(img, (x_dir1, y_dir1), (x_dir0, y_dir0), (0, 0, 255), 2)
-
+    
 try:
-	for i in sorted(glob.glob(caminho_pasta)):  
-		image = cv2.imread(i)
-		imagem_cinza = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-		imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
-		imagem_tresh = cv2.inRange(imagem_blur, 220, 255) 
-		image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-		image_expanded = np.expand_dims(image_rgb, axis=0)
+    for i in sorted(glob.glob(caminho_pasta)):  
+        image = cv2.imread(i)
+        imagem_cinza = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        imagem_blur = cv2.GaussianBlur(imagem_cinza, (5,5), 0)
+        imagem_tresh = cv2.inRange(imagem_blur, 220, 255) 
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image_expanded = np.expand_dims(image_rgb, axis=0)
+
+        statusDetectouObstaculo = False 
+        
+        x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
+
+        parte_y = int(tamanhoLinha/5)
+
+        y0 = 419 - parte_y * 5 
+        y1 = 419 - parte_y * 4
+        y2 = 419 - parte_y * 3
+        y3 = 419 - parte_y * 2
+        y4 = 419 - parte_y
+
+        #print( x, y, tamanhoLinha)
+        #print(y0, y1, y2, y3, y4)
+
+        xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+        (boxes, scores, classes, num) = sess.run(
+            [detection_boxes, detection_scores, detection_classes, num_detections],
+            feed_dict={image_tensor: image_expanded})
+
+        _, vetorDicionario = vis_util.visualize_boxes_and_labels_on_image_array(
+            image,
+            np.squeeze(boxes),
+            np.squeeze(classes).astype(np.int32),
+            np.squeeze(scores),
+            category_index,
+            use_normalized_coordinates=True,
+            line_thickness=5,
+            min_score_thresh=0.60)
 
 
-		x, y, tamanhoLinha = definePontosVerticais(imagem_tresh)
-
-		parte_y = int(tamanhoLinha/5)
-
-		y0 = 419 - parte_y * 5 
-		y1 = 419 - parte_y * 4
-		y2 = 419 - parte_y * 3
-		y3 = 419 - parte_y * 2
-		y4 = 419 - parte_y
-
-		#print( x, y, tamanhoLinha)
-		#print(y0, y1, y2, y3, y4)
-
-		xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-		(boxes, scores, classes, num) = sess.run(
-			[detection_boxes, detection_scores, detection_classes, num_detections],
-			feed_dict={image_tensor: image_expanded})
-
-		_, vetorDicionario = vis_util.visualize_boxes_and_labels_on_image_array(
-			image,
-			np.squeeze(boxes),
-			np.squeeze(classes).astype(np.int32),
-			np.squeeze(scores),
-			category_index,
-			use_normalized_coordinates=True,
-			line_thickness=5,
-			min_score_thresh=0.60)
+        if tamanhoLinha > 5:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
+            #print("Método 1")
 
 
-		if tamanhoLinha > 5:
-			xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo1(imagem_tresh, (x-1), y0, y1, y2, y3, y4)
-			xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo1(imagem_tresh, (x+1), y0, y1, y2, y3, y4)
-			#print("Método 1")
+            if xDir0 == 340 and yDir0 == 419:
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Método 1 a")
+                   
+            if xDir0 != 340 and xDir1 == 340:
+                xDir1 = xDir0 + 4
+                yDir1 = yEsq1
+                #print("Método 1 b")
+            if xDir0 != 340 and xDir2 == 340:
+                xDir2 = xDir1 + 9
+                yDir2 = yEsq2
+                #print("Método 1 c")
+            if xDir0 != 340 and xDir3 == 340:
+                xDir3 = xDir2 + 16
+                yDir3 = yEsq3
+                #print("Método 1 d")
+            if xDir0 != 340 and xDir4 == 340:
+                xDir4 = xDir3 + 25
+                yDir4 = yEsq4
+                #print("Método 1 e")
+                
+            if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 1 bizarro Dir")
 
-
-			if xDir0 == 340 and yDir0 == 419:
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Método 1 a")
-				   
-			if xDir0 != 340 and xDir1 == 340:
-				xDir1 = xDir0 + 4
-				yDir1 = yEsq1
-				#print("Método 1 b")
-			if xDir0 != 340 and xDir2 == 340:
-				xDir2 = xDir1 + 9
-				yDir2 = yEsq2
-				#print("Método 1 c")
-			if xDir0 != 340 and xDir3 == 340:
-				xDir3 = xDir2 + 16
-				yDir3 = yEsq3
-				#print("Método 1 d")
-			if xDir0 != 340 and xDir4 == 340:
-				xDir4 = xDir3 + 25
-				yDir4 = yEsq4
-				#print("Método 1 e")
-				
-			if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 1 bizarro Dir")
-
-			if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 1 bizarro Esq a")
-			if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 1 bizarro Esq b")
+            if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 1 bizarro Esq a")
+            if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 1 bizarro Esq b")
                 
         
-		elif tamanhoLinha <= 5:
-			xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
-			xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
-			#print("Método 2")
+        elif tamanhoLinha <= 5:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = camadasEsqMetodo2(imagem_tresh)
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = camadasDirMetodo2(imagem_tresh)
+            #print("Método 2")
 
-			if xDir0 == 0 and xDir1 == 0:
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Método 2 a")
+            if xDir0 == 0 and xDir1 == 0:
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Método 2 a")
 
-			if xDir0 != 340 and xDir1 == 340:
-				xDir1 = xDir0 + 4
-				yDir1 = yEsq1
-				#print("Método 2 b")
+            if xDir0 != 340 and xDir1 == 340:
+                xDir1 = xDir0 + 4
+                yDir1 = yEsq1
+                #print("Método 2 b")
 
-			if xDir0 != 340 and xDir2 == 340:
-				xDir2 = xDir1 + 9
-				yDir2 = yEsq2
-				#print("Método 2 c")
+            if xDir0 != 340 and xDir2 == 340:
+                xDir2 = xDir1 + 9
+                yDir2 = yEsq2
+                #print("Método 2 c")
 
-			if xDir0 != 340 and xDir3 == 340:
-				xDir3 = xDir2 + 16
-				yDir3 = yEsq3
-				#print("Método 2 d")
+            if xDir0 != 340 and xDir3 == 340:
+                xDir3 = xDir2 + 16
+                yDir3 = yEsq3
+                #print("Método 2 d")
 
-			if xDir0 != 340 and xDir4 == 340:
-				xDir4 = xDir3 + 25
-				yDir4 = yEsq4
-				#print("Método 2 e")
-				
-			if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 2 bizarro Dir")
+            if xDir0 != 340 and xDir4 == 340:
+                xDir4 = xDir3 + 25
+                yDir4 = yEsq4
+                #print("Método 2 e")
+                
+            if xDir2 > (xDir1 + 50) or xDir3 > (xDir2 + 50) or xDir4 > (xDir3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 2 bizarro Dir")
 
-			if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 2 bizarro Esq a")
-				
-			if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
-				xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-				xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-				#print("Metodo 2 bizarro Esq b")
+            if xEsq2 > (xEsq1 + 50) or xEsq3 > (xEsq2 + 50) or xEsq4 > (xEsq3 + 50):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 2 bizarro Esq a")
+                
+            if xEsq1 > (xEsq2 + 150) or xEsq2 > (xEsq3 + 150) or xEsq3 > (xEsq4 + 150):
+                xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+                xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+                #print("Metodo 2 bizarro Esq b")
             
-		else:
-			xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
-			xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
-			#print("Método 3")   
+        else:
+            xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4 = 188, 279, 175, 307, 163, 335, 149, 363, 136, 391
+            xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4 = 495, 279, 513, 307, 530, 335, 546, 363, 564, 391
+            #print("Método 3")   
         
 
         #print(xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4)
         #print(xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
 
 
-		print(len(vetorDicionario))
+        #print(len(vetorDicionario))
 
-		for dicionario in vetorDicionario:
-			for classe, coord in dicionario.items():
-				print("Classe: {0}, Coordenadas: {1}".format(classe, coord))
-				x0, x1, y0, y1 = coord
-				if classe == "Animal" or classe == "Carro" or classe == "Caminhão" or classe == "Pedestre":
-					if ((
+        for dicionario in vetorDicionario:
+            for classe, coord in dicionario.items():
+                #print("Classe: {0}, Coordenadas: {1}".format(classe, coord))
+                x0, x1, y0, y1 = coord
+                if classe == "Animal" or classe == "Carro" or classe == "Caminhão" or classe == "Pedestre":
+                    if ((
                         ((x0 >= xEsq0 and y0 >= yEsq0) and (x0 <= xDir0 and y0 >= yDir0)) or 
                         ((x1 >= xEsq0 and y0 >= yEsq0) and (x1 <= xDir0 and y0 >= yDir0)) or 
                         ((x0 >= xEsq0 and y1 >= yEsq0) and (x0 <= xDir0 and y1 >= yDir0)) or 
@@ -902,30 +903,34 @@ try:
                         ((x0 >= xEsq4 and y1 <= yEsq4) and (x0 <= xDir4 and y1 <= yDir4)) or  
                         ((x1 >= xEsq4 and y1 <= yEsq4) and (x1 <= xDir4 and y1 <= yDir4))
                        )):
-						print("Obstaculo")
+                        areaDeteccaoComObstaculos(image, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
 
-				print(x0, x1, y0, y1)
-			
+                        statusDetectouObstaculo = True 
+                    if statusDetectouObstaculo is False:
+                         areaDeteccaoSemObstaculos(image, xEsq0, yEsq0, xEsq1, yEsq1, xEsq2, yEsq2, xEsq3, yEsq3, xEsq4, yEsq4, xDir0, yDir0, xDir1, yDir1, xDir2, yDir2, xDir3, yDir3, xDir4, yDir4)
 
-		#print("Frame: {}".format(cont_imagem))   
+                #print(x0, x1, y0, y1)
+            
 
-		print()
-		cv2.imshow("Object detector ", image)
-		cv2.waitKey(0)
+        print("Obstaculo: {0} | Frame: {1}".format(statusDetectouObstaculo, cont_imagem))   
+
+        print()
+        cv2.imshow("Object detector ", image)
+        cv2.waitKey(0)
 
 
-		cont_imagem += 1
-		if cv2.waitKey(1) & 0xFF == 27:
-			cv2.destroyAllWindows()	
+        cont_imagem += 1
+        if cv2.waitKey(1) & 0xFF == 27:
+            cv2.destroyAllWindows()    
 
-		if cv2.waitKey(1) & 0xFF == ord('q'):
-			print("Saida forçada!")
-			break
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            print("Saida forçada!")
+            break
 except:
-	cv2.destroyAllWindows()
+    cv2.destroyAllWindows()
 
 finally:
-    cv2.destroyAllWindows()	
+    cv2.destroyAllWindows()    
 
 # Clean up
 cv2.destroyAllWindows()
