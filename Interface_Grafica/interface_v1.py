@@ -47,6 +47,7 @@ imgFundoCarregaConfiguracoes3 = pygame.image.load("/home/estanislau/Projetos/Ate
 imgFundoCarregaConfiguracoes4 = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaConfig4.png")
 imgFundoCarregaConfiguracoes5 = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaConfig5.png")
 imgFundoCarregaConfiguracoes6 = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaConfig6.png")
+imgFundoTelaFim = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/telaFim.png")
 
 imgFundoFutebol = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/futebol.png")
 imgFundoIgreja = pygame.image.load("/home/estanislau/Projetos/Atena/Interface_Grafica/Imagens_v1/igreja.png")
@@ -265,13 +266,58 @@ def confirmaDestino(destino):
             clock.tick(frameRate)
             
     return destinoEstadio, destinoIgreja, destinoTeatro
-                   
-clickBtnEntrar = telaInicial()
+  
 
-destino = telaSelecionaDestino(clickBtnEntrar)
+def telaFim():
+    executaTelaFim = True
+    clickBtnOk = False
+    
+    while(executaTelaFim):      
+        mouse = pygame.mouse.get_pos()
+        clickMouse = pygame.mouse.get_pressed()
+        
+        for event in pygame.event.get():       
+            #print(event)
+            
+            if event.type == pygame.QUIT:
+                executaTelaFim = False
+             
+        #print(mouse)
+                
+        fundo.fill((0, 0, 0))
+        fundo.blit(imgFundoTelaFim, (0, 0))
+        
+        if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
+            pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+            if clickMouse[0] == 1:
+                print("Clicando no botão entrar")
+                executaTelaFim = False
+                clickBtnOk = True
 
-destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
+        else:
+            pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+        
 
-print(destinoEstadio, destinoIgreja, destinoTeatro)
+        
+        if executaTelaFim is True:
+            textoOk = configTexto.render("Ok", True, (0, 0, 0))
+            fundo.blit(textoOk, (230, 156))
+            
+            pygame.display.update()
+            clock.tick(frameRate)
+            
+    return clickBtnOk
+
+
+
+telaFim()
+             
+#clickBtnEntrar = telaInicial()
+
+#destino = telaSelecionaDestino(clickBtnEntrar)
+
+#destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
+
+#print(destinoEstadio, destinoIgreja, destinoTeatro)
 
 pygame.quit()
