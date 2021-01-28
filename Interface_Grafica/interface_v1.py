@@ -31,6 +31,7 @@ btnSelecionaFutebol = [15, 240, 150, 35]
 btnSelecionaIgreja = [175, 240, 150, 35]
 btnSelecionaTeatro = [335, 240, 150, 35]
 
+btnOkTelaFim = [175, 240, 150, 35]
 
 pygame.init()
 
@@ -288,20 +289,20 @@ def telaFim():
         fundo.blit(imgFundoTelaFim, (0, 0))
         
         if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
-            pygame.draw.rect(fundo, corVerdeForte, btnEntrarTelaInicial)
+            pygame.draw.rect(fundo, corVerdeForte, btnOkTelaFim)
             if clickMouse[0] == 1:
                 print("Clicando no botão entrar")
                 executaTelaFim = False
                 clickBtnOk = True
 
         else:
-            pygame.draw.rect(fundo, corVerdeFraco, btnEntrarTelaInicial)
+            pygame.draw.rect(fundo, corVerdeFraco, btnOkTelaFim)
         
 
         
         if executaTelaFim is True:
             textoOk = configTexto.render("Ok", True, (0, 0, 0))
-            fundo.blit(textoOk, (230, 156))
+            fundo.blit(textoOk, (230, 246))
             
             pygame.display.update()
             clock.tick(frameRate)
