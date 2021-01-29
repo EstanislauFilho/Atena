@@ -271,7 +271,6 @@ def confirmaDestino(destino):
 
 def telaFim():
     executaTelaFim = True
-    clickBtnOk = False
     
     while(executaTelaFim):      
         mouse = pygame.mouse.get_pos()
@@ -288,12 +287,12 @@ def telaFim():
         fundo.fill((0, 0, 0))
         fundo.blit(imgFundoTelaFim, (0, 0))
         
-        if 175+150 > mouse[0] > 175 and 150+35 > mouse[1] > 150:
+        if 175+150 > mouse[0] > 175 and 240+35 > mouse[1] > 240:
             pygame.draw.rect(fundo, corVerdeForte, btnOkTelaFim)
             if clickMouse[0] == 1:
-                print("Clicando no botão entrar")
+                print("Clicando no botão OK")
                 executaTelaFim = False
-                clickBtnOk = True
+                
 
         else:
             pygame.draw.rect(fundo, corVerdeFraco, btnOkTelaFim)
@@ -307,18 +306,20 @@ def telaFim():
             pygame.display.update()
             clock.tick(frameRate)
             
-    return clickBtnOk
+    #return clickBtnOk
 
 
+
+
+             
+clickBtnEntrar = telaInicial()
+
+destino = telaSelecionaDestino(clickBtnEntrar)
+
+destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
+
+print(destinoEstadio, destinoIgreja, destinoTeatro)
 
 telaFim()
-             
-#clickBtnEntrar = telaInicial()
-
-#destino = telaSelecionaDestino(clickBtnEntrar)
-
-#destinoEstadio, destinoIgreja, destinoTeatro = confirmaDestino(destino)
-
-#print(destinoEstadio, destinoIgreja, destinoTeatro)
 
 pygame.quit()
